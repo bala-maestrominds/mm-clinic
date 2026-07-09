@@ -4,6 +4,8 @@ import morgan from 'morgan';
 import { env } from './config/env.js';
 import { errorHandler } from './middleware/errorHandler.js';
 import { ApiError } from './utils/ApiError.js';
+import doctorsRoutes from './routes/doctors.routes.js';
+import servicesRoutes from './routes/services.routes.js';
 
 export function createApp() {
   const app = express();
@@ -14,6 +16,8 @@ export function createApp() {
 
   app.get('/health', (req, res) => res.json({ status: 'ok' }));
 
+  app.use('/api/doctors', doctorsRoutes);
+  app.use('/api/services', servicesRoutes);
 
   app.use((req, res, next) => {
     next(new ApiError(404, `Route not found: ${req.method} ${req.originalUrl}`));
