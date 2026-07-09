@@ -1,16 +1,22 @@
+// src/App.jsx
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import ProtectedRoute from "./components/ProtectedRoute";
 import AdminLoginPage from "./pages/admin/AdminLoginPage";
 import AdminDashboardPage from "./pages/admin/AdminDashboardPage";
 import AddDentistPage from "./pages/admin/AddDentistPage";
 import ContactPage from "./pages/public/ContactPage";
+import LandingPage from "./pages/public/LandingPage"; // Import the landing page
 
 function App() {
   return (
     <BrowserRouter>
       <Routes>
-        {/* Redirect the root URL to the admin login page */}
-        <Route path="/" element={<Navigate to="/admin/login" replace />} />
+        {/* Make Landing Page the default */}
+        <Route path="/" element={<LandingPage />} />
+        
+        {/* Or keep admin login as default and access home via /home */}
+        {/* <Route path="/" element={<Navigate to="/admin/login" replace />} /> */}
+        {/* <Route path="/home" element={<LandingPage />} /> */}
 
         {/* Public Routes */}
         <Route path="/contact" element={<ContactPage />} />
