@@ -33,6 +33,15 @@ export function createTransporter() {
       user: GMAIL_USER,
       pass: GMAIL_APP_PASSWORD,
     },
+    // Some campus/corporate networks and antivirus tools intercept TLS
+    // connections with their own certificate ("SSL inspection"), which makes
+    // Node reject Gmail's real certificate as untrusted. This relaxes that
+    // check ONLY outside production, so local dev on such networks still
+    // works. Never do this in production -- deploy behind a network that
+    // doesn't intercept TLS instead.
+    tls: {
+      rejectUnauthorized: process.env.NODE_ENV === "production",
+    },
   });
 }
 

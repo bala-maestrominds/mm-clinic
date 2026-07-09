@@ -1,0 +1,30 @@
+# Dependencies
+node_modules/
+
+# Environment variables (contains your real Gmail App Password -- never commit this)
+.env
+.env.local
+.env.*.local
+# .env.example is intentionally NOT ignored -- it's the template teammates copy from
+
+# Uploaded dentist photos (user-generated, shouldn't be in git)
+uploads/*
+!uploads/.gitkeep
+
+# Generated data file (local dev database substitute)
+data/dentists.json
+!data/.gitkeep
+
+# Logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Editor
+.vscode/*
+!.vscode/extensions.json
+.idea/
+
+# OS
+.DS_Store
+Thumbs.db
