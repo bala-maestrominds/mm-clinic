@@ -80,7 +80,7 @@ export default function ContactPage() {
               <h1 className="text-4xl md:text-5xl font-extrabold text-slate-900 tracking-tight leading-tight">
                 Get in Touch
               </h1>
-              <p className="text-lg text-slate-600 max-w-[36rem] leading-relaxed">
+              <p className="text-lg text-slate-600 max-w-144 leading-relaxed">
                 Experience a new standard of dental care. Whether you have questions about a procedure or wish to
                 schedule a consultation, our team is here to provide clinical excellence and compassionate support.
               </p>
@@ -192,7 +192,7 @@ export default function ContactPage() {
                     )}
 
                     <button
-                      className="w-full md:w-auto self-start px-8 py-3 bg-gradient-to-r from-teal-600 to-cyan-600 hover:from-teal-700 hover:to-cyan-700 text-white rounded-full font-semibold shadow-md hover:shadow-lg transition-all active:scale-[0.98] disabled:opacity-60 flex items-center justify-center gap-2 cursor-pointer mt-2"
+                      className="w-full md:w-auto self-start px-8 py-3 bg-linear-to-r from-teal-600 to-cyan-600 hover:from-teal-700 hover:to-cyan-700 text-white rounded-full font-semibold shadow-md hover:shadow-lg transition-all active:scale-[0.98] disabled:opacity-60 flex items-center justify-center gap-2 cursor-pointer mt-2"
                       type="submit"
                       disabled={status === "submitting"}
                     >
