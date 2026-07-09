@@ -3,12 +3,12 @@ import { doctorsService } from '../services/doctors.service.js';
 async function list(req, res) {
   const { specialty } = req.query;
   const doctors = await doctorsService.listDoctors({ specialty });
-  res.json({ data: doctors });
+  res.json({ data : doctors });
 }
 
 async function getById(req, res) {
   const doctor = await doctorsService.getDoctorById(req.params.id);
-  res.json({ data: doctor });
+  res.json({ data : doctor });
 }
 
 async function create(req, res) {

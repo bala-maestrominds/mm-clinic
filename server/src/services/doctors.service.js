@@ -3,12 +3,11 @@ import { ApiError } from '../utils/ApiError.js';
 
 const DAY_NAMES = ['sunday', 'monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday'];
 
-async function listDoctors({ includeInactive = false, specialty } = {}) {
-  const filter = {};
-  if (!includeInactive) filter.isActive = true;
-  if (specialty) filter.specialty = specialty;
-
-  return Doctor.find(filter).sort({ name: 1 });
+async function listDoctors({ specialty } = {}) {
+  if (specialty) {
+    return Doctor.find({ specialty }).sort({ name: 1 });
+  }
+  return Doctor.find({}).sort({ name: 1 });
 }
 
 async function getDoctorById(id) {

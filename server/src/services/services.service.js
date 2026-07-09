@@ -1,12 +1,11 @@
 import { Service } from '../models/services.model.js';
 import { ApiError } from '../utils/ApiError.js';
 
-async function listServices({ includeInactive = false, category } = {}) {
-  const filter = {};
-  if (!includeInactive) filter.isActive = true;
-  if (category) filter.category = category;
-
-  return Service.find(filter).sort({ name: 1 });
+async function listServices({ category } = {}) {
+  if (category) {
+    return Service.find({ category }).sort({ name: 1 });
+  }
+  return Service.find({}).sort({ name: 1 });
 }
 
 async function getServiceBySlug(slug) {
