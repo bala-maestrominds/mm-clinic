@@ -41,7 +41,7 @@ export default function TestimonialCard({ rating = 5, quote, name, role = "Patie
         ))}
       </div>
 
-      <p className="text-body-md text-on-surface italic mb-8 flex-grow">&ldquo;{quote}&rdquo;</p>
+      <p className="text-body-md text-on-surface italic mb-8 grow">&ldquo;{quote}&rdquo;</p>
 
       <div className="flex items-center gap-4">
         {image ? (

@@ -101,7 +101,7 @@ export default function AdminDashboardPage() {
         }`}
       >
         <div className="px-4 py-6">
-          <h1 className="font-bold text-lg font-bold text-primary">PureDent Admin</h1>
+          <h1 className="font-bold text-lg text-primary">PureDent Admin</h1>
           <p className="text-on-surface-variant text-[12px] opacity-70">Main Clinic Branch</p>
         </div>
 
