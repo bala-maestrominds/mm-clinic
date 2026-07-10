@@ -1,4 +1,3 @@
-// src/pages/public/DoctorsPage.jsx
 import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { 
@@ -7,18 +6,51 @@ import {
   Icon
 } from '../../components/SharedComponents';
 import { DoctorCard, DoctorFilterBar } from '../../components/DoctorComponents';
-import { doctorsData, getSpecializations, filterDoctors } from '../../data/doctorsData';
+import { fetchDoctors } from '../../api/doctorsApi';
 
 export default function DoctorsPage() {
+  const [allDoctors, setAllDoctors] = useState([]);
   const [selectedSpecialization, setSelectedSpecialization] = useState('All Specializations');
   const [searchTerm, setSearchTerm] = useState('');
-  const [filteredDoctors, setFilteredDoctors] = useState(doctorsData);
-  const specializations = getSpecializations();
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
 
   useEffect(() => {
-    const filtered = filterDoctors(selectedSpecialization, searchTerm);
-    setFilteredDoctors(filtered);
-  }, [selectedSpecialization, searchTerm]);
+    let isMounted = true;
+    setLoading(true);
+    fetchDoctors()
+      .then((data) => {
+        if (isMounted) setAllDoctors(data);
+      })
+      .catch((err) => {
+        if (isMounted) setError(err.message);
+      })
+      .finally(() => {
+        if (isMounted) setLoading(false);
+      });
+    return () => {
+      isMounted = false;
+    };
+  }, []);
+
+  const specializations = [
+    'All Specializations',
+    ...new Set(allDoctors.map((doc) => doc.specialty)),
+  ];
+
+  const filteredDoctors = allDoctors.filter((doc) => {
+    const matchesSpecialization =
+      selectedSpecialization === 'All Specializations' ||
+      doc.specialty === selectedSpecialization;
+
+    const term = searchTerm.toLowerCase();
+    const matchesSearch =
+      !term ||
+      doc.name.toLowerCase().includes(term) ||
+      doc.specialty.toLowerCase().includes(term);
+
+    return matchesSpecialization && matchesSearch;
+  });
 
   const handleSpecializationChange = (spec) => {
     setSelectedSpecialization(spec);
@@ -26,6 +58,11 @@ export default function DoctorsPage() {
 
   const handleSearchChange = (term) => {
     setSearchTerm(term);
+  };
+
+  const clearFilters = () => {
+    setSelectedSpecialization('All Specializations');
+    setSearchTerm('');
   };
 
   return (
@@ -77,16 +114,23 @@ export default function DoctorsPage() {
 
         {/* Doctors Grid */}
         <section className="px-6 lg:px-10 max-w-7xl mx-auto">
-          {filteredDoctors.length === 0 ? (
+          {loading ? (
+            <div className="text-center py-16">
+              <p className="text-on-surface-variant">Loading doctors...</p>
+            </div>
+          ) : error ? (
+            <div className="text-center py-16">
+              <Icon name="error" className="text-6xl text-red-400 mb-4" />
+              <h3 className="text-2xl font-bold text-primary mb-2">Couldn't load doctors</h3>
+              <p className="text-on-surface-variant">{error}</p>
+            </div>
+          ) : filteredDoctors.length === 0 ? (
             <div className="text-center py-16">
               <Icon name="search" className="text-6xl text-primary/30 mb-4" />
               <h3 className="text-2xl font-bold text-primary mb-2">No Doctors Found</h3>
               <p className="text-on-surface-variant">Try adjusting your filters or search term</p>
               <button 
-                onClick={() => {
-                  setSelectedSpecialization('All Specializations');
-                  setSearchTerm('');
-                }}
+                onClick={clearFilters}
                 className="mt-4 px-6 py-3 bg-primary text-white rounded-xl font-semibold hover:bg-primary/90 transition-all"
               >
                 Clear Filters
@@ -95,7 +139,7 @@ export default function DoctorsPage() {
           ) : (
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
               {filteredDoctors.map((doctor) => (
-                <DoctorCard key={doctor.id} doctor={doctor} />
+                <DoctorCard key={doctor._id} doctor={doctor} />
               ))}
             </div>
           )}
