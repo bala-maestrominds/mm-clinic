@@ -29,10 +29,10 @@ async function create(req, res) {
     specialty,
     email: email?.trim(),
     phone: phone?.trim(),
-    experienceYears: Number(experienceYears) || 0,
-    consultationFee: Number(consultationFee) || 0,
+    experienceYears: experienceYears ?? 0,
+    consultationFee: consultationFee ?? 0,
     bio: bio?.trim() || '',
-    workingHours: workingHours ? JSON.parse(workingHours) : [],
+    workingHours: workingHours || [],
     photoUrl: req.file ? `/uploads/${req.file.filename}` : '',
   };
 

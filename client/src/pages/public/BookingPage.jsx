@@ -349,7 +349,7 @@ function ScheduleStep({
   return (
     <section className="p-6 md:p-8 flex flex-col gap-6 flex-1">
       <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-        {/* Service + Doctor */}
+        {/* LEFT: Service -> Date -> Available Slots */}
         <div className="flex flex-col gap-4">
           <label className="text-lg font-semibold text-on-surface">Select Service</label>
           {loadingOptions ? (
@@ -389,7 +389,53 @@ function ScheduleStep({
             </div>
           )}
 
-          <label className="text-lg font-semibold text-on-surface mt-2">Choose Specialist</label>
+          <label className="text-lg font-semibold text-on-surface mt-2">Select Date</label>
+          <input
+            type="date"
+            min={todayISO()}
+            value={date}
+            onChange={(e) => setDate(e.target.value)}
+            className="w-full h-11 px-4 rounded-xl border border-outline-variant bg-white focus:ring-2 focus:ring-primary/20 focus:border-primary outline-none text-sm"
+          />
+
+          <label className="text-lg font-semibold text-on-surface mt-2">Available Slots</label>
+          {!selectedDoctorId ? (
+            <p className="text-sm text-on-surface-variant">Choose a specialist to see available slots.</p>
+          ) : loadingSlots ? (
+            <p className="text-sm text-on-surface-variant">Loading slots…</p>
+          ) : (
+            <div className="grid grid-cols-3 gap-2">
+              {slots.map((slot) => {
+                const taken = bookedTimes.includes(slot);
+                const active = slot === selectedTime;
+                return (
+                  <button
+                    type="button"
+                    key={slot}
+                    disabled={taken}
+                    onClick={() => setSelectedTime(slot)}
+                    className={
+                      taken
+                        ? "py-2 px-3 rounded-lg bg-surface-container-low text-outline-variant cursor-not-allowed text-sm line-through"
+                        : active
+                        ? "py-2 px-3 rounded-lg border-2 border-primary bg-primary text-white text-sm font-bold"
+                        : "py-2 px-3 rounded-lg border border-primary/10 text-sm text-on-surface hover:bg-primary hover:text-white transition-all"
+                    }
+                  >
+                    {formatTimeLabel(slot)}
+                  </button>
+                );
+              })}
+              {slots.length === 0 && (
+                <p className="col-span-3 text-sm text-on-surface-variant">No slots available on this date.</p>
+              )}
+            </div>
+          )}
+        </div>
+
+        {/* RIGHT: Doctors */}
+        <div className="flex flex-col gap-4">
+          <label className="text-lg font-semibold text-on-surface">Choose Specialist</label>
           <div className="flex flex-col gap-2">
             {doctors.map((doc) => {
               const active = doc._id === selectedDoctorId;
@@ -433,52 +479,6 @@ function ScheduleStep({
               <p className="text-sm text-on-surface-variant">No specialists available yet.</p>
             )}
           </div>
-        </div>
-
-        {/* Date + Time */}
-        <div className="flex flex-col gap-4">
-          <label className="text-lg font-semibold text-on-surface">Select Date</label>
-          <input
-            type="date"
-            min={todayISO()}
-            value={date}
-            onChange={(e) => setDate(e.target.value)}
-            className="w-full h-11 px-4 rounded-xl border border-outline-variant bg-white focus:ring-2 focus:ring-primary/20 focus:border-primary outline-none text-sm"
-          />
-
-          <label className="text-lg font-semibold text-on-surface mt-2">Available Slots</label>
-          {!selectedDoctorId ? (
-            <p className="text-sm text-on-surface-variant">Choose a specialist to see available slots.</p>
-          ) : loadingSlots ? (
-            <p className="text-sm text-on-surface-variant">Loading slots…</p>
-          ) : (
-            <div className="grid grid-cols-3 gap-2">
-              {slots.map((slot) => {
-                const taken = bookedTimes.includes(slot);
-                const active = slot === selectedTime;
-                return (
-                  <button
-                    type="button"
-                    key={slot}
-                    disabled={taken}
-                    onClick={() => setSelectedTime(slot)}
-                    className={
-                      taken
-                        ? "py-2 px-3 rounded-lg bg-surface-container-low text-outline-variant cursor-not-allowed text-sm line-through"
-                        : active
-                        ? "py-2 px-3 rounded-lg border-2 border-primary bg-primary text-white text-sm font-bold"
-                        : "py-2 px-3 rounded-lg border border-primary/10 text-sm text-on-surface hover:bg-primary hover:text-white transition-all"
-                    }
-                  >
-                    {formatTimeLabel(slot)}
-                  </button>
-                );
-              })}
-              {slots.length === 0 && (
-                <p className="col-span-3 text-sm text-on-surface-variant">No slots available on this date.</p>
-              )}
-            </div>
-          )}
         </div>
       </div>
 
@@ -705,7 +705,7 @@ function ConfirmationStep({ confirmation, apiBaseUrl, onReset }) {
         )}
       </div>
 
-      <div className="flex flex-col md:flex-row gap-6 w-full max-w-xl">
+      <div className="flex flex-col md:flex-row gap-6 w-full">
         <div className="flex-1 bg-white p-5 rounded-xl border border-primary/10 flex flex-col gap-2 items-center shadow-sm">
           <span className="text-xs font-bold uppercase tracking-widest text-on-surface-variant">Appointment ID</span>
           <span className="text-xl font-bold text-primary tracking-widest">{appointment.appointmentCode}</span>

@@ -6,7 +6,7 @@
 // username and password" with no backend-auth requirement.
 // ---------------------------------------------------------------------------
 const ADMIN_USERNAME = "admin";
-const ADMIN_PASSWORD = "PureDent@2024";
+const ADMIN_PASSWORD = "admin";
 
 const SESSION_KEY = "puredent_admin_session";
 
