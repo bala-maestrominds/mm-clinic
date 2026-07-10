@@ -11,14 +11,10 @@ async function getById(req, res) {
   res.json({ data : doctor });
 }
 
-// async function create(req, res) {
-//   const doctor = await doctorsService.createDoctor(req.body);
-//   res.status(201).json({ data: doctor });
-// }
 
 async function create(req, res) {
   const {
-    fullName,
+    name,
     specialty,
     email,
     phone,
@@ -29,7 +25,7 @@ async function create(req, res) {
   } = req.body;
 
   const payload = {
-    name: fullName?.trim(),
+    name: name?.trim(),
     specialty,
     email: email?.trim(),
     phone: phone?.trim(),
