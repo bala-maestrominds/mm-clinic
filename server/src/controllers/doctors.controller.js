@@ -11,8 +11,36 @@ async function getById(req, res) {
   res.json({ data : doctor });
 }
 
+// async function create(req, res) {
+//   const doctor = await doctorsService.createDoctor(req.body);
+//   res.status(201).json({ data: doctor });
+// }
+
 async function create(req, res) {
-  const doctor = await doctorsService.createDoctor(req.body);
+  const {
+    fullName,
+    specialty,
+    email,
+    phone,
+    experienceYears,
+    consultationFee,
+    bio,
+    workingHours,
+  } = req.body;
+
+  const payload = {
+    name: fullName?.trim(),
+    specialty,
+    email: email?.trim(),
+    phone: phone?.trim(),
+    experienceYears: Number(experienceYears) || 0,
+    consultationFee: Number(consultationFee) || 0,
+    bio: bio?.trim() || '',
+    workingHours: workingHours ? JSON.parse(workingHours) : [],
+    photoUrl: req.file ? `/uploads/${req.file.filename}` : '',
+  };
+
+  const doctor = await doctorsService.createDoctor(payload);
   res.status(201).json({ data: doctor });
 }
 
