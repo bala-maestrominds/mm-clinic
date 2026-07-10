@@ -7,6 +7,10 @@ import AddDentistPage from "./pages/admin/AddDentistPage";
 import ContactPage from "./pages/public/ContactPage";
 import LandingPage from "./pages/public/LandingPage"; 
 import AboutPage from "./pages/public/AboutPage";
+import ServicesPage from "./pages/public/ServicesPage";
+import ServiceDetailPage from "./pages/public/ServiceDetailPage";
+import DoctorsPage from "./pages/public/DoctorsPage"; 
+import DoctorDetailPage from "./pages/public/DoctorDetailPage"; 
 
 function App() {
   return (
@@ -15,7 +19,10 @@ function App() {
         {/* Make Landing Page the default */}
         <Route path="/" element={<LandingPage />} />
          <Route path="/about" element={<AboutPage />} />
-        
+        <Route path="/services" element={<ServicesPage />} /> 
+        <Route path="/services/:serviceId" element={<ServiceDetailPage />} />
+          <Route path="/doctors" element={<DoctorsPage />} />
+        <Route path="/doctors/:doctorId" element={<DoctorDetailPage />} />
 
         {/* Public Routes */}
         <Route path="/contact" element={<ContactPage />} />

@@ -1,4 +1,6 @@
+// src/pages/public/LandingPage.jsx
 import React from 'react';
+import { Link } from 'react-router-dom';
 import { 
   NavBar, 
   StatCounter, 
@@ -7,8 +9,7 @@ import {
   TestimonialCard, 
   CTASection, 
   Footer,
-  Icon,
-  GlassCard
+  Icon
 } from '../../components/SharedComponents';
 
 // Images
@@ -28,7 +29,7 @@ export default function LandingPage() {
       <NavBar />
 
       <main className="pt-24">
-        {/* Hero Section - Fixed alignment */}
+        {/* Hero Section */}
         <section className="relative min-h-[90vh] flex items-center px-6 lg:px-10 overflow-hidden">
           <div className="absolute inset-0 z-0">
             <div 
@@ -43,7 +44,6 @@ export default function LandingPage() {
           </div>
 
           <div className="relative z-10 max-w-7xl mx-auto w-full grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-            {/* Left Column - Text content */}
             <div className="space-y-8">
               <div className="inline-flex items-center gap-2 px-4 py-2 bg-secondary-container/30 text-on-secondary-container rounded-full font-label-md">
                 <Icon name="verified" className="text-sm" />
@@ -56,16 +56,22 @@ export default function LandingPage() {
                 Professional, affordable, patient-centered dental care using advanced technology. Experience pain-free dentistry in a sterile, welcoming environment.
               </p>
               <div className="flex flex-wrap gap-4">
-                <button className="px-8 py-4 bg-primary text-white font-headline-sm rounded-lg shadow-xl shadow-primary/20 hover:translate-y-[-2px] transition-all">
+                <Link 
+                  to="/appointment" 
+                  className="px-8 py-4 bg-primary text-white font-headline-sm rounded-lg shadow-xl shadow-primary/20 hover:translate-y-[-2px] transition-all"
+                >
                   Start Consultation
-                </button>
-                <button className="px-8 py-4 bg-white/50 backdrop-blur-md border border-primary/10 text-primary font-headline-sm rounded-lg hover:bg-white/80 transition-all">
+                </Link>
+                <Link 
+                  to="/services" 
+                  className="px-8 py-4 bg-white/50 backdrop-blur-md border border-primary/10 text-primary font-headline-sm rounded-lg hover:bg-white/80 transition-all"
+                >
                   Our Services
-                </button>
+                </Link>
               </div>
             </div>
 
-            {/* Right Column - Image with floating cards */}
+            {/* Hero Focal Image & Floating Cards */}
             <div className="relative flex justify-center lg:justify-end">
               <div className="relative w-full max-w-[500px]">
                 <div className="rounded-xl overflow-hidden shadow-2xl border-4 border-white/80 rotate-2 hover:rotate-0 transition-transform duration-500 bg-surface">
@@ -76,7 +82,6 @@ export default function LandingPage() {
                   />
                 </div>
 
-                {/* Floating Cards - Fixed positioning */}
                 <div className="absolute -top-6 -left-6 md:-left-12 animate-float bg-white/90 backdrop-blur-md p-4 md:p-6 rounded-lg shadow-[0px_10px_30px_rgba(15,118,110,0.1)] border border-primary/5 flex items-center gap-3 md:gap-4">
                   <div className="w-10 h-10 md:w-12 md:h-12 bg-secondary-container flex items-center justify-center rounded-full text-primary">
                     <Icon name="groups" className="text-xl md:text-2xl" />
@@ -107,7 +112,7 @@ export default function LandingPage() {
           </div>
         </section>
 
-        {/* Stats Section - Fixed alignment */}
+        {/* Stats Section */}
         <section className="py-12 md:py-16 px-6 lg:px-10 bg-surface-container-low">
           <div className="max-w-7xl mx-auto grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6">
             <StatCounter target={15000} label="Treatments Done" />
@@ -117,7 +122,7 @@ export default function LandingPage() {
           </div>
         </section>
 
-        {/* Why Choose Us - Fixed alignment */}
+        {/* Why Choose Us */}
         <section className="py-12 md:py-16 px-6 lg:px-10 overflow-hidden">
           <div className="max-w-7xl mx-auto">
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center mb-12 lg:mb-16">
@@ -179,7 +184,7 @@ export default function LandingPage() {
           </div>
         </section>
 
-        {/* About Us - Fixed alignment */}
+        {/* About Us Visual Richness */}
         <section className="py-12 md:py-16 px-6 lg:px-10 bg-white">
           <div className="max-w-7xl mx-auto flex flex-col lg:flex-row gap-12 lg:gap-16 items-center">
             <div className="lg:w-1/2 order-2 lg:order-1">
@@ -220,7 +225,7 @@ export default function LandingPage() {
           </div>
         </section>
 
-        {/* Featured Services - Fixed alignment */}
+        {/* Featured Services */}
         <section className="py-12 md:py-16 px-6 lg:px-10 bg-surface-container-low" id="services">
           <div className="max-w-7xl mx-auto">
             <div className="flex flex-col md:flex-row justify-between items-start md:items-end gap-4 mb-8 md:mb-12 lg:mb-16">
@@ -228,10 +233,13 @@ export default function LandingPage() {
                 <h2 className="font-headline-lg text-2xl md:text-3xl lg:text-4xl text-primary mb-3 md:mb-4 font-bold">Our Specialized Services</h2>
                 <p className="text-body-md text-on-surface-variant">From routine cleaning to complex restorative surgery, we offer comprehensive dental solutions under one roof.</p>
               </div>
-              <button className="px-6 md:px-8 py-2 md:py-3 bg-secondary text-white font-label-md rounded-lg hover:bg-secondary/90 transition-all flex items-center gap-2 text-sm md:text-base whitespace-nowrap">
+              <Link 
+                to="/services" 
+                className="px-6 md:px-8 py-2 md:py-3 bg-secondary text-white font-label-md rounded-lg hover:bg-secondary/90 transition-all flex items-center gap-2 text-sm md:text-base whitespace-nowrap"
+              >
                 View All Services
                 <Icon name="arrow_forward" className="text-sm" />
-              </button>
+              </Link>
             </div>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
               <ServiceCard 
@@ -256,7 +264,7 @@ export default function LandingPage() {
           </div>
         </section>
 
-        {/* Patient Testimonials - Fixed alignment */}
+        {/* Patient Testimonials */}
         <section className="py-12 md:py-16 px-6 lg:px-10 bg-white overflow-hidden">
           <div className="max-w-7xl mx-auto">
             <div className="text-center mb-8 md:mb-12 lg:mb-16">
@@ -287,7 +295,7 @@ export default function LandingPage() {
         </section>
 
         {/* CTA Section */}
-        <CTASection />
+        <CTASection variant="primary" />
       </main>
 
       <Footer />

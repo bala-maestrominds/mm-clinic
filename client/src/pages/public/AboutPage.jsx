@@ -1,14 +1,15 @@
 // src/pages/public/AboutPage.jsx
 import React, { useEffect, useState } from 'react';
 import { 
-  Icon, 
-  NavBar,        // ← Changed from AboutNavBar
-  CTASection,    // ← Changed from AboutCTASection
-  Footer,        // ← Changed from AboutFooter
+  NavBar, 
+  Footer, 
+  CTASection,
+  ValueCard,
+  TeamMemberCard,
+  Icon
 } from '../../components/SharedComponents';
-import { ValueCard, TeamMemberCard } from '../../components/AboutComponents';
 
-// Fallback images (using placeholder services that work)
+// Fallback images
 const FALLBACK_IMAGES = {
   hero: "https://images.unsplash.com/photo-1588776814546-1ffcf47267a5?w=1200&h=800&fit=crop",
   story: "https://images.unsplash.com/photo-1588776814546-1ffcf47267a5?w=800&h=600&fit=crop",
@@ -18,7 +19,7 @@ const FALLBACK_IMAGES = {
   team3: "https://images.unsplash.com/photo-1622253692010-333f2da6031d?w=400&h=500&fit=crop"
 };
 
-// Original images (using the ones from HTML)
+// Original images
 const heroImage = "https://lh3.googleusercontent.com/aida/AP1WRLtZe2s0pyx_LJYzOQxTf66EHKOfvmMa7dkstdBziv4KGvE9a9PdjfgcO1u7zmA3665FDlUdxj8KxJxU8D1ruk6_ElFK8Hmwn4XIHpeY9Kjt0S0PJLPJKA1LT-2inNfC2ygo6oImRC31T5R6vm4JHXCMVTpqfbWDhpGEU3oEN-6UUtNp-xtuNdgeA7PXNRMvGkV8GQbD68vXNg5AYfeT_mY9rGE9AZiLBtpmhc4BY2k226JVFrUb7jH0qPM";
 const storyImage = "https://lh3.googleusercontent.com/aida-public/AB6AXuCpMecPSEpkYR1y9NQhxpkYd2R1skTcdhTNkC2pgE46YZKOgL5N754R8-j8ooPIkeC8QpTh6UklAuMaxQ5BaNljeakn7JBMeYAjIEbeSnK3MKETxfJUIqVaNJhe3SlpcNsw978vaMXdWudKt_iAwznLyaZ0AhM8U3462sdx5047N9S5n399MR2RZW-I1W9V987EXXDAqLme-pcrhSFJKdle80OkzUOj5XwN6Lv7vjLbS0iYfUZTHsbQ";
 const techImage = "https://lh3.googleusercontent.com/aida-public/AB6AXuC1uTp5nXuOS3ByR4RXHMDd2lHnQOh_YAzQsqVvnl9-zb34Z9ZOQP_7PsrRdB38qG4DDheVBCXRpKeUKjj1DBdaB1-UlQUrIFJvzvXBT576mWIzaWr3ackxHpaKAPOTZocO4-gSq2_UQthdu7EW9jl_VHjpNN8e5RHtWOR2o4RZa_swLVDA6wYulsgPuQ_lz1GoWUlnUEhKhjGSdDm8PRVkRFE3PGAL8_3CYG1kX7d5HRnn5XsePF8P";
@@ -27,7 +28,6 @@ const teamImage2 = "https://lh3.googleusercontent.com/aida-public/AB6AXuAVqN6raf
 const teamImage3 = "https://lh3.googleusercontent.com/aida-public/AB6AXuDFexumFSx9FR7g4ZeDL-K9j4wmb3pryeAKDPlY16FT0_VCU3ey4qKpVatALbYR13lLes40O24FL4kO3JJ1EltHcOGzsWkuoBWHN2UIWD1Zb2tNRku9_zTugvoRVZ8D2gZJUWcs58s-A-3bD6gFdNIJyK3DIowu1Zfo-PBMJZGqUrK8k3S4Blhhw4eDp-Pej1GWSaMd_GgW38CtumneDW-8A7-w_Zn6HjJ0HbvAoD9B6BURuJSMsHz0";
 
 export default function AboutPage() {
-  // State for image errors
   const [imageErrors, setImageErrors] = useState({});
 
   const handleImageError = (imageKey) => {
@@ -44,7 +44,6 @@ export default function AboutPage() {
     return originalSrc;
   };
 
-  // Intersection Observer for reveal animations
   useEffect(() => {
     const observer = new IntersectionObserver(
       (entries) => {
@@ -68,10 +67,10 @@ export default function AboutPage() {
 
   return (
     <div className="bg-background text-on-surface font-body-md antialiased overflow-x-hidden">
-      <NavBar variant="about" />  {/* ← Fixed: Using NavBar with variant="about" */}
+      <NavBar />
 
       <main className="pt-20">
-        {/* Hero Section - Fixed with fallback */}
+        {/* Hero Section */}
         <section className="relative h-[80vh] flex items-center overflow-hidden">
           <div className="absolute inset-0 z-0">
             <img 
@@ -141,7 +140,7 @@ export default function AboutPage() {
           </div>
         </section>
 
-        {/* Values Bento Grid */}
+        {/* Values Section */}
         <section className="py-12 md:py-16 bg-surface-container-low px-6 lg:px-10 reveal-section">
           <div className="max-w-7xl mx-auto">
             <div className="text-center mb-12">
@@ -179,7 +178,7 @@ export default function AboutPage() {
           </div>
         </section>
 
-        {/* Advanced Technology Section */}
+        {/* Technology Section */}
         <section className="py-12 md:py-16 px-6 lg:px-10 overflow-hidden reveal-section">
           <div className="max-w-7xl mx-auto flex flex-col md:flex-row gap-12 items-center">
             <div className="flex-1 space-y-4 md:space-y-6">
@@ -222,7 +221,7 @@ export default function AboutPage() {
           </div>
         </section>
 
-        {/* PureDent Team Section */}
+        {/* Team Section */}
         <section className="py-12 md:py-16 bg-surface px-6 lg:px-10 reveal-section">
           <div className="max-w-7xl mx-auto">
             <div className="flex flex-col md:flex-row justify-between items-end mb-12 gap-6">
@@ -242,7 +241,6 @@ export default function AboutPage() {
                 role="Chief Medical Officer"
                 description="Specializing in Full Mouth Reconstructive Surgery and Advanced Implantology."
                 image={getImageSrc('team1', teamImage1)}
-                onError={() => handleImageError('team1')}
                 alt="Dr. Julian Vance - Chief Medical Officer"
               />
               <TeamMemberCard 
@@ -250,7 +248,6 @@ export default function AboutPage() {
                 role="Lead Aesthetic Dentist"
                 description="Expert in Aesthetic Veneers, Smile Design, and Digital Orthodontics."
                 image={getImageSrc('team2', teamImage2)}
-                onError={() => handleImageError('team2')}
                 alt="Dr. Sarah Sterling - Lead Aesthetic Dentist"
               />
               <TeamMemberCard 
@@ -258,18 +255,17 @@ export default function AboutPage() {
                 role="Specialist Surgeon"
                 description="Focused on Laser Dentistry and Minimally Invasive Surgical Techniques."
                 image={getImageSrc('team3', teamImage3)}
-                onError={() => handleImageError('team3')}
                 alt="Dr. Michael Chen - Specialist Surgeon"
               />
             </div>
           </div>
         </section>
 
-        {/* CTA Section - Fixed: Using CTASection with variant="about" */}
+        {/* CTA Section */}
         <CTASection variant="about" />
       </main>
 
-      <Footer variant="about" />  {/* ← Fixed: Using Footer with variant="about" */}
+      <Footer />
     </div>
   );
 }

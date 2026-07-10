@@ -30,9 +30,9 @@ export const GlassCardLight = ({ children, className = '' }) => (
 );
 
 // ============================================
-// 3. NAVIGATION BAR
+// 3. UNIFIED NAVIGATION BAR
 // ============================================
-export const NavBar = ({ variant = 'home' }) => {
+export const NavBar = () => {
   const [scrolled, setScrolled] = useState(false);
 
   useEffect(() => {
@@ -44,13 +44,11 @@ export const NavBar = ({ variant = 'home' }) => {
   }, []);
 
   const navLinkClass = ({ isActive }) => 
-    `font-medium transition-colors duration-200 ${
+    `text-sm md:text-base font-medium transition-colors duration-200 ${
       isActive 
         ? 'text-primary border-b-2 border-primary pb-1' 
         : 'text-on-surface-variant hover:text-primary'
     }`;
-
-  const isAbout = variant === 'about';
 
   return (
     <header className={`fixed top-0 w-full z-50 backdrop-blur-md shadow-sm transition-all duration-300 ${
@@ -58,45 +56,38 @@ export const NavBar = ({ variant = 'home' }) => {
     }`}>
       <nav className="flex justify-between items-center px-6 lg:px-10 py-4 max-w-7xl mx-auto">
         <Link to="/" className="flex items-center gap-2">
-          {!isAbout && <Icon name="dentistry" className="text-primary text-3xl" />}
-          <span className={`text-lg md:text-xl font-bold text-primary tracking-tight ${isAbout ? '' : 'dark:text-inverse-primary'}`}>
-            {isAbout ? 'PureDent' : 'PureDent Clinic'}
+          <Icon name="dentistry" className="text-primary text-3xl" />
+          <span className="text-lg md:text-xl font-bold text-primary dark:text-inverse-primary">
+            PureDent Clinic
           </span>
         </Link>
+
         <div className="hidden md:flex items-center space-x-6 lg:space-x-8">
-          <NavLink to="/" className={isAbout ? 'text-sm md:text-base text-on-surface-variant hover:text-primary transition-colors' : navLinkClass} end>
-            Home
-          </NavLink>
-          <NavLink to="/about" className={isAbout ? `text-sm md:text-base ${window.location.pathname === '/about' ? 'text-primary border-b-2 border-primary pb-1' : 'text-on-surface-variant hover:text-primary'} transition-colors` : navLinkClass}>
-            {isAbout ? 'About Us' : 'About'}
-          </NavLink>
-          <NavLink to="/services" className={isAbout ? 'text-sm md:text-base text-on-surface-variant hover:text-primary transition-colors' : navLinkClass}>
-            Services
-          </NavLink>
-          <NavLink to="/doctors" className={isAbout ? 'text-sm md:text-base text-on-surface-variant hover:text-primary transition-colors' : navLinkClass}>
-            {isAbout ? 'Our Doctors' : 'Doctors'}
-          </NavLink>
-          <NavLink to="/contact" className={isAbout ? 'text-sm md:text-base text-on-surface-variant hover:text-primary transition-colors' : navLinkClass}>
-            Contact
-          </NavLink>
+          <NavLink to="/" className={navLinkClass} end>Home</NavLink>
+          <NavLink to="/about" className={navLinkClass}>About</NavLink>
+          <NavLink to="/services" className={navLinkClass}>Services</NavLink>
+          <NavLink to="/doctors" className={navLinkClass}>Doctors</NavLink>
+          <NavLink to="/contact" className={navLinkClass}>Contact</NavLink>
         </div>
-        <Link 
-          to="/appointment" 
-          className={`px-6 py-2 ${
-            isAbout 
-              ? 'bg-primary text-white rounded-full text-xs md:text-sm font-semibold hover:opacity-80' 
-              : 'bg-primary text-white text-sm font-semibold rounded-lg shadow-md hover:bg-primary-container'
-          } transition-all active:scale-95`}
-        >
-          Book Appointment
-        </Link>
+
+        <div className="flex items-center gap-4">
+          <button className="hidden lg:block px-6 py-3 text-sm font-semibold text-primary border border-primary/20 rounded-lg hover:bg-primary/5 transition-all active:scale-95">
+            Patient Login
+          </button>
+          <Link 
+            to="/appointment" 
+            className="px-6 py-3 bg-primary text-white text-sm font-semibold rounded-lg shadow-md hover:bg-primary-container transition-all active:scale-95"
+          >
+            Book Appointment
+          </Link>
+        </div>
       </nav>
     </header>
   );
 };
 
 // ============================================
-// 4. STAT COUNTER (From Home page)
+// 4. STAT COUNTER
 // ============================================
 export const StatCounter = ({ target, label, suffix = '' }) => {
   const [count, setCount] = useState(0);
@@ -162,7 +153,7 @@ export const StatCounter = ({ target, label, suffix = '' }) => {
 };
 
 // ============================================
-// 5. FEATURE CARD (From Home page)
+// 5. FEATURE CARD
 // ============================================
 export const FeatureCard = ({ icon, title, description }) => (
   <div className="p-6 rounded-lg bg-white/70 backdrop-blur-md border border-primary/5 hover:bg-white hover:shadow-xl transition-all group">
@@ -175,7 +166,7 @@ export const FeatureCard = ({ icon, title, description }) => (
 );
 
 // ============================================
-// 6. SERVICE CARD (From Home page)
+// 6. SERVICE CARD (Home page)
 // ============================================
 export const ServiceCard = ({ title, description, image, icon }) => {
   const [imgError, setImgError] = useState(false);
@@ -204,17 +195,17 @@ export const ServiceCard = ({ title, description, image, icon }) => {
         <p className="text-sm md:text-base text-on-surface-variant mb-4 leading-relaxed">
           {description}
         </p>
-        <a className="text-primary font-semibold hover:underline flex items-center gap-2 text-sm" href="#">
+        <Link to="/services" className="text-primary font-semibold hover:underline flex items-center gap-2 text-sm">
           Learn More
           <Icon name="chevron_right" className="text-sm" />
-        </a>
+        </Link>
       </div>
     </div>
   );
 };
 
 // ============================================
-// 7. TESTIMONIAL CARD (From Home page)
+// 7. TESTIMONIAL CARD
 // ============================================
 export const TestimonialCard = ({ quote, name, role, image, initials }) => (
   <div className="p-6 md:p-8 rounded-lg bg-white/70 backdrop-blur-md border border-primary/10 flex flex-col h-full hover:shadow-lg transition-shadow">
@@ -247,14 +238,177 @@ export const TestimonialCard = ({ quote, name, role, image, initials }) => (
 );
 
 // ============================================
-// 8. CTA SECTION
+// 8. SERVICE CARD WITH PRICE (Services page)
+// ============================================
+export const ServiceCardWithPrice = ({ 
+  id,
+  title, 
+  description, 
+  image, 
+  icon, 
+  price, 
+  duration, 
+  badge, 
+  badgeColor = 'primary' 
+}) => {
+  const [imgError, setImgError] = useState(false);
+
+  const badgeColors = {
+    primary: 'bg-white/90 text-primary',
+    secondary: 'bg-secondary-container text-on-secondary-container',
+    popular: 'bg-secondary-container text-on-secondary-container'
+  };
+
+  return (
+    <Link to={`/services/${id}`} className="block h-full">
+      <div className="bg-white/80 backdrop-blur-2xl border border-primary/5 shadow-[0px_10px_30px_rgba(15,118,110,0.04)] rounded-2xl overflow-hidden group hover:-translate-y-1 transition-all duration-300 h-full flex flex-col cursor-pointer">
+        <div className="h-48 overflow-hidden relative">
+          {!imgError ? (
+            <img 
+              className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" 
+              src={image} 
+              alt={title}
+              onError={() => setImgError(true)}
+            />
+          ) : (
+            <div className="w-full h-full bg-primary/10 flex items-center justify-center">
+              <div className="text-center text-primary/50">
+                <Icon name="image" className="text-4xl block mb-2" />
+                <span className="text-sm">Image unavailable</span>
+              </div>
+            </div>
+          )}
+          {badge && (
+            <div className={`absolute top-4 right-4 px-3 py-1 rounded-full text-xs font-semibold ${badgeColors[badgeColor] || badgeColors.primary}`}>
+              {badge}
+            </div>
+          )}
+        </div>
+        <div className="p-6 flex-1 flex flex-col">
+          <div className="flex justify-between items-start mb-2">
+            <h3 className="text-xl font-bold text-on-surface">{title}</h3>
+            <Icon name={icon} className="text-primary text-2xl shrink-0" />
+          </div>
+          <p className="text-sm text-on-surface-variant mb-6 flex-1">{description}</p>
+          <div>
+            <div className="flex items-center justify-between pt-4 border-t border-outline-variant">
+              <div>
+                <div className="text-[10px] font-semibold text-on-surface-variant uppercase tracking-wider">Starting at</div>
+                <div className="text-primary font-bold text-lg">{price}</div>
+              </div>
+              <div className="flex items-center gap-1 text-on-surface-variant">
+                <Icon name="schedule" className="text-sm" />
+                <span className="text-xs font-semibold">{duration}</span>
+              </div>
+            </div>
+            <div className="mt-4 text-sm text-primary font-semibold flex items-center gap-1 group-hover:gap-2 transition-all">
+              View Details
+              <Icon name="arrow_forward" className="text-sm" />
+            </div>
+          </div>
+        </div>
+      </div>
+    </Link>
+  );
+};
+
+// ============================================
+// 9. CATEGORY TABS
+// ============================================
+export const CategoryTabs = ({ categories, activeCategory, onCategoryChange }) => {
+  return (
+    <div className="flex justify-center mb-8">
+      <div className="inline-flex p-1 bg-surface-container-low rounded-full border border-outline-variant">
+        {categories.map((category) => (
+          <button
+            key={category.id}
+            onClick={() => onCategoryChange(category.id)}
+            className={`px-6 py-2 rounded-full font-bold transition-all duration-300 ${
+              activeCategory === category.id
+                ? 'bg-primary text-white'
+                : 'text-on-surface-variant hover:text-primary'
+            }`}
+          >
+            {category.label}
+          </button>
+        ))}
+      </div>
+    </div>
+  );
+};
+
+// ============================================
+// 10. VALUE CARD
+// ============================================
+export const ValueCard = ({ icon, title, description, iconBg = 'secondary-container' }) => {
+  const bgColors = {
+    'secondary-container': 'bg-secondary-container text-on-secondary-container',
+    'primary-container/10': 'bg-primary-container/10 text-primary',
+    'tertiary-fixed': 'bg-tertiary-fixed text-on-tertiary-fixed-variant',
+    'surface-container-highest': 'bg-surface-container-highest text-on-surface'
+  };
+
+  return (
+    <div className="glass-card p-6 rounded-2xl transition-all hover:-translate-y-2">
+      <div className={`w-12 h-12 rounded-xl ${bgColors[iconBg]} flex items-center justify-center mb-4`}>
+        <Icon name={icon} fill />
+      </div>
+      <h3 className="text-xl font-bold text-primary mb-2">{title}</h3>
+      <p className="text-sm text-on-surface-variant">{description}</p>
+    </div>
+  );
+};
+
+// ============================================
+// 11. TEAM MEMBER CARD
+// ============================================
+export const TeamMemberCard = ({ name, role, description, image, alt }) => {
+  const [isHovered, setIsHovered] = useState(false);
+  const [imgError, setImgError] = useState(false);
+
+  return (
+    <div 
+      className="group"
+      onMouseEnter={() => setIsHovered(true)}
+      onMouseLeave={() => setIsHovered(false)}
+    >
+      <div className="relative overflow-hidden rounded-2xl mb-4 bg-surface-container">
+        {!imgError ? (
+          <img 
+            className="w-full aspect-[3/4] object-cover transition-transform duration-500 group-hover:scale-105" 
+            src={image} 
+            alt={alt || name}
+            onError={() => setImgError(true)}
+          />
+        ) : (
+          <div className="w-full aspect-[3/4] flex items-center justify-center bg-primary/10">
+            <div className="text-center text-primary/50">
+              <Icon name="person" className="text-6xl block mb-2" />
+              <span className="text-sm">Photo unavailable</span>
+            </div>
+          </div>
+        )}
+        <div className={`absolute bottom-0 left-0 right-0 p-4 bg-gradient-to-t from-primary/80 to-transparent transition-transform duration-300 ${
+          isHovered ? 'translate-y-0' : 'translate-y-full'
+        }`}>
+          <p className="text-white text-sm">{description}</p>
+        </div>
+      </div>
+      <h3 className="text-xl font-bold text-primary">{name}</h3>
+      <p className="text-xs font-semibold text-on-surface-variant uppercase tracking-wider">{role}</p>
+    </div>
+  );
+};
+
+// ============================================
+// 12. CTA SECTION
 // ============================================
 export const CTASection = ({ variant = 'primary' }) => {
   if (variant === 'about') {
     return (
       <section className="py-12 md:py-16 px-6 lg:px-10 bg-white">
         <div className="max-w-7xl mx-auto">
-          <div className="rounded-2xl p-8 md:p-12 flex flex-col md:flex-row items-center justify-between gap-6 border border-primary/10 shadow-sm">
+          <div className="rounded-2xl p-8 md:p-12 flex flex-col md:flex-row items-center justify-between gap-6 border border-primary/10 shadow-sm bg-white">
             <div className="text-center md:text-left">
               <h2 className="text-2xl md:text-3xl font-bold text-primary mb-2">Ready for a Pure Experience?</h2>
               <p className="text-sm md:text-base text-on-surface-variant">Join over 12,000 patients who have transformed their smiles with us.</p>
@@ -273,7 +427,32 @@ export const CTASection = ({ variant = 'primary' }) => {
     );
   }
 
-  // Default primary CTA (Home page style)
+  if (variant === 'services') {
+    return (
+      <section className="max-w-7xl mx-auto px-6 lg:px-10 mb-12 md:mb-16">
+        <div className="bg-gradient-to-r from-primary to-secondary p-1 rounded-2xl">
+          <div className="bg-surface rounded-2xl p-8 md:p-10 flex flex-col md:flex-row items-center gap-6">
+            <div className="flex-1">
+              <h2 className="text-2xl md:text-3xl font-bold text-primary mb-4">Unsure what you need?</h2>
+              <p className="text-sm md:text-base text-on-surface-variant">
+                Book a comprehensive dental check-up and consultation. Our experts will create a personalized treatment plan for you.
+              </p>
+            </div>
+            <div className="flex flex-col sm:flex-row gap-4 shrink-0">
+              <Link to="/contact" className="px-8 py-4 border border-primary text-primary rounded-full font-bold hover:bg-primary/5 transition-colors text-center">
+                Contact Us
+              </Link>
+              <Link to="/appointment" className="bg-gradient-to-r from-primary to-secondary text-white px-8 py-4 rounded-full font-bold shadow-lg shadow-primary/20 active:scale-95 transition-transform text-center">
+                Book Now
+              </Link>
+            </div>
+          </div>
+        </div>
+      </section>
+    );
+  }
+
+  // Default primary CTA
   return (
     <section className="py-12 md:py-16 px-6 lg:px-10">
       <div className="max-w-7xl mx-auto bg-primary rounded-xl overflow-hidden relative shadow-2xl">
@@ -298,56 +477,49 @@ export const CTASection = ({ variant = 'primary' }) => {
 };
 
 // ============================================
-// 9. FOOTER
+// 13. UNIFIED FOOTER
 // ============================================
-export const Footer = ({ variant = 'home' }) => {
-  const isAbout = variant === 'about';
-
-  return (
-    <footer className={`w-full ${isAbout ? 'mt-16 bg-surface-container-lowest' : 'bg-surface-container-highest'} border-t border-surface-variant`}>
-      <div className="grid grid-cols-1 md:grid-cols-4 gap-6 px-6 lg:px-10 py-8 md:py-12 max-w-7xl mx-auto">
-        <div className="space-y-4">
-          <Link to="/" className="flex items-center gap-2 text-lg font-bold text-primary">
-            {!isAbout && <Icon name="dentistry" className="text-primary text-2xl" />}
-            {isAbout ? 'PureDent' : 'PureDent Clinic'}
-          </Link>
-          <p className="text-sm text-on-surface-variant">
-            {isAbout 
-              ? 'Redefining modern dental care with precision and compassion. Your journey to a perfect smile starts here.'
-              : 'Leading the way in dental excellence. We provide comprehensive dental care for patients of all ages in a modern, caring environment.'
-            }
-          </p>
-        </div>
-        <div>
-          <h4 className="text-xs font-semibold text-primary uppercase tracking-wider mb-4">Quick Links</h4>
-          <ul className="space-y-2">
-            <li><Link className="text-sm text-on-surface-variant hover:text-secondary transition-colors" to="/about">About Us</Link></li>
-            <li><Link className="text-sm text-on-surface-variant hover:text-secondary transition-colors" to="/services">Our Services</Link></li>
-            <li><Link className="text-sm text-on-surface-variant hover:text-secondary transition-colors" to="/doctors">Our Doctors</Link></li>
-            <li><a className="text-sm text-on-surface-variant hover:text-secondary transition-colors" href="#">Patient Portal</a></li>
-          </ul>
-        </div>
-        <div>
-          <h4 className="text-xs font-semibold text-primary uppercase tracking-wider mb-4">Legal</h4>
-          <ul className="space-y-2">
-            <li><a className="text-sm text-on-surface-variant hover:text-secondary transition-colors" href="#">Privacy Policy</a></li>
-            <li><a className="text-sm text-on-surface-variant hover:text-secondary transition-colors" href="#">Terms of Service</a></li>
-            <li><a className="text-sm text-on-surface-variant hover:text-secondary transition-colors" href="#">Cookie Policy</a></li>
-          </ul>
-        </div>
-        <div>
-          <h4 className="text-xs font-semibold text-primary uppercase tracking-wider mb-4">Contact Us</h4>
-          <p className="text-sm text-on-surface-variant mb-2">123 Clinical Plaza, Medical District<br/>New York, NY 10001</p>
-          <p className="text-sm text-on-surface-variant">+1 (555) 123-4567</p>
-        </div>
+export const Footer = () => (
+  <footer className="bg-surface-container-highest border-t border-surface-variant w-full">
+    <div className="grid grid-cols-1 md:grid-cols-4 gap-6 px-6 lg:px-10 py-8 md:py-12 max-w-7xl mx-auto">
+      <div className="space-y-4">
+        <Link to="/" className="flex items-center gap-2 text-lg font-bold text-primary">
+          <Icon name="dentistry" className="text-primary text-2xl" />
+          PureDent Clinic
+        </Link>
+        <p className="text-sm text-on-surface-variant">
+          Leading the way in dental excellence. We provide comprehensive dental care for patients of all ages in a modern, caring environment.
+        </p>
       </div>
-      <div className="max-w-7xl mx-auto px-6 lg:px-10 py-4 border-t border-surface-variant/30 flex flex-col md:flex-row justify-between items-center gap-4">
-        <p className="text-sm text-on-surface-variant">© 2024 PureDent Dental Clinic. All rights reserved.</p>
-        <div className="flex gap-4">
-          <a className="text-on-surface-variant hover:text-primary" href="#"><Icon name="public" /></a>
-          <a className="text-on-surface-variant hover:text-primary" href="#"><Icon name="share" /></a>
-        </div>
+      <div>
+        <h4 className="text-xs font-semibold text-primary uppercase tracking-wider mb-4">Quick Links</h4>
+        <ul className="space-y-2">
+          <li><Link className="text-sm text-on-surface-variant hover:text-secondary transition-colors" to="/about">About Us</Link></li>
+          <li><Link className="text-sm text-on-surface-variant hover:text-secondary transition-colors" to="/services">Our Services</Link></li>
+          <li><Link className="text-sm text-on-surface-variant hover:text-secondary transition-colors" to="/doctors">Our Doctors</Link></li>
+          <li><a className="text-sm text-on-surface-variant hover:text-secondary transition-colors" href="#">Patient Portal</a></li>
+        </ul>
       </div>
-    </footer>
-  );
-};
+      <div>
+        <h4 className="text-xs font-semibold text-primary uppercase tracking-wider mb-4">Legal</h4>
+        <ul className="space-y-2">
+          <li><a className="text-sm text-on-surface-variant hover:text-secondary transition-colors" href="#">Privacy Policy</a></li>
+          <li><a className="text-sm text-on-surface-variant hover:text-secondary transition-colors" href="#">Terms of Service</a></li>
+          <li><a className="text-sm text-on-surface-variant hover:text-secondary transition-colors" href="#">Cookie Policy</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4 className="text-xs font-semibold text-primary uppercase tracking-wider mb-4">Contact Us</h4>
+        <p className="text-sm text-on-surface-variant mb-2">18,Yadaval Street<br/>Chennai, TN 628002</p>
+        <p className="text-sm text-on-surface-variant">+91 0987654321</p>
+      </div>
+    </div>
+    <div className="max-w-7xl mx-auto px-6 lg:px-10 py-4 border-t border-surface-variant/30 flex flex-col md:flex-row justify-between items-center gap-4">
+      <p className="text-sm text-on-surface-variant">© 2026 PureDent Dental Clinic. All rights reserved.</p>
+      <div className="flex gap-4">
+        <a className="text-on-surface-variant hover:text-primary" href="#"><Icon name="public" /></a>
+        <a className="text-on-surface-variant hover:text-primary" href="#"><Icon name="share" /></a>
+      </div>
+    </div>
+  </footer>
+);
