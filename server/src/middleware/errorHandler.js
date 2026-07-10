@@ -21,4 +21,6 @@ export function errorHandler(err, req, res, next) {
   // Anything unexpected: log full detail server-side, never leak internals to the client.
   console.error('[unhandled error]', err);
   return res.status(500).json({ error: 'Something went wrong. Please try again later.' });
+
+
 }

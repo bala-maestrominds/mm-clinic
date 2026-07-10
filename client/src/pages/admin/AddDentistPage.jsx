@@ -1,4 +1,4 @@
-import { useState } from "react";
+  import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 const SPECIALIZATIONS = [
@@ -91,12 +91,19 @@ export default function AddDentistPage() {
     setIsSubmitting(true);
     try {
       const payload = new FormData();
-      Object.entries(form).forEach(([key, value]) => {
-        payload.append(key, Array.isArray(value) ? JSON.stringify(value) : value);
-      });
+
+      payload.append("name", form.fullName);
+      payload.append("specialty", form.specialization);
+      payload.append("email", form.email);
+      payload.append("phone", form.phone);
+      payload.append("experienceYears", form.experienceYears);
+      payload.append("consultationFee", form.consultationFee);
+      payload.append("bio", form.bio);
+      payload.append("workingDays", JSON.stringify(form.workingDays));
+
       if (photoFile) payload.append("photo", photoFile);
 
-      const res = await fetch(`${API_BASE_URL}/api/dentists`, {
+      const res = await fetch(`${API_BASE_URL}/api/doctors/`, {
         method: "POST",
         body: payload,
       });

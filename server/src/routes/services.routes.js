@@ -5,6 +5,7 @@ import { asyncHandler } from '../utils/asyncHandler.js';
 const router = Router();
 
 router.get('/', asyncHandler(servicesController.list));
+router.get('/:id', asyncHandler(servicesController.getServiceById))
 router.get('/:slug', asyncHandler(servicesController.getBySlug));
 
 export default router;

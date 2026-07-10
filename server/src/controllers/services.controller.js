@@ -11,8 +11,14 @@ async function getBySlug(req, res) {
   res.json({ data: service });
 }
 
+async function getServiceById(req, res) {
+  const { id } = req.params;
+  const data = await servicesService.getServiceById(id)
+  res.json({data : data});
+}
 
 export const servicesController = {
   list,
   getBySlug,
+  getServiceById
 };

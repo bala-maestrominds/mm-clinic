@@ -3,16 +3,40 @@ import { doctorsService } from '../services/doctors.service.js';
 async function list(req, res) {
   const { specialty } = req.query;
   const doctors = await doctorsService.listDoctors({ specialty });
-  res.json({ data: doctors });
+  res.json({ data : doctors });
 }
 
 async function getById(req, res) {
   const doctor = await doctorsService.getDoctorById(req.params.id);
-  res.json({ data: doctor });
+  res.json({ data : doctor });
 }
 
+
 async function create(req, res) {
-  const doctor = await doctorsService.createDoctor(req.body);
+  const {
+    name,
+    specialty,
+    email,
+    phone,
+    experienceYears,
+    consultationFee,
+    bio,
+    workingHours,
+  } = req.body;
+
+  const payload = {
+    name: name?.trim(),
+    specialty,
+    email: email?.trim(),
+    phone: phone?.trim(),
+    experienceYears: Number(experienceYears) || 0,
+    consultationFee: Number(consultationFee) || 0,
+    bio: bio?.trim() || '',
+    workingHours: workingHours ? JSON.parse(workingHours) : [],
+    photoUrl: req.file ? `/uploads/${req.file.filename}` : '',
+  };
+
+  const doctor = await doctorsService.createDoctor(payload);
   res.status(201).json({ data: doctor });
 }
 
