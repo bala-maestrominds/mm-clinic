@@ -1,6 +1,5 @@
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import ProtectedRoute from "./components/ProtectedRoute";
-
 import AdminLoginPage from "./pages/admin/AdminLoginPage";
 import AdminDashboardPage from "./pages/admin/AdminDashboardPage";
 import AddDentistPage from "./pages/admin/AddDentistPage";
@@ -11,16 +10,29 @@ import PaymentsPage from "./pages/admin/PaymentsPage";
 import InventoryPage from "./pages/admin/InventoryPage";
 import SettingsPage from "./pages/admin/SettingsPage";
 import ContactPage from "./pages/public/ContactPage";
+import CheckInPage from "./pages/admin/CheckInPage";
+import BookingPage from "./pages/public/BookingPage";
+import LandingPage from "./pages/public/LandingPage"; 
+import AboutPage from "./pages/public/AboutPage";
+import ServicesPage from "./pages/public/ServicesPage";
+import ServiceDetailPage from "./pages/public/ServiceDetailPage";
+import DoctorsPage from "./pages/public/DoctorsPage"; 
+import DoctorDetailPage from "./pages/public/DoctorDetailPage"; 
 
 function App() {
   return (
     <BrowserRouter>
       <Routes>
-        {/* Redirect the root URL to the admin login page */}
-        <Route path="/" element={<Navigate to="/admin/login" replace />} />
+        <Route path="/" element={<LandingPage />} />
+        <Route path="/about" element={<AboutPage />} />
+        <Route path="/services" element={<ServicesPage />} /> 
+        <Route path="/services/:serviceId" element={<ServiceDetailPage />} />
+        <Route path="/doctors" element={<DoctorsPage />} />
+        <Route path="/doctors/:doctorId" element={<DoctorDetailPage />} />
 
         {/* Public Routes */}
         <Route path="/contact" element={<ContactPage />} />
+        <Route path="/book" element={<BookingPage />} />
 
         {/* Admin Routes */}
         <Route path="/admin/login" element={<AdminLoginPage />} />
@@ -93,6 +105,15 @@ function App() {
           element={
             <ProtectedRoute>
               <SettingsPage />
+            </ProtectedRoute>
+          }
+        />
+
+        <Route
+          path="/admin/checkin"
+          element={
+            <ProtectedRoute>
+              <CheckInPage />
             </ProtectedRoute>
           }
         />

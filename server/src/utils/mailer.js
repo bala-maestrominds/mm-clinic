@@ -45,6 +45,55 @@ export function createTransporter() {
   });
 }
 
+export function buildAppointmentEmail(appointment) {
+  const safe = (s) => String(s ?? '').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+
+  const dateLabel = new Date(`${appointment.date}T00:00:00`).toLocaleDateString('en-US', {
+    weekday: 'long',
+    year: 'numeric',
+    month: 'long',
+    day: 'numeric',
+  });
+
+  return {
+    subject: `Your PureDent Appointment is Confirmed — ${appointment.appointmentCode}`,
+    text:
+      `Hi ${appointment.patientName},\n\n` +
+      `Your appointment at PureDent Clinic is confirmed.\n\n` +
+      `Booking ID: ${appointment.appointmentCode}\n` +
+      `Service: ${appointment.serviceName}\n` +
+      `Doctor: ${appointment.doctorName}\n` +
+      `Date: ${dateLabel}\n` +
+      `Time: ${appointment.time}\n\n` +
+      `Your ticket is attached as a PDF. Please bring it (printed or on your phone) ` +
+      `and show the QR code at reception when you arrive.\n\n` +
+      `See you soon!\nPureDent Clinic`,
+    html: `
+      <div style="font-family: 'Inter', Arial, sans-serif; color: #181c1c; max-width: 560px; margin: 0 auto;">
+        <div style="background: #005c55; padding: 24px; border-radius: 12px 12px 0 0;">
+          <h2 style="color: #ffffff; margin: 0; font-family: 'Plus Jakarta Sans', Arial, sans-serif;">Appointment Confirmed</h2>
+        </div>
+        <div style="background: #f7faf8; padding: 24px; border-radius: 0 0 12px 12px; border: 1px solid #e0e3e1; border-top: none;">
+          <p style="margin: 0 0 16px;">Hi ${safe(appointment.patientName)}, your visit to PureDent Clinic is booked.</p>
+          <div style="background: #ffffff; border: 1px solid #e0e3e1; border-radius: 8px; padding: 16px;">
+            <p style="margin: 0 0 8px;"><strong>Booking ID:</strong> ${safe(appointment.appointmentCode)}</p>
+            <p style="margin: 0 0 8px;"><strong>Service:</strong> ${safe(appointment.serviceName)}</p>
+            <p style="margin: 0 0 8px;"><strong>Doctor:</strong> ${safe(appointment.doctorName)}</p>
+            <p style="margin: 0 0 8px;"><strong>Date:</strong> ${safe(dateLabel)}</p>
+            <p style="margin: 0;"><strong>Time:</strong> ${safe(appointment.time)}</p>
+          </div>
+          <p style="margin-top: 16px; font-size: 13px;">
+            Your ticket is attached as a PDF, with a QR code — please show it at reception when you arrive.
+          </p>
+          <p style="margin-top: 24px; font-size: 12px; color: #3e4947;">
+            This is an automated confirmation from the PureDent Clinic booking system.
+          </p>
+        </div>
+      </div>
+    `,
+  };
+}
+
 export function buildContactEmail({ name, email, service, message }) {
   const safe = (s) => String(s).replace(/</g, "&lt;").replace(/>/g, "&gt;");
 

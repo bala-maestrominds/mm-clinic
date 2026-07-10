@@ -9,6 +9,7 @@ import { ApiError } from './utils/ApiError.js';
 import doctorsRoutes from './routes/doctors.routes.js';
 import servicesRoutes from './routes/services.routes.js';
 import contactRoutes from './routes/contact.routes.js';
+import appointmentsRoutes from './routes/appointments.routes.js'
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -26,6 +27,7 @@ export function createApp() {
   app.use('/api/doctors', doctorsRoutes);
   app.use('/api/services', servicesRoutes);
   app.use('/api/contact', contactRoutes);
+   app.use('/api/appointments', appointmentsRoutes); 
 
   app.use((req, res, next) => {
     next(new ApiError(404, `Route not found: ${req.method} ${req.originalUrl}`));

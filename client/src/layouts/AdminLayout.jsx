@@ -5,6 +5,7 @@ import { logoutAdmin } from "../utils/auth";
 export const NAV_ITEMS = [
   { icon: "dashboard", label: "Dashboard", path: "/admin/dashboard" },
   { icon: "calendar_today", label: "Appointments", path: "/admin/appointments" },
+  { icon: "qr_code_scanner", label: "Check-In", path: "/admin/checkin" },
   { icon: "group", label: "Patients", path: "/admin/patients" },
   { icon: "medical_services", label: "Treatments", path: "/admin/treatments" },
   { icon: "payments", label: "Payments", path: "/admin/payments" },
