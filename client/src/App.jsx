@@ -5,7 +5,8 @@ import AdminLoginPage from "./pages/admin/AdminLoginPage";
 import AdminDashboardPage from "./pages/admin/AdminDashboardPage";
 import AddDentistPage from "./pages/admin/AddDentistPage";
 import ContactPage from "./pages/public/ContactPage";
-import LandingPage from "./pages/public/LandingPage"; // Import the landing page
+import LandingPage from "./pages/public/LandingPage"; 
+import AboutPage from "./pages/public/AboutPage";
 
 function App() {
   return (
@@ -13,10 +14,8 @@ function App() {
       <Routes>
         {/* Make Landing Page the default */}
         <Route path="/" element={<LandingPage />} />
+         <Route path="/about" element={<AboutPage />} />
         
-        {/* Or keep admin login as default and access home via /home */}
-        {/* <Route path="/" element={<Navigate to="/admin/login" replace />} /> */}
-        {/* <Route path="/home" element={<LandingPage />} /> */}
 
         {/* Public Routes */}
         <Route path="/contact" element={<ContactPage />} />

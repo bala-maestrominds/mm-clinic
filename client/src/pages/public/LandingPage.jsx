@@ -1,5 +1,3 @@
-// src/pages/public/LandingPage.jsx
-// src/pages/public/LandingPage.jsx
 import React from 'react';
 import { 
   NavBar, 
@@ -7,10 +5,11 @@ import {
   FeatureCard, 
   ServiceCard, 
   TestimonialCard, 
-  CTASection,  // Make sure this is spelled exactly like this
+  CTASection, 
   Footer,
-  Icon
-} from '../../components/PureDentComponents';
+  Icon,
+  GlassCard
+} from '../../components/SharedComponents';
 
 // Images
 const heroImage = "https://lh3.googleusercontent.com/aida-public/AB6AXuBAjguS2Ikga6m4mMkiO6CaDaQK7EdW05Dj2uKAwgoBg3S9vsul7w00WJz999ROrFwkJ05PxY_alDfnQxUY55yMfz8pTX4VasNQFw_va5NAIwKPY6qjCLL5R__wJRFUzRhk9KRIjvNAkyauRIXkJH83UnIQBtfHAiWp8DlbpmfkYBFXldMHMYaJmg8Xnv506j0zZvEod69kxRhZmFTrbzoVvxUxm6GP519yJwxL1VHELZo-oG0xojjB";

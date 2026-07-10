@@ -1,14 +1,8 @@
 // src/components/PureDentComponents.jsx
 import React, { useState, useEffect, useRef } from 'react';
+import { Link, NavLink } from 'react-router-dom';
 
-// Reusable Card component
-export const GlassCard = ({ children, className = '' }) => (
-  <div className={`bg-white/70 backdrop-blur-md border border-primary/5 rounded-lg shadow-[0px_10px_30px_rgba(15,118,110,0.1)] ${className}`}>
-    {children}
-  </div>
-);
-
-// Icon wrapper for material symbols
+// ============= EXPORT: Icon =============
 export const Icon = ({ name, className = '', fill = false }) => (
   <span 
     className={`material-symbols-outlined ${className}`}
@@ -18,7 +12,14 @@ export const Icon = ({ name, className = '', fill = false }) => (
   </span>
 );
 
-// Navigation Bar Component
+// ============= EXPORT: GlassCard =============
+export const GlassCard = ({ children, className = '' }) => (
+  <div className={`bg-white/70 backdrop-blur-md border border-primary/5 rounded-lg shadow-[0px_10px_30px_rgba(15,118,110,0.1)] ${className}`}>
+    {children}
+  </div>
+);
+
+// ============= EXPORT: NavBar =============
 export const NavBar = () => {
   const [scrolled, setScrolled] = useState(false);
 
@@ -30,38 +31,48 @@ export const NavBar = () => {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
+  const navLinkClass = ({ isActive }) => 
+    `font-medium transition-colors duration-200 ${
+      isActive 
+        ? 'text-primary border-b-2 border-primary pb-1' 
+        : 'text-on-surface-variant hover:text-primary'
+    }`;
+
   return (
     <header className={`fixed top-0 w-full z-50 backdrop-blur-md shadow-sm transition-all duration-300 ${
       scrolled ? 'bg-white/95 shadow-md' : 'bg-surface/80'
     }`}>
       <nav className="flex justify-between items-center px-6 lg:px-10 py-4 w-full max-w-7xl mx-auto">
-        <div className="flex items-center gap-2">
+        <Link to="/" className="flex items-center gap-2">
           <Icon name="dentistry" className="text-primary text-3xl" />
           <span className="text-lg md:text-xl font-bold text-primary dark:text-inverse-primary">
             PureDent Clinic
           </span>
-        </div>
+        </Link>
         <div className="hidden md:flex items-center space-x-8">
-          <a className="text-on-surface-variant font-medium hover:text-primary transition-colors duration-200" href="#about">About</a>
-          <a className="text-on-surface-variant font-medium hover:text-primary transition-colors duration-200" href="#services">Services</a>
-          <a className="text-on-surface-variant font-medium hover:text-primary transition-colors duration-200" href="#doctors">Doctors</a>
-          <a className="text-on-surface-variant font-medium hover:text-primary transition-colors duration-200" href="#gallery">Gallery</a>
-          <a className="text-on-surface-variant font-medium hover:text-primary transition-colors duration-200" href="#faq">Contact</a>
+          <NavLink to="/" className={navLinkClass} end>Home</NavLink>
+          <NavLink to="/about" className={navLinkClass}>About</NavLink>
+          <NavLink to="/services" className={navLinkClass}>Services</NavLink>
+          <NavLink to="/doctors" className={navLinkClass}>Doctors</NavLink>
+          <NavLink to="/contact" className={navLinkClass}>Contact</NavLink>
         </div>
         <div className="flex items-center gap-4">
           <button className="hidden lg:block px-6 py-3 text-sm font-semibold text-primary border border-primary/20 rounded-lg hover:bg-primary/5 transition-all active:scale-95">
             Patient Login
           </button>
-          <button className="px-6 py-3 bg-primary text-white text-sm font-semibold rounded-lg shadow-md hover:bg-primary-container transition-all active:scale-95">
+          <Link 
+            to="/appointment" 
+            className="px-6 py-3 bg-primary text-white text-sm font-semibold rounded-lg shadow-md hover:bg-primary-container transition-all active:scale-95"
+          >
             Book Appointment
-          </button>
+          </Link>
         </div>
       </nav>
     </header>
   );
 };
 
-// Stats Counter Component
+// ============= EXPORT: StatCounter =============
 export const StatCounter = ({ target, label, suffix = '' }) => {
   const [count, setCount] = useState(0);
   const elementRef = useRef(null);
@@ -125,7 +136,7 @@ export const StatCounter = ({ target, label, suffix = '' }) => {
   );
 };
 
-// Feature Card Component
+// ============= EXPORT: FeatureCard =============
 export const FeatureCard = ({ icon, title, description }) => (
   <div className="p-6 rounded-lg bg-white/70 backdrop-blur-md border border-primary/5 hover:bg-white hover:shadow-xl transition-all group">
     <div className="w-14 h-14 md:w-16 md:h-16 bg-surface-container flex items-center justify-center rounded-xl mb-4 md:mb-6 group-hover:bg-primary/10 transition-colors">
@@ -136,7 +147,7 @@ export const FeatureCard = ({ icon, title, description }) => (
   </div>
 );
 
-// Service Card Component
+// ============= EXPORT: ServiceCard =============
 export const ServiceCard = ({ title, description, image, icon }) => {
   const [imgError, setImgError] = useState(false);
 
@@ -173,7 +184,7 @@ export const ServiceCard = ({ title, description, image, icon }) => {
   );
 };
 
-// Testimonial Card Component
+// ============= EXPORT: TestimonialCard =============
 export const TestimonialCard = ({ quote, name, role, image, initials }) => (
   <div className="p-6 md:p-8 rounded-lg bg-white/70 backdrop-blur-md border border-primary/10 flex flex-col h-full hover:shadow-lg transition-shadow">
     <div className="flex gap-1 mb-4 md:mb-6 text-secondary">
@@ -204,7 +215,7 @@ export const TestimonialCard = ({ quote, name, role, image, initials }) => (
   </div>
 );
 
-// CTA Section Component - MAKE SURE THIS IS EXPORTED
+// ============= EXPORT: CTASection =============
 export const CTASection = () => (
   <section className="py-12 md:py-16 px-6 lg:px-10">
     <div className="max-w-7xl mx-auto bg-primary rounded-xl overflow-hidden relative shadow-2xl">
@@ -215,19 +226,25 @@ export const CTASection = () => (
           Book your first consultation today and join our family of happy patients. We are currently accepting new patients.
         </p>
         <div className="flex flex-col sm:flex-row gap-4 justify-center">
-          <button className="px-8 md:px-10 py-4 md:py-5 bg-white text-primary font-bold rounded-lg hover:bg-gray-100 transition-all active:scale-95 text-base md:text-lg">
+          <Link 
+            to="/appointment" 
+            className="px-8 md:px-10 py-4 md:py-5 bg-white text-primary font-bold rounded-lg hover:bg-gray-100 transition-all active:scale-95 text-base md:text-lg"
+          >
             Book Appointment Now
-          </button>
-          <button className="px-8 md:px-10 py-4 md:py-5 bg-transparent border-2 border-white/30 text-white font-bold rounded-lg hover:bg-white/10 transition-all active:scale-95 text-base md:text-lg flex items-center justify-center gap-2">
+          </Link>
+          <Link 
+            to="/contact" 
+            className="px-8 md:px-10 py-4 md:py-5 bg-transparent border-2 border-white/30 text-white font-bold rounded-lg hover:bg-white/10 transition-all active:scale-95 text-base md:text-lg flex items-center justify-center gap-2"
+          >
             <Icon name="call" /> Contact Us
-          </button>
+          </Link>
         </div>
       </div>
     </div>
   </section>
 );
 
-// Footer Component
+// ============= EXPORT: Footer =============
 export const Footer = () => (
   <footer className="bg-surface-container-highest w-full border-t border-outline-variant">
     <div className="max-w-7xl mx-auto px-6 lg:px-10 py-8 md:py-12">
@@ -244,9 +261,9 @@ export const Footer = () => (
         <div>
           <h5 className="text-primary font-bold mb-4 md:mb-6">Quick Links</h5>
           <ul className="space-y-2 md:space-y-4">
-            <li><a className="text-sm md:text-base text-on-surface-variant hover:text-primary transition-colors" href="#">About Us</a></li>
-            <li><a className="text-sm md:text-base text-on-surface-variant hover:text-primary transition-colors" href="#">Our Services</a></li>
-            <li><a className="text-sm md:text-base text-on-surface-variant hover:text-primary transition-colors" href="#">Meet Our Doctors</a></li>
+            <li><Link className="text-sm md:text-base text-on-surface-variant hover:text-primary transition-colors" to="/about">About Us</Link></li>
+            <li><Link className="text-sm md:text-base text-on-surface-variant hover:text-primary transition-colors" to="/services">Our Services</Link></li>
+            <li><Link className="text-sm md:text-base text-on-surface-variant hover:text-primary transition-colors" to="/doctors">Meet Our Doctors</Link></li>
             <li><a className="text-sm md:text-base text-on-surface-variant hover:text-primary transition-colors" href="#">Patient Education</a></li>
           </ul>
         </div>
