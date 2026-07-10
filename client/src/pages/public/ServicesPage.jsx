@@ -208,7 +208,7 @@ export default function ServicesPage() {
             <span className="inline-block px-4 py-1.5 bg-secondary-container text-on-secondary-container rounded-full text-xs font-semibold mb-6">
               EXCELLENCE IN CARE
             </span>
-            <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 bg-linear-to-r from-primary to-secondary bg-clip-text text-transparent">
+            <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 text-primary">
               Our Specialized Dental Services
             </h1>
             <p className="text-lg text-on-surface-variant max-w-2xl mx-auto mb-8 md:mb-10">

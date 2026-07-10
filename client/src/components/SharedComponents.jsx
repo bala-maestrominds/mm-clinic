@@ -34,35 +34,57 @@ export const GlassCardLight = ({ children, className = '' }) => (
 // ============================================
 export const NavBar = () => {
   const [scrolled, setScrolled] = useState(false);
+  const [isOpen, setIsOpen] = useState(false);
+  const mobileMenuRef = useRef(null);
 
+  // Monitor scroll height to change background styling
   useEffect(() => {
     const handleScroll = () => {
       setScrolled(window.scrollY > 20);
     };
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  const navLinkClass = ({ isActive }) => 
-    `text-sm md:text-base font-medium transition-colors duration-200 ${
-      isActive 
-        ? 'text-primary border-b-2 border-primary pb-1' 
-        : 'text-on-surface-variant hover:text-primary'
+  // Close mobile menu when clicking outside of it
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (mobileMenuRef.current && !mobileMenuRef.current.contains(event.target)) {
+        setIsOpen(false);
+      }
+    };
+    if (isOpen) {
+      document.addEventListener("mousedown", handleClickOutside);
+    }
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, [isOpen]);
+
+  // Unified link class function supporting desktop and mobile states
+  const navLinkClass = ({ isActive }) =>
+    `text-base md:text-sm lg:text-base font-medium transition-colors duration-200 block py-3 md:py-0 ${
+      isActive
+        ? "text-primary border-l-4 border-primary pl-3 md:border-l-0 md:border-b-2 md:pl-0 md:pb-1"
+        : "text-on-surface-variant hover:text-primary pl-3 md:pl-0"
     }`;
 
   return (
-    <header className={`fixed top-0 w-full z-50 backdrop-blur-md shadow-sm transition-all duration-300 ${
-      scrolled ? 'bg-white/95 shadow-md' : 'bg-surface/80'
-    }`}>
-      <nav className="flex justify-between items-center px-6 lg:px-10 py-4 max-w-7xl mx-auto">
-        <Link to="/" className="flex items-center gap-2">
+    <header
+      className={`fixed top-0 w-full z-50 backdrop-blur-md transition-all duration-300 ${
+        scrolled || isOpen ? "bg-white/95 shadow-md" : "bg-surface/80 shadow-sm"
+      }`}
+    >
+      <nav className="flex justify-between items-center px-4 sm:px-6 lg:px-10 py-4 max-w-7xl mx-auto">
+        
+        {/* Brand Logo */}
+        <Link to="/" className="flex items-center gap-2 z-50" onClick={() => setIsOpen(false)}>
           <Icon name="dentistry" className="text-primary text-3xl" />
           <span className="text-lg md:text-xl font-bold text-primary dark:text-inverse-primary">
             PureDent Clinic
           </span>
         </Link>
 
-        <div className="hidden md:flex items-center space-x-6 lg:space-x-8">
+        {/* Desktop Navigation */}
+        <div className="hidden md:flex items-center space-x-5 lg:space-x-8">
           <NavLink to="/" className={navLinkClass} end>Home</NavLink>
           <NavLink to="/about" className={navLinkClass}>About</NavLink>
           <NavLink to="/services" className={navLinkClass}>Services</NavLink>
@@ -70,18 +92,63 @@ export const NavBar = () => {
           <NavLink to="/contact" className={navLinkClass}>Contact</NavLink>
         </div>
 
-        <div className="flex items-center gap-4">
-          <button className="hidden lg:block px-6 py-3 text-sm font-semibold text-primary border border-primary/20 rounded-lg hover:bg-primary/5 transition-all active:scale-95">
+        {/* Action Buttons & Mobile Toggle */}
+        <div className="flex items-center gap-2 sm:gap-4">
+          <button className="hidden lg:block px-5 py-2.5 text-sm font-semibold text-primary border border-primary/20 rounded-lg hover:bg-primary/5 transition-all active:scale-95">
             Patient Login
           </button>
-          <Link 
-            to="/book" 
-            className="px-6 py-3 bg-primary text-white text-sm font-semibold rounded-lg shadow-md hover:bg-primary-container transition-all active:scale-95"
+          
+          <Link
+            to="/book"
+            onClick={() => setIsOpen(false)}
+            className="hidden sm:inline-block md:inline-block lg:inline-block px-5 py-2.5 bg-primary text-white text-sm font-semibold rounded-lg shadow-md hover:bg-primary-container transition-all active:scale-95"
           >
             Book Appointment
           </Link>
+
+          {/* Mobile Menu Toggle Button */}
+          <button
+            type="button"
+            onClick={() => setIsOpen(!isOpen)}
+            className="p-2 md:hidden text-on-surface-variant hover:text-primary transition-colors focus:outline-none"
+            aria-label="Toggle navigation menu"
+          >
+            <span className="material-symbols-outlined text-2xl block">
+              {isOpen ? "close" : "menu"}
+            </span>
+          </button>
         </div>
       </nav>
+
+      {/* Mobile Drawer Slide-Down Overlay */}
+      <div
+        ref={mobileMenuRef}
+        className={`md:hidden absolute top-full left-0 w-full bg-white border-t border-outline-variant/10 shadow-xl overflow-hidden transition-all duration-300 ease-in-out ${
+          isOpen ? "max-h-[400px] opacity-100 visible" : "max-h-0 opacity-0 invisible"
+        }`}
+      >
+        <div className="px-6 py-4 space-y-1 flex flex-col">
+          <NavLink to="/" className={navLinkClass} end onClick={() => setIsOpen(false)}>Home</NavLink>
+          <NavLink to="/about" className={navLinkClass} onClick={() => setIsOpen(false)}>About</NavLink>
+          <NavLink to="/services" className={navLinkClass} onClick={() => setIsOpen(false)}>Services</NavLink>
+          <NavLink to="/doctors" className={navLinkClass} onClick={() => setIsOpen(false)}>Doctors</NavLink>
+          <NavLink to="/contact" className={navLinkClass} onClick={() => setIsOpen(false)}>Contact</NavLink>
+          
+          {/* Mobile-only CTA action items */}
+          <div className="pt-4 border-t border-outline-variant/30 flex flex-col gap-3">
+            <button className="w-full py-3 text-sm font-semibold text-primary border border-primary/20 rounded-lg hover:bg-primary/5 transition-all">
+              Patient Login
+            </button>
+            <Link
+              to="/book"
+              onClick={() => setIsOpen(false)}
+              className="w-full text-center py-3 bg-primary text-white text-sm font-semibold rounded-lg shadow-md hover:opacity-90 transition-all"
+            >
+              Book Appointment
+            </Link>
+          </div>
+        </div>
+      </div>
     </header>
   );
 };
@@ -427,30 +494,6 @@ export const CTASection = ({ variant = 'primary' }) => {
     );
   }
 
-  if (variant === 'services') {
-    return (
-      <section className="max-w-7xl mx-auto px-6 lg:px-10 mb-12 md:mb-16">
-        <div className="bg-linear-to-r from-primary to-secondary p-1 rounded-2xl">
-          <div className="bg-surface rounded-2xl p-8 md:p-10 flex flex-col md:flex-row items-center gap-6">
-            <div className="flex-1">
-              <h2 className="text-2xl md:text-3xl font-bold text-primary mb-4">Unsure what you need?</h2>
-              <p className="text-sm md:text-base text-on-surface-variant">
-                Book a comprehensive dental check-up and consultation. Our experts will create a personalized treatment plan for you.
-              </p>
-            </div>
-            <div className="flex flex-col sm:flex-row gap-4 shrink-0">
-              <Link to="/contact" className="px-8 py-4 border border-primary text-primary rounded-full font-bold hover:bg-primary/5 transition-colors text-center">
-                Contact Us
-              </Link>
-              <Link to="/book" className="bg-linear-to-r from-primary to-secondary text-white px-8 py-4 rounded-full font-bold shadow-lg shadow-primary/20 active:scale-95 transition-transform text-center">
-                Book Now
-              </Link>
-            </div>
-          </div>
-        </div>
-      </section>
-    );
-  }
 
   // Default primary CTA
   return (
@@ -481,44 +524,69 @@ export const CTASection = ({ variant = 'primary' }) => {
 // ============================================
 export const Footer = () => (
   <footer className="bg-surface-container-highest border-t border-surface-variant w-full">
-    <div className="grid grid-cols-1 md:grid-cols-4 gap-6 px-6 lg:px-10 py-8 md:py-12 max-w-7xl mx-auto">
-      <div className="space-y-4">
+    {/* FIXED: Changed to grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 to distribute columns beautifully across the screen */}
+    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-8 lg:gap-6 px-6 lg:px-10 py-10 md:py-12 max-w-7xl mx-auto">
+      
+      {/* Brand Box - FIXED: Added lg:col-span-2 and max-w-sm so the paragraph has plenty of room to breathe instead of breaking per word */}
+      <div className="space-y-4 sm:col-span-2 lg:col-span">
         <Link to="/" className="flex items-center gap-2 text-lg font-bold text-primary">
           <Icon name="dentistry" className="text-primary text-2xl" />
           PureDent Clinic
         </Link>
-        <p className="text-sm text-on-surface-variant">
+        <p className="text-s text-on-surface-variant leading-relaxed">
           Leading the way in dental excellence. We provide comprehensive dental care for patients of all ages in a modern, caring environment.
         </p>
       </div>
+
+      {/* Quick Links */}
       <div>
         <h4 className="text-xs font-semibold text-primary uppercase tracking-wider mb-4">Quick Links</h4>
-        <ul className="space-y-2">
-          <li><Link className="text-sm text-on-surface-variant hover:text-secondary transition-colors" to="/about">About Us</Link></li>
-          <li><Link className="text-sm text-on-surface-variant hover:text-secondary transition-colors" to="/services">Our Services</Link></li>
-          <li><Link className="text-sm text-on-surface-variant hover:text-secondary transition-colors" to="/doctors">Our Doctors</Link></li>
-          <li><a className="text-sm text-on-surface-variant hover:text-secondary transition-colors" href="#">Patient Portal</a></li>
+        <ul className="space-y-2.5">
+          <li><Link className="text-sm text-on-surface-variant hover:text-secondary transition-colors block py-0.5" to="/about">About Us</Link></li>
+          <li><Link className="text-sm text-on-surface-variant hover:text-secondary transition-colors block py-0.5" to="/services">Our Services</Link></li>
+          <li><Link className="text-sm text-on-surface-variant hover:text-secondary transition-colors block py-0.5" to="/doctors">Our Doctors</Link></li>
+          <li><a className="text-sm text-on-surface-variant hover:text-secondary transition-colors block py-0.5" href="#">Patient Portal</a></li>
         </ul>
       </div>
+
+      {/* Legal Links */}
       <div>
         <h4 className="text-xs font-semibold text-primary uppercase tracking-wider mb-4">Legal</h4>
-        <ul className="space-y-2">
-          <li><a className="text-sm text-on-surface-variant hover:text-secondary transition-colors" href="#">Privacy Policy</a></li>
-          <li><a className="text-sm text-on-surface-variant hover:text-secondary transition-colors" href="#">Terms of Service</a></li>
-          <li><a className="text-sm text-on-surface-variant hover:text-secondary transition-colors" href="#">Cookie Policy</a></li>
+        <ul className="space-y-2.5">
+          <li><a className="text-sm text-on-surface-variant hover:text-secondary transition-colors block py-0.5" href="#">Privacy Policy</a></li>
+          <li><a className="text-sm text-on-surface-variant hover:text-secondary transition-colors block py-0.5" href="#">Terms of Service</a></li>
+          <li><a className="text-sm text-on-surface-variant hover:text-secondary transition-colors block py-0.5" href="#">Cookie Policy</a></li>
         </ul>
       </div>
+
+      {/* Contact Info */}
       <div>
         <h4 className="text-xs font-semibold text-primary uppercase tracking-wider mb-4">Contact Us</h4>
-        <p className="text-sm text-on-surface-variant mb-2">18,Yadaval Street<br/>Chennai, TN 628002</p>
-        <p className="text-sm text-on-surface-variant">+91 0987654321</p>
+        <address className="not-italic space-y-2">
+          <p className="text-sm text-on-surface-variant leading-relaxed">
+            18, Yadaval Street<br />
+            Chennai, TN 628002
+          </p>
+          <p className="text-sm text-on-surface-variant font-medium pt-1 block">
+            +91 0987654321
+          </p>
+        </address>
       </div>
     </div>
-    <div className="max-w-7xl mx-auto px-6 lg:px-10 py-4 border-t border-surface-variant/30 flex flex-col md:flex-row justify-between items-center gap-4">
-      <p className="text-sm text-on-surface-variant">© 2026 PureDent Dental Clinic. All rights reserved.</p>
-      <div className="flex gap-4">
-        <a className="text-on-surface-variant hover:text-primary" href="#"><Icon name="public" /></a>
-        <a className="text-on-surface-variant hover:text-primary" href="#"><Icon name="share" /></a>
+
+    {/* Lower Copyright & Social Bar */}
+    <div className="max-w-7xl mx-auto px-6 lg:px-10 py-6 border-t border-surface-variant/30 flex flex-col-reverse md:flex-row justify-between items-center gap-4 text-center md:text-left">
+      <p className="text-xs sm:text-sm text-on-surface-variant">
+        © 2026 PureDent Dental Clinic. All rights reserved.
+      </p>
+      
+      <div className="flex gap-6 items-center">
+        <a className="text-on-surface-variant hover:text-primary transition-colors p-1" aria-label="Website" href="#">
+          <Icon name="public" className="text-xl" />
+        </a>
+        <a className="text-on-surface-variant hover:text-primary transition-colors p-1" aria-label="Share platform" href="#">
+          <Icon name="share" className="text-xl" />
+        </a>
       </div>
     </div>
   </footer>
