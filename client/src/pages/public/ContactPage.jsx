@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { NavBar } from "../../components/SharedComponents";
 
 const SERVICES = [
   "General Dentistry",
@@ -68,7 +69,9 @@ export default function ContactPage() {
   };
 
   return (
-    <div className="w-full min-h-screen bg-slate-50 text-slate-800 selection:bg-teal-200 antialiased font-sans">
+    <div className="bg-background text-on-surface font-body-md antialiased overflow-x-hidden">
+      <NavBar />
+      <div className="w-full min-h-screen bg-slate-50 text-slate-800 selection:bg-teal-200 antialiased font-sans">
       <main className="pt-12">
         {/* Hero Section */}
         <section className="relative px-4 md:px-8 py-12 overflow-hidden">
@@ -369,6 +372,7 @@ export default function ContactPage() {
           </div>
         </div>
       </footer>
+    </div>
     </div>
   );
 }

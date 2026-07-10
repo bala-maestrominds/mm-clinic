@@ -1,4 +1,4 @@
-  import { useState } from "react";
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 const SPECIALIZATIONS = [
@@ -12,6 +12,15 @@ const SPECIALIZATIONS = [
 ];
 
 const WEEKDAYS = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"];
+const DAY_FULL_NAME = {
+  Mon: "monday",
+  Tue: "tuesday",
+  Wed: "wednesday",
+  Thu: "thursday",
+  Fri: "friday",
+  Sat: "saturday",
+  Sun: "sunday",
+};
 
 const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || "http://localhost:5000";
 
@@ -24,6 +33,9 @@ const initialForm = {
   consultationFee: "",
   bio: "",
   workingDays: [],
+  startTime: "09:00",
+  endTime: "17:00",
+  slotDurationMinutes: "30",
 };
 
 export default function AddDentistPage() {
@@ -78,6 +90,7 @@ export default function AddDentistPage() {
     if (!form.experienceYears || Number(form.experienceYears) < 0)
       next.experienceYears = "Enter a valid number of years.";
     if (form.workingDays.length === 0) next.workingDays = "Select at least one working day.";
+    if (form.startTime >= form.endTime) next.workingDays = "End time must be after start time.";
     setErrors(next);
     return Object.keys(next).length === 0;
   };
@@ -92,6 +105,12 @@ export default function AddDentistPage() {
     try {
       const payload = new FormData();
 
+      const workingHours = form.workingDays.map((day) => ({
+        day: DAY_FULL_NAME[day],
+        startTime: form.startTime,
+        endTime: form.endTime,
+      }));
+
       payload.append("name", form.fullName);
       payload.append("specialty", form.specialization);
       payload.append("email", form.email);
@@ -99,7 +118,8 @@ export default function AddDentistPage() {
       payload.append("experienceYears", form.experienceYears);
       payload.append("consultationFee", form.consultationFee);
       payload.append("bio", form.bio);
-      payload.append("workingDays", JSON.stringify(form.workingDays));
+      payload.append("workingHours", JSON.stringify(workingHours));
+      payload.append("slotDurationMinutes", form.slotDurationMinutes);
 
       if (photoFile) payload.append("photo", photoFile);
 
@@ -108,7 +128,10 @@ export default function AddDentistPage() {
         body: payload,
       });
 
-      if (!res.ok) throw new Error("Request failed");
+      if (!res.ok) {
+        const errJson = await res.json().catch(() => ({}));
+        throw new Error(errJson.error || "Request failed");
+      }
 
       setSubmitStatus("success");
       setForm(initialForm);
@@ -277,6 +300,38 @@ export default function AddDentistPage() {
               })}
             </div>
             {errors.workingDays && <p className="text-error text-body-sm">{errors.workingDays}</p>}
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-md">
+            <div className="space-y-xs">
+              <label className="font-label-md text-label-md text-on-surface-variant">Start Time</label>
+              <input
+                type="time"
+                className="w-full h-12 px-md rounded-xl border border-outline-variant bg-surface-container-lowest focus:ring-2 focus:ring-secondary/20 focus:border-secondary outline-none transition-all"
+                value={form.startTime}
+                onChange={(e) => updateField("startTime", e.target.value)}
+              />
+            </div>
+            <div className="space-y-xs">
+              <label className="font-label-md text-label-md text-on-surface-variant">End Time</label>
+              <input
+                type="time"
+                className="w-full h-12 px-md rounded-xl border border-outline-variant bg-surface-container-lowest focus:ring-2 focus:ring-secondary/20 focus:border-secondary outline-none transition-all"
+                value={form.endTime}
+                onChange={(e) => updateField("endTime", e.target.value)}
+              />
+            </div>
+            <div className="space-y-xs">
+              <label className="font-label-md text-label-md text-on-surface-variant">Slot Length (mins)</label>
+              <input
+                type="number"
+                min="5"
+                step="5"
+                className="w-full h-12 px-md rounded-xl border border-outline-variant bg-surface-container-lowest focus:ring-2 focus:ring-secondary/20 focus:border-secondary outline-none transition-all"
+                value={form.slotDurationMinutes}
+                onChange={(e) => updateField("slotDurationMinutes", e.target.value)}
+              />
+            </div>
           </div>
 
           {submitStatus === "success" && (

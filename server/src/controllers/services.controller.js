@@ -6,19 +6,16 @@ async function list(req, res) {
   res.json({ data: services });
 }
 
-async function getBySlug(req, res) {
-  const service = await servicesService.getServiceBySlug(req.params.slug);
-  res.json({ data: service });
-}
-
-async function getServiceById(req, res) {
-  const { id } = req.params;
-  const data = await servicesService.getServiceById(id)
-  res.json({data : data});
+async function getByIdOrSlug(req, res) {
+  const { idOrSlug } = req.params;
+  const isObjectId = /^[a-f\d]{24}$/i.test(idOrSlug);
+  const data = isObjectId
+    ? await servicesService.getServiceById(idOrSlug)
+    : await servicesService.getServiceBySlug(idOrSlug);
+  res.json({ data });
 }
 
 export const servicesController = {
   list,
-  getBySlug,
-  getServiceById
+  getByIdOrSlug,
 };
