@@ -246,62 +246,70 @@ export const CTASection = () => (
 
 // ============= EXPORT: Footer =============
 export const Footer = () => (
-  <footer className="bg-surface-container-highest w-full border-t border-outline-variant">
-    <div className="max-w-7xl mx-auto px-6 lg:px-10 py-8 md:py-12">
-      <div className="grid grid-cols-1 md:grid-cols-4 gap-6 md:gap-8 mb-6 md:mb-8">
-        <div className="col-span-1 md:col-span-1">
-          <div className="flex items-center gap-2 mb-4 md:mb-6">
-            <Icon name="dentistry" className="text-primary text-3xl" />
-            <span className="text-lg md:text-xl font-bold text-primary">PureDent Clinic</span>
-          </div>
-          <p className="text-sm md:text-base text-on-surface-variant leading-relaxed">
-            Leading the way in dental excellence. We provide comprehensive dental care for patients of all ages in a modern, caring environment.
-          </p>
-        </div>
-        <div>
-          <h5 className="text-primary font-bold mb-4 md:mb-6">Quick Links</h5>
-          <ul className="space-y-2 md:space-y-4">
-            <li><Link className="text-sm md:text-base text-on-surface-variant hover:text-primary transition-colors" to="/about">About Us</Link></li>
-            <li><Link className="text-sm md:text-base text-on-surface-variant hover:text-primary transition-colors" to="/services">Our Services</Link></li>
-            <li><Link className="text-sm md:text-base text-on-surface-variant hover:text-primary transition-colors" to="/doctors">Meet Our Doctors</Link></li>
-            <li><a className="text-sm md:text-base text-on-surface-variant hover:text-primary transition-colors" href="#">Patient Education</a></li>
-          </ul>
-        </div>
-        <div>
-          <h5 className="text-primary font-bold mb-4 md:mb-6">Services</h5>
-          <ul className="space-y-2 md:space-y-4">
-            <li><a className="text-sm md:text-base text-on-surface-variant hover:text-primary transition-colors" href="#">General Dentistry</a></li>
-            <li><a className="text-sm md:text-base text-on-surface-variant hover:text-primary transition-colors" href="#">Cosmetic Dentistry</a></li>
-            <li><a className="text-sm md:text-base text-on-surface-variant hover:text-primary transition-colors" href="#">Dental Implants</a></li>
-            <li><a className="text-sm md:text-base text-on-surface-variant hover:text-primary transition-colors" href="#">Teeth Whitening</a></li>
-          </ul>
-        </div>
-        <div>
-          <h5 className="text-primary font-bold mb-4 md:mb-6">Contact</h5>
-          <ul className="space-y-2 md:space-y-4">
-            <li className="flex items-start gap-2 text-sm md:text-base text-on-surface-variant">
-              <Icon name="location_on" className="text-primary text-sm" />
-              123 Dental Plaza, Health District, NY 10001
-            </li>
-            <li className="flex items-center gap-2 text-sm md:text-base text-on-surface-variant">
-              <Icon name="call" className="text-primary text-sm" />
-              +1 (555) 000-DENT
-            </li>
-            <li className="flex items-center gap-2 text-sm md:text-base text-on-surface-variant">
-              <Icon name="mail" className="text-primary text-sm" />
-              hello@puredent.clinic
-            </li>
-          </ul>
-        </div>
+  <footer className="bg-surface-container-highest border-t border-surface-variant w-full">
+    {/* FIXED: Changed to grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 to distribute columns beautifully across the screen */}
+    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-8 lg:gap-6 px-6 lg:px-10 py-10 md:py-12 max-w-7xl mx-auto">
+      
+      {/* Brand Box - FIXED: Added lg:col-span-2 and max-w-sm so the paragraph has plenty of room to breathe instead of breaking per word */}
+      <div className="space-y-4 sm:col-span-2 lg:col-span-2">
+        <Link to="/" className="flex items-center gap-2 text-lg font-bold text-primary">
+          <Icon name="dentistry" className="text-primary text-2xl" />
+          PureDent Clinic
+        </Link>
+        <p className="text-sm text-on-surface-variant leading-relaxed max-w-sm">
+          Leading the way in dental excellence. We provide comprehensive dental care for patients of all ages in a modern, caring environment.
+        </p>
       </div>
-      <div className="flex flex-col md:flex-row justify-between items-center py-4 md:py-6 border-t border-outline-variant gap-4">
-        <p className="text-sm md:text-base text-on-surface-variant">© 2024 PureDent Clinic Management. All rights reserved.</p>
-        <div className="flex flex-wrap gap-4 md:gap-6">
-          <a className="text-sm md:text-base text-on-surface-variant hover:text-primary transition-colors" href="#">Privacy Policy</a>
-          <a className="text-sm md:text-base text-on-surface-variant hover:text-primary transition-colors" href="#">Terms of Service</a>
-          <a className="text-sm md:text-base text-on-surface-variant hover:text-primary transition-colors" href="#">Accessibility</a>
-          <a className="text-sm md:text-base text-on-surface-variant hover:text-primary transition-colors" href="#">Cookie Policy</a>
-        </div>
+
+      {/* Quick Links */}
+      <div>
+        <h4 className="text-xs font-semibold text-primary uppercase tracking-wider mb-4">Quick Links</h4>
+        <ul className="space-y-2.5">
+          <li><Link className="text-sm text-on-surface-variant hover:text-secondary transition-colors block py-0.5" to="/about">About Us</Link></li>
+          <li><Link className="text-sm text-on-surface-variant hover:text-secondary transition-colors block py-0.5" to="/services">Our Services</Link></li>
+          <li><Link className="text-sm text-on-surface-variant hover:text-secondary transition-colors block py-0.5" to="/doctors">Our Doctors</Link></li>
+          <li><a className="text-sm text-on-surface-variant hover:text-secondary transition-colors block py-0.5" href="#">Patient Portal</a></li>
+        </ul>
+      </div>
+
+      {/* Legal Links */}
+      <div>
+        <h4 className="text-xs font-semibold text-primary uppercase tracking-wider mb-4">Legal</h4>
+        <ul className="space-y-2.5">
+          <li><a className="text-sm text-on-surface-variant hover:text-secondary transition-colors block py-0.5" href="#">Privacy Policy</a></li>
+          <li><a className="text-sm text-on-surface-variant hover:text-secondary transition-colors block py-0.5" href="#">Terms of Service</a></li>
+          <li><a className="text-sm text-on-surface-variant hover:text-secondary transition-colors block py-0.5" href="#">Cookie Policy</a></li>
+        </ul>
+      </div>
+
+      {/* Contact Info */}
+      <div>
+        <h4 className="text-xs font-semibold text-primary uppercase tracking-wider mb-4">Contact Us</h4>
+        <address className="not-italic space-y-2">
+          <p className="text-sm text-on-surface-variant leading-relaxed">
+            18, Yadaval Street<br />
+            Chennai, TN 628002
+          </p>
+          <p className="text-sm text-on-surface-variant font-medium pt-1 block">
+            +91 0987654321
+          </p>
+        </address>
+      </div>
+    </div>
+
+    {/* Lower Copyright & Social Bar */}
+    <div className="max-w-7xl mx-auto px-6 lg:px-10 py-6 border-t border-surface-variant/30 flex flex-col-reverse md:flex-row justify-between items-center gap-4 text-center md:text-left">
+      <p className="text-xs sm:text-sm text-on-surface-variant">
+        © 2026 PureDent Dental Clinic. All rights reserved.
+      </p>
+      
+      <div className="flex gap-6 items-center">
+        <a className="text-on-surface-variant hover:text-primary transition-colors p-1" aria-label="Website" href="#">
+          <Icon name="public" className="text-xl" />
+        </a>
+        <a className="text-on-surface-variant hover:text-primary transition-colors p-1" aria-label="Share platform" href="#">
+          <Icon name="share" className="text-xl" />
+        </a>
       </div>
     </div>
   </footer>

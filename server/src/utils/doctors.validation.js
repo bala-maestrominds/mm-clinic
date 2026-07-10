@@ -30,6 +30,7 @@ const workingHoursField = z
     }
   });
 
+
 export const createDoctorSchema = z.object({
   name: z.string().min(2).max(120),
   specialty: z.string().min(2).max(120),
@@ -39,6 +40,20 @@ export const createDoctorSchema = z.object({
   phone: z.string().min(6).max(20).optional(),
   experienceYears: z.coerce.number().int().min(0).max(80).optional(),
   consultationFee: z.coerce.number().min(0).optional(),
+  rating: z.coerce.number().min(0).max(5).optional(),
+  reviews: z.coerce.number().int().min(0).optional(),
+  experience: z.string().max(60).optional(),
+  education: z.string().max(200).optional(),
+  languages: z.union([z.array(z.string()), z.string()]).optional().transform((val) => {
+    if (val === undefined) return undefined;
+    if (Array.isArray(val)) return val;
+    try {
+      return JSON.parse(val);
+    } catch {
+      return val.split(',').map((s) => s.trim());
+    }
+  }),
+
   services: z.array(z.string().length(24, 'invalid service id')).optional(),
   workingHours: workingHoursField,
   slotDurationMinutes: z.coerce.number().int().positive().max(240).optional(),

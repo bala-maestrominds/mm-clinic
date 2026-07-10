@@ -1,6 +1,6 @@
 import { connectDB } from '../config/db.js';
 import { Service } from '../models/services.model.js';
-import { Doctor } from '../models/doctors.model.js'
+import { Doctor } from '../models/doctors.model.js';
 import mongoose from 'mongoose';
 
 async function seed() {
@@ -151,7 +151,13 @@ async function seed() {
     {
       name: 'Dr. Sarah Chen',
       specialty: 'Orthodontist',
-      bio: '12+ years specializing in orthodontics and smile transformations.',
+      bio: 'Dr. Sarah Mitchell is a board-certified orthodontist with a passion for creating beautiful, confident smiles. She specializes in Invisalign and traditional braces for patients of all ages.',
+      photoUrl: 'https://lh3.googleusercontent.com/aida-public/AB6AXuA0g57R7rp3QkIt3RaU1P9ZWGIbWjemxxOIVrYY6_mPWuzJkFjIZCrd9KYPaSRZ6BYyWN3Ihw3IAewJ5gynLDCbhbltB4XOx_XBIK9XeDUUVVEKq5tFYfaHGlNmxSsd_ZT2G-cQmu7lJE5G-F3Kv1b8R6lZ0aGKCmH8FONTSxHTw6jUeXiyp7Ku6pf00hOxQ8boI_f-sjt7VNdb8qVmObmqiJAvUtH9g-GeZwA8o16tbdDwzqXLNzDP',
+      rating: 4.9,
+      reviews: 124,
+      experience: '12 Years Experience',
+      education: 'DDS, Harvard Medical School',
+      languages: ['English', 'Spanish'],
       services: [services[6]._id, services[7]._id, services[1]._id],
       workingHours: [
         { day: 'monday', startTime: '09:00', endTime: '17:00' },
@@ -163,12 +169,14 @@ async function seed() {
     {
       name: 'Dr. James Okafor',
       specialty: 'General Dentist',
-      bio: 'Expert in preventive dentistry and family dental care.',
-      services: [
-        services[2]._id,
-        services[10]._id,
-        services[8]._id,
-      ],
+      bio: 'Dr. James Wilson provides comprehensive general dentistry services with a focus on preventive care and patient education. He believes in building long-term relationships with his patients.',
+      photoUrl: 'https://lh3.googleusercontent.com/aida-public/AB6AXuCK6FpjCORAYKVfyin5fd-k0zd_IQRGyPuEVlq_9K5rca4ycSOKQuRhyjvc7iDGl72_ELhFZpF4CYAaaNqm3fEURiV9-IET5Eedyl8TJS3brL13Q0NKd0EUDguytxBm-aNWrEItbsYMJdiP4_OeEpjEheWAig1_N2-q0gaflruiQ4eqAre1aaRoLCSTXMEYw78E0O2QWawx4AIR2nhBBfhcKsZAC9agceW7YNdSxiMHWQjmRKSWGJa-',
+      rating: 5.0,
+      reviews: 89,
+      experience: '15 Years Experience',
+      education: 'MDS, Stanford University',
+      languages: ['English', 'French'],
+      services: [services[2]._id, services[10]._id, services[8]._id],
       workingHours: [
         { day: 'tuesday', startTime: '10:00', endTime: '18:00' },
         { day: 'thursday', startTime: '10:00', endTime: '18:00' },
@@ -179,12 +187,14 @@ async function seed() {
     {
       name: 'Dr. Emily Rodriguez',
       specialty: 'Cosmetic Dentist',
-      bio: 'Passionate about creating beautiful smiles using modern cosmetic dentistry.',
-      services: [
-        services[1]._id,
-        services[5]._id,
-        services[4]._id,
-      ],
+      bio: 'Dr. Michael Chen is a renowned cosmetic dentist with a reputation for creating stunning smile makeovers. He specializes in veneers, teeth whitening, and full-mouth restorations.',
+      photoUrl: 'https://lh3.googleusercontent.com/aida-public/AB6AXuAqkyYVSXn0cbwIs3tcSxyP-bP_84U-Hlf1WAccSHzNcyhBXnNNCObZt2Dv53m_oeOSYaLClzbOs84g9gtijFqfQfa-FvqMEur4g-nfEPD7zTxnNA2dOiBfspX5dW7Qi3_i6d1jX_wMwPqBLnltUAwuZtVB6TntXEWkmuR1lYllL0gTYF2bGkdvI5YI6Rt54K-ZYPrPnGKngPODoe5i9bUIZ4b0F9h7hofpl0j0ZywonJxMpjwGTAUn',
+      rating: 4.9,
+      reviews: 210,
+      experience: '18 Years Experience',
+      education: 'DDS, Yale University',
+      languages: ['English', 'Mandarin'],
+      services: [services[1]._id, services[5]._id, services[4]._id],
       workingHours: [
         { day: 'monday', startTime: '11:00', endTime: '18:00' },
         { day: 'tuesday', startTime: '09:00', endTime: '17:00' },
@@ -195,12 +205,14 @@ async function seed() {
     {
       name: 'Dr. Michael Johnson',
       specialty: 'Oral Surgeon',
-      bio: 'Experienced oral surgeon performing complex surgical procedures.',
-      services: [
-        services[0]._id,
-        services[8]._id,
-        services[3]._id,
-      ],
+      bio: 'Dr. David Kim is an experienced oral and maxillofacial surgeon specializing in wisdom teeth extraction, dental implants, and corrective jaw surgery.',
+      photoUrl: 'https://images.unsplash.com/photo-1622253692010-333f2da6031d?w=400&h=500&fit=crop',
+      rating: 4.7,
+      reviews: 143,
+      experience: '14 Years Experience',
+      education: 'MD, DDS, Columbia University',
+      languages: ['English', 'Korean'],
+      services: [services[0]._id, services[8]._id, services[3]._id],
       workingHours: [
         { day: 'wednesday', startTime: '08:00', endTime: '16:00' },
         { day: 'friday', startTime: '08:00', endTime: '16:00' },
@@ -210,11 +222,14 @@ async function seed() {
     {
       name: 'Dr. Olivia Brown',
       specialty: 'Pediatric Dentist',
-      bio: 'Dedicated to providing comfortable dental care for children.',
-      services: [
-        services[9]._id,
-        services[2]._id,
-      ],
+      bio: 'Dr. Emily Parker creates a fun and welcoming environment for children. She specializes in pediatric dentistry and helps kids develop healthy oral hygiene habits early.',
+      photoUrl: 'https://images.unsplash.com/photo-1594824476967-48c8b964273f?w=400&h=500&fit=crop',
+      rating: 4.9,
+      reviews: 178,
+      experience: '10 Years Experience',
+      education: 'DMD, UCLA School of Dentistry',
+      languages: ['English', 'Spanish'],
+      services: [services[9]._id, services[2]._id],
       workingHours: [
         { day: 'monday', startTime: '09:00', endTime: '15:00' },
         { day: 'wednesday', startTime: '09:00', endTime: '15:00' },
@@ -225,12 +240,14 @@ async function seed() {
     {
       name: 'Dr. Ahmed Hassan',
       specialty: 'Periodontist',
-      bio: 'Specialist in gum health, periodontal surgery, and dental implants.',
-      services: [
-        services[11]._id,
-        services[0]._id,
-        services[4]._id,
-      ],
+      bio: 'Dr. Elena Rodriguez is a specialist in periodontics and implantology. She is dedicated to saving natural teeth and restoring oral health through advanced surgical techniques.',
+      photoUrl: 'https://lh3.googleusercontent.com/aida-public/AB6AXuAbHaSGfMRSKuM6IXNp4JiFbxe468PDm1iin8qVMXFrxBqbf3cpCJsKI3FN13Jh0qX9-U4DDquuQZrgZfq6lP0mPkULidCO3LdzJQQ8vASAXG3CLKeMSskB7Cw3cMJlwbeHQSJo7PGqOdsxvNhz5v1YARHN9smmBxkbv7hVodm6ookZPi932J1HeA_Hc6qPFZwcd6ytzw1RZ7Eo4YFZX19ZlVIliaL8VdROOpkhQOFKWQ8n_LmKgwbl',
+      rating: 4.8,
+      reviews: 156,
+      experience: '8 Years Experience',
+      education: 'DMD, University of Miami',
+      languages: ['English', 'Portuguese'],
+      services: [services[11]._id, services[0]._id, services[4]._id],
       workingHours: [
         { day: 'tuesday', startTime: '08:30', endTime: '16:30' },
         { day: 'thursday', startTime: '08:30', endTime: '16:30' },
@@ -240,20 +257,41 @@ async function seed() {
     {
       name: 'Dr. Sophia Williams',
       specialty: 'Endodontist',
-      bio: 'Root canal specialist with advanced microscopic treatment techniques.',
-      services: [
-        services[3]._id,
-        services[4]._id,
-      ],
+      bio: 'Dr. Lisa Thompson is a root canal specialist who uses advanced technology to provide comfortable and efficient endodontic treatments. She is dedicated to saving natural teeth.',
+      photoUrl: 'https://images.unsplash.com/photo-1612349317150-e413f6a5b16d?w=400&h=500&fit=crop',
+      rating: 4.8,
+      reviews: 132,
+      experience: '11 Years Experience',
+      education: 'DDS, University of Michigan',
+      languages: ['English', 'German'],
+      services: [services[3]._id, services[4]._id],
       workingHours: [
         { day: 'monday', startTime: '10:00', endTime: '17:00' },
         { day: 'friday', startTime: '10:00', endTime: '17:00' },
       ],
       slotDurationMinutes: 60,
     },
+    {
+      name: 'Dr. Robert Johnson',
+      specialty: 'Prosthodontist',
+      bio: 'Dr. Robert Johnson specializes in complex restorative and prosthetic dentistry. He creates natural-looking crowns, bridges, and dentures that restore function and aesthetics.',
+      photoUrl: 'https://images.unsplash.com/photo-1612349317150-e413f6a5b16d?w=400&h=500&fit=crop',
+      rating: 4.9,
+      reviews: 167,
+      experience: '20 Years Experience',
+      education: 'DDS, University of Pennsylvania',
+      languages: ['English', 'Italian'],
+      services: [services[4]._id, services[0]._id, services[12]._id],
+      workingHours: [
+        { day: 'tuesday', startTime: '09:00', endTime: '17:00' },
+        { day: 'wednesday', startTime: '09:00', endTime: '17:00' },
+        { day: 'saturday', startTime: '10:00', endTime: '14:00' },
+      ],
+      slotDurationMinutes: 45,
+    },
   ]);
 
-  console.log('[seed] done: 3 services, 2 doctors created');
+  console.log('[seed] done: 15 services, 8 doctors created');
   await mongoose.disconnect();
 }
 

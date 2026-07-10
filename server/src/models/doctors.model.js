@@ -15,7 +15,7 @@ const workingHourSchema = new mongoose.Schema(
 
 const doctorSchema = new mongoose.Schema(
   {
-    name: { type: String, required: true, trim: true }, // maps from fullName
+    name: { type: String, required: true, trim: true },
     specialty: { type: String, required: true, trim: true },
     bio: { type: String, default: '' },
     photoUrl: { type: String, default: '' },
@@ -23,6 +23,11 @@ const doctorSchema = new mongoose.Schema(
     phone: { type: String, trim: true },
     experienceYears: { type: Number, default: 0 },
     consultationFee: { type: Number, default: 0 },
+    rating: { type: Number, default: 0, min: 0, max: 5 },
+    reviews: { type: Number, default: 0, min: 0 },
+    experience: { type: String, default: '' },
+    education: { type: String, default: '' },
+    languages: { type: [String], default: [] },
     services: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Service' }],
     workingHours: { type: [workingHourSchema], default: [] },
     slotDurationMinutes: { type: Number, default: 30 },

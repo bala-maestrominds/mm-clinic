@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 
 const SPECIALIZATIONS = [
@@ -33,6 +33,8 @@ const initialForm = {
   consultationFee: "",
   bio: "",
   workingDays: [],
+  selectedServices: [], 
+  languages: "English", 
   startTime: "09:00",
   endTime: "17:00",
   slotDurationMinutes: "30",
@@ -41,11 +43,32 @@ const initialForm = {
 export default function AddDentistPage() {
   const navigate = useNavigate();
   const [form, setForm] = useState(initialForm);
+  const [availableServices, setAvailableServices] = useState([]); 
   const [photoFile, setPhotoFile] = useState(null);
   const [photoPreview, setPhotoPreview] = useState(null);
   const [errors, setErrors] = useState({});
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [submitStatus, setSubmitStatus] = useState(null); // "success" | "error" | null
+  const [submitStatus, setSubmitStatus] = useState(null); 
+
+  // Fetch real services from the backend on component mount
+  useEffect(() => {
+  const fetchServices = async () => {
+    try {
+      const res = await fetch(`${API_BASE_URL}/api/services`);
+      if (res.ok) {
+        const jsonResponse = await res.json();
+        if (jsonResponse && Array.isArray(jsonResponse.data)) {
+          setAvailableServices(jsonResponse.data);
+        } else {
+          console.error("Unexpected response structure:", jsonResponse);
+        }
+      }
+    } catch (err) {
+      console.error("Failed to load services from DB:", err);
+    }
+  };
+  fetchServices();
+}, []);
 
   const updateField = (field, value) => {
     setForm((prev) => ({ ...prev, [field]: value }));
@@ -60,6 +83,18 @@ export default function AddDentistPage() {
         workingDays: alreadySelected
           ? prev.workingDays.filter((d) => d !== day)
           : [...prev.workingDays, day],
+      };
+    });
+  };
+
+  const toggleService = (serviceId) => {
+    setForm((prev) => {
+      const alreadySelected = prev.selectedServices.includes(serviceId);
+      return {
+        ...prev,
+        selectedServices: alreadySelected
+          ? prev.selectedServices.filter((id) => id !== serviceId)
+          : [...prev.selectedServices, serviceId],
       };
     });
   };
@@ -111,17 +146,37 @@ export default function AddDentistPage() {
         endTime: form.endTime,
       }));
 
+      const languagesArray = form.languages
+        .split(",")
+        .map((lang) => lang.trim())
+        .filter((lang) => lang.length > 0);
+
       payload.append("name", form.fullName);
       payload.append("specialty", form.specialization);
       payload.append("email", form.email);
       payload.append("phone", form.phone);
-      payload.append("experienceYears", form.experienceYears);
-      payload.append("consultationFee", form.consultationFee);
+      payload.append("experience", `${form.experienceYears} Years Experience`);
+      payload.append("price", form.consultationFee); 
       payload.append("bio", form.bio);
-      payload.append("workingHours", JSON.stringify(workingHours));
+      payload.append("education", form.education || "DDS, Dental Medical Board Certification");
       payload.append("slotDurationMinutes", form.slotDurationMinutes);
+      payload.append("rating", "5.0"); 
+      payload.append("reviews", "0");
 
       if (photoFile) payload.append("photo", photoFile);
+      form.selectedServices.forEach((serviceId) => {
+        payload.append("services[]", serviceId); 
+      });
+
+      languagesArray.forEach((lang) => {
+        payload.append("languages[]", lang);
+      });
+
+      workingHours.forEach((hourObj, index) => {
+        payload.append(`workingHours[${index}][day]`, hourObj.day);
+        payload.append(`workingHours[${index}][startTime]`, hourObj.startTime);
+        payload.append(`workingHours[${index}][endTime]`, hourObj.endTime);
+      });
 
       const res = await fetch(`${API_BASE_URL}/api/doctors/`, {
         method: "POST",
@@ -149,6 +204,7 @@ export default function AddDentistPage() {
       {/* Header */}
       <header className="sticky top-0 w-full z-30 bg-surface/80 backdrop-blur-md px-margin-mobile md:px-margin-desktop py-4 flex items-center gap-md shadow-[0px_10px_30px_rgba(15,118,110,0.04)]">
         <button
+          type="button"
           onClick={() => navigate("/admin/dashboard")}
           className="p-2 rounded-full hover:bg-surface-container-low text-primary transition-colors"
           aria-label="Back to dashboard"
@@ -157,7 +213,7 @@ export default function AddDentistPage() {
         </button>
         <div>
           <h1 className="font-headline-sm text-headline-sm text-primary">Add Dentist</h1>
-          <p className="text-on-surface-variant text-body-sm">Onboard a new specialist to PureDent</p>
+          <p className="text-on-surface-variant text-body-sm">Onboard a new specialist with pricing and custom schedules</p>
         </div>
       </header>
 
@@ -196,7 +252,7 @@ export default function AddDentistPage() {
               <label className="font-label-md text-label-md text-on-surface-variant">Full Name</label>
               <input
                 type="text"
-                placeholder="Dr. Jane Doe"
+                placeholder="Dr. Robert Johnson"
                 className="w-full h-12 px-md rounded-xl border border-outline-variant bg-surface-container-lowest focus:ring-2 focus:ring-secondary/20 focus:border-secondary outline-none transition-all"
                 value={form.fullName}
                 onChange={(e) => updateField("fullName", e.target.value)}
@@ -221,7 +277,7 @@ export default function AddDentistPage() {
               <label className="font-label-md text-label-md text-on-surface-variant">Email Address</label>
               <input
                 type="email"
-                placeholder="jane.doe@puredent.com"
+                placeholder="robert.johnson@puredent.com"
                 className="w-full h-12 px-md rounded-xl border border-outline-variant bg-surface-container-lowest focus:ring-2 focus:ring-secondary/20 focus:border-secondary outline-none transition-all"
                 value={form.email}
                 onChange={(e) => updateField("email", e.target.value)}
@@ -246,7 +302,7 @@ export default function AddDentistPage() {
               <input
                 type="number"
                 min="0"
-                placeholder="8"
+                placeholder="20"
                 className="w-full h-12 px-md rounded-xl border border-outline-variant bg-surface-container-lowest focus:ring-2 focus:ring-secondary/20 focus:border-secondary outline-none transition-all"
                 value={form.experienceYears}
                 onChange={(e) => updateField("experienceYears", e.target.value)}
@@ -255,7 +311,7 @@ export default function AddDentistPage() {
             </div>
 
             <div className="space-y-xs">
-              <label className="font-label-md text-label-md text-on-surface-variant">Consultation Fee (USD)</label>
+              <label className="font-label-md text-label-md text-on-surface-variant">Consultation Price / Fee (USD)</label>
               <input
                 type="number"
                 min="0"
@@ -267,19 +323,71 @@ export default function AddDentistPage() {
             </div>
           </div>
 
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-md">
+            <div className="space-y-xs">
+              <label className="font-label-md text-label-md text-on-surface-variant">Education Qualifications</label>
+              <input
+                type="text"
+                placeholder="DDS, University of Pennsylvania"
+                className="w-full h-12 px-md rounded-xl border border-outline-variant bg-surface-container-lowest focus:ring-2 focus:ring-secondary/20 focus:border-secondary outline-none transition-all"
+                value={form.education || ""}
+                onChange={(e) => updateField("education", e.target.value)}
+              />
+            </div>
+
+            <div className="space-y-xs">
+              <label className="font-label-md text-label-md text-on-surface-variant">Languages Spoken</label>
+              <input
+                type="text"
+                placeholder="English, Italian, Spanish"
+                className="w-full h-12 px-md rounded-xl border border-outline-variant bg-surface-container-lowest focus:ring-2 focus:ring-secondary/20 focus:border-secondary outline-none transition-all"
+                value={form.languages}
+                onChange={(e) => updateField("languages", e.target.value)}
+              />
+            </div>
+          </div>
+
           <div className="space-y-xs">
-            <label className="font-label-md text-label-md text-on-surface-variant">Bio</label>
+            <label className="font-label-md text-label-md text-on-surface-variant">Bio Description</label>
             <textarea
-              rows={4}
-              placeholder="A short professional summary shown on the doctor's profile..."
+              rows={3}
+              placeholder="Dr. Robert Johnson specializes in complex restorative..."
               className="w-full p-md rounded-xl border border-outline-variant bg-surface-container-lowest focus:ring-2 focus:ring-secondary/20 focus:border-secondary outline-none transition-all"
               value={form.bio}
               onChange={(e) => updateField("bio", e.target.value)}
             />
           </div>
 
+          {/* Assigned Services Checkbox Grid */}
           <div className="space-y-xs">
-            <label className="font-label-md text-label-md text-on-surface-variant">Working Days</label>
+            <label className="font-label-md text-label-md text-on-surface-variant block mb-1">Offered Treatments / Services</label>
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 bg-surface-container-lowest p-md border border-outline-variant rounded-xl">
+              {availableServices.length > 0 ? (
+                availableServices.map((service) => {
+                  const serviceId = service._id;
+                  const checked = form.selectedServices.includes(serviceId);
+                  return (
+                    <label key={serviceId} className="flex items-center gap-sm p-2 rounded-lg hover:bg-surface-container-low cursor-pointer text-body-sm transition-colors">
+                      <input
+                        type="checkbox"
+                        checked={checked}
+                        onChange={() => toggleService(serviceId)}
+                        className="w-4 h-4 text-primary bg-background border-outline-variant rounded focus:ring-primary/20 accent-primary"
+                      />
+                      <span className={checked ? "text-primary font-semibold" : "text-on-surface-variant"}>
+                        {service.name}
+                      </span>
+                    </label>
+                  );
+                })
+              ) : (
+                <p className="text-on-surface-variant text-body-sm p-2 col-span-2">Loading target services from server database...</p>
+              )}
+            </div>
+          </div>
+
+          <div className="space-y-xs">
+            <label className="font-label-md text-label-md text-on-surface-variant">Weekly Availability Structure</label>
             <div className="flex flex-wrap gap-sm">
               {WEEKDAYS.map((day) => {
                 const selected = form.workingDays.includes(day);
@@ -304,7 +412,7 @@ export default function AddDentistPage() {
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-md">
             <div className="space-y-xs">
-              <label className="font-label-md text-label-md text-on-surface-variant">Start Time</label>
+              <label className="font-label-md text-label-md text-on-surface-variant">Shift Starts</label>
               <input
                 type="time"
                 className="w-full h-12 px-md rounded-xl border border-outline-variant bg-surface-container-lowest focus:ring-2 focus:ring-secondary/20 focus:border-secondary outline-none transition-all"
@@ -313,7 +421,7 @@ export default function AddDentistPage() {
               />
             </div>
             <div className="space-y-xs">
-              <label className="font-label-md text-label-md text-on-surface-variant">End Time</label>
+              <label className="font-label-md text-label-md text-on-surface-variant">Shift Ends</label>
               <input
                 type="time"
                 className="w-full h-12 px-md rounded-xl border border-outline-variant bg-surface-container-lowest focus:ring-2 focus:ring-secondary/20 focus:border-secondary outline-none transition-all"
@@ -322,7 +430,7 @@ export default function AddDentistPage() {
               />
             </div>
             <div className="space-y-xs">
-              <label className="font-label-md text-label-md text-on-surface-variant">Slot Length (mins)</label>
+              <label className="font-label-md text-label-md text-on-surface-variant">Booking Blocks (mins)</label>
               <input
                 type="number"
                 min="5"
@@ -375,40 +483,53 @@ export default function AddDentistPage() {
           </div>
         </form>
 
-        {/* Live Preview */}
+        {/* Live Preview Pane */}
         <div className="lg:col-span-4">
-          <div className="glass-card bg-white/80 backdrop-blur-md border border-primary/5 shadow-[0px_10px_30px_rgba(15,118,110,0.04)] rounded-xxl p-lg sticky top-24">
-            <p className="font-label-md text-label-md text-on-surface-variant uppercase tracking-widest mb-md">
-              Profile Preview
-            </p>
-            <div className="flex flex-col items-center text-center gap-sm">
-              <div className="w-24 h-24 rounded-full bg-surface-container-low border-2 border-primary/10 flex items-center justify-center overflow-hidden">
-                {photoPreview ? (
-                  <img src={photoPreview} alt="Preview" className="w-full h-full object-cover" />
-                ) : (
-                  <span className="material-symbols-outlined text-outline text-4xl">person</span>
+          <div className="glass-card bg-white/80 backdrop-blur-md border border-primary/5 shadow-[0px_10px_30px_rgba(15,118,110,0.04)] rounded-xxl p-lg sticky top-24 space-y-md">
+            <div>
+              <p className="font-label-md text-label-md text-on-surface-variant uppercase tracking-widest mb-sm">
+                Profile Preview
+              </p>
+              <div className="flex flex-col items-center text-center gap-xs">
+                <div className="w-24 h-24 rounded-full bg-surface-container-low border-2 border-primary/10 flex items-center justify-center overflow-hidden">
+                  {photoPreview ? (
+                    <img src={photoPreview} alt="Preview" className="w-full h-full object-cover" />
+                  ) : (
+                    <span className="material-symbols-outlined text-outline text-4xl">person</span>
+                  )}
+                </div>
+                <h3 className="font-headline-sm text-headline-sm text-primary">
+                  {form.fullName || "Dentist Name"}
+                </h3>
+                <p className="text-on-surface-variant text-body-sm font-semibold">{form.specialization}</p>
+                
+                {form.consultationFee && (
+                  <p className="text-primary font-bold text-sm">${form.consultationFee} / Consultation</p>
+                )}
+
+                {form.experienceYears && (
+                  <span className="bg-secondary-container/20 text-on-secondary-container px-3 py-0.5 rounded-full text-[11px] font-bold">
+                    {form.experienceYears} Years Experience
+                  </span>
                 )}
               </div>
-              <h3 className="font-headline-sm text-headline-sm text-primary">
-                {form.fullName || "Dentist Name"}
-              </h3>
-              <p className="text-on-surface-variant text-body-sm">{form.specialization}</p>
-              {form.experienceYears && (
-                <span className="bg-secondary-container/20 text-on-secondary-container px-3 py-1 rounded-full text-[12px] font-bold">
-                  {form.experienceYears} yrs experience
-                </span>
-              )}
-              {form.bio && <p className="text-body-sm text-on-surface-variant mt-sm">{form.bio}</p>}
-              {form.workingDays.length > 0 && (
-                <div className="flex flex-wrap justify-center gap-xs mt-sm">
-                  {form.workingDays.map((d) => (
-                    <span key={d} className="px-2 py-0.5 rounded-full bg-surface-container-low text-[11px] font-bold text-on-surface-variant">
-                      {d}
-                    </span>
-                  ))}
-                </div>
-              )}
             </div>
+
+            {form.selectedServices.length > 0 && (
+              <div className="border-t border-outline-variant/30 pt-3">
+                <p className="text-[11px] font-bold text-on-surface-variant uppercase tracking-wider mb-1">Selected Services</p>
+                <div className="flex flex-wrap gap-1">
+                  {form.selectedServices.map(id => {
+                    const match = availableServices.find(s => (s._id) === id);
+                    return match ? (
+                      <span key={id} className="text-[10px] bg-primary/5 text-primary px-2 py-0.5 rounded">
+                        {match.name}
+                      </span>
+                    ) : null;
+                  })}
+                </div>
+              </div>
+            )}
           </div>
         </div>
       </div>

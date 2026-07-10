@@ -5,14 +5,14 @@ import { Icon } from './SharedComponents';
 
 export const DoctorCard = ({ doctor }) => {
   const [imgError, setImgError] = useState(false);
-
+  // console.log(doctor._id)
   return (
     <div className="doctor-card group bg-surface-container-lowest rounded-card overflow-hidden shadow-sm border border-primary/5 hover:shadow-xl transition-all duration-500">
       <div className="relative h-64 overflow-hidden">
         {!imgError ? (
           <img 
             className="doctor-image w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" 
-            src={doctor.image} 
+            src={doctor.photoUrl} 
             alt={doctor.name}
             onError={() => setImgError(true)}
           />
@@ -54,7 +54,7 @@ export const DoctorCard = ({ doctor }) => {
           </div>
         </div>
         <Link 
-          to={`/doctors/${doctor.id}`}
+          to={`/doctors/${doctor._id}`}
           className="w-full block text-center bg-surface-container-high text-primary text-xs font-semibold py-3 rounded-xl hover:bg-primary hover:text-white transition-all duration-300"
         >
           View Profile
