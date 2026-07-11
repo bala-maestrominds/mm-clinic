@@ -1,13 +1,14 @@
 // src/pages/public/AboutPage.jsx
 import React, { useEffect, useState } from 'react';
-import { 
-  NavBar, 
-  Footer, 
+import {
+  NavBar,
+  Footer,
   CTASection,
   ValueCard,
   TeamMemberCard,
   Icon
 } from '../../components/SharedComponents';
+import { PageTransition } from '../../components/Motion';
 
 // Fallback images
 const FALLBACK_IMAGES = {
@@ -20,12 +21,12 @@ const FALLBACK_IMAGES = {
 };
 
 // Original images
-const heroImage = "https://lh3.googleusercontent.com/aida/AP1WRLtZe2s0pyx_LJYzOQxTf66EHKOfvmMa7dkstdBziv4KGvE9a9PdjfgcO1u7zmA3665FDlUdxj8KxJxU8D1ruk6_ElFK8Hmwn4XIHpeY9Kjt0S0PJLPJKA1LT-2inNfC2ygo6oImRC31T5R6vm4JHXCMVTpqfbWDhpGEU3oEN-6UUtNp-xtuNdgeA7PXNRMvGkV8GQbD68vXNg5AYfeT_mY9rGE9AZiLBtpmhc4BY2k226JVFrUb7jH0qPM";
-const storyImage = "https://lh3.googleusercontent.com/aida-public/AB6AXuCpMecPSEpkYR1y9NQhxpkYd2R1skTcdhTNkC2pgE46YZKOgL5N754R8-j8ooPIkeC8QpTh6UklAuMaxQ5BaNljeakn7JBMeYAjIEbeSnK3MKETxfJUIqVaNJhe3SlpcNsw978vaMXdWudKt_iAwznLyaZ0AhM8U3462sdx5047N9S5n399MR2RZW-I1W9V987EXXDAqLme-pcrhSFJKdle80OkzUOj5XwN6Lv7vjLbS0iYfUZTHsbQ";
-const techImage = "https://lh3.googleusercontent.com/aida-public/AB6AXuC1uTp5nXuOS3ByR4RXHMDd2lHnQOh_YAzQsqVvnl9-zb34Z9ZOQP_7PsrRdB38qG4DDheVBCXRpKeUKjj1DBdaB1-UlQUrIFJvzvXBT576mWIzaWr3ackxHpaKAPOTZocO4-gSq2_UQthdu7EW9jl_VHjpNN8e5RHtWOR2o4RZa_swLVDA6wYulsgPuQ_lz1GoWUlnUEhKhjGSdDm8PRVkRFE3PGAL8_3CYG1kX7d5HRnn5XsePF8P";
-const teamImage1 = "https://lh3.googleusercontent.com/aida-public/AB6AXuDSVFLtTQFYG82O71YupVukFC5wt5v9saZiReN7Il8tO7P7taqg__9gBElsks9o5d1AZFgbXE42oXv4ti2r-YgEIEr1jeyMv4rQqGQsQwOvqeicFAYM2EN1VnRo3uGKI9zp8bfNuvLT-vAs-fr7pYIEl7bnXC5J_XXhJ4L7gC5b6JleRe4FL5kkW77PgCLgYIJYGfn1W68Q_C1_H2KvPjCfvFf8bpKNlo8C-G91yMaxOEhVbzsBGr7n";
+const heroImage = "https://static.vecteezy.com/system/resources/thumbnails/036/595/008/small_2x/ai-generated-dental-clinic-advertisment-background-with-copy-space-free-photo.jpg";
+const storyImage = "https://img.freepik.com/premium-photo/two-dentist-doctors-are-standing-dental-office-looking-tablet-medicine-dentistry-closeup-portrait_613652-1360.jpg?w=2000";
+const techImage = "https://png.pngtree.com/png-clipart/20250101/original/pngtree-dentist-doctor-cartoon-illustration-png-image_18490263.png";
+const teamImage1 = "https://img.freepik.com/premium-photo/portrait-happy-male-dentist_1204722-49.jpg";
 const teamImage2 = "https://lh3.googleusercontent.com/aida-public/AB6AXuAVqN6rafuy-1psKjTG9L42HqBXsTt8C2f4FuyhXqkK7tIZg07ev72vtgAekmuWowUeNxkjIvJl5eQ6iX9WBz9GINFaE9kIT3hOzYr4VRzdviQEp7_5SVPsmJuqJVJxdV5v5HMHoEqXq_9hizChVGSZkb-wtf0bKF0_62V32ZOeW9b-c4X36G6Hmkw5pedxyZ0JxzrCrul-mOTIZykORIeSp1rGFcCjkzoXCO5oMJCe659YkK2OasO3";
-const teamImage3 = "https://lh3.googleusercontent.com/aida-public/AB6AXuDFexumFSx9FR7g4ZeDL-K9j4wmb3pryeAKDPlY16FT0_VCU3ey4qKpVatALbYR13lLes40O24FL4kO3JJ1EltHcOGzsWkuoBWHN2UIWD1Zb2tNRku9_zTugvoRVZ8D2gZJUWcs58s-A-3bD6gFdNIJyK3DIowu1Zfo-PBMJZGqUrK8k3S4Blhhw4eDp-Pej1GWSaMd_GgW38CtumneDW-8A7-w_Zn6HjJ0HbvAoD9B6BURuJSMsHz0";
+const teamImage3 = "https://img.freepik.com/premium-photo/male-portrait-smiling-dentist-doctor-background-dental-office_168171-2267.jpg";
 
 export default function AboutPage() {
   const [imageErrors, setImageErrors] = useState({});
@@ -66,16 +67,16 @@ export default function AboutPage() {
   }, []);
 
   return (
-    <div className="bg-background text-on-surface font-body-md antialiased overflow-x-hidden">
+    <PageTransition className="bg-background text-on-surface font-body-md antialiased overflow-x-hidden">
       <NavBar />
 
       <main className="pt-20">
         {/* Hero Section */}
         <section className="relative h-[80vh] flex items-center overflow-hidden">
           <div className="absolute inset-0 z-0">
-            <img 
-              alt="PureDent Premium Clinic Interior" 
-              className="w-full h-full object-cover" 
+            <img
+              alt="PureDent Premium Clinic Interior"
+              className="w-full h-full object-cover"
               src={getImageSrc('hero', heroImage)}
               onError={() => handleImageError('hero')}
             />
@@ -83,7 +84,7 @@ export default function AboutPage() {
           </div>
           <div className="relative z-10 px-6 lg:px-10 max-w-7xl mx-auto w-full">
             <div className="max-w-2xl">
-              <span className="inline-block px-4 py-2 bg-primary-container text-on-primary-container rounded-full text-xs font-semibold uppercase tracking-wider mb-4">
+              <span className="inline-block px-4 py-2 bg-primary-container text-white rounded-full text-xs font-semibold uppercase tracking-wider mb-4">
                 Setting the Standard
               </span>
               <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-primary leading-tight mb-6">
@@ -107,7 +108,7 @@ export default function AboutPage() {
           <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
             <div className="order-2 md:order-1">
               <div className="relative rounded-2xl overflow-hidden shadow-xl aspect-4/3">
-                <div 
+                <div
                   className="w-full h-full bg-cover bg-center"
                   style={{ backgroundImage: `url(${getImageSrc('story', storyImage)})` }}
                   onError={() => handleImageError('story')}
@@ -150,25 +151,25 @@ export default function AboutPage() {
               </p>
             </div>
             <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
-              <ValueCard 
+              <ValueCard
                 icon="verified"
                 title="Excellence"
                 description="We strive for perfection in every procedure, utilizing the highest medical standards."
                 iconBg="secondary-container"
               />
-              <ValueCard 
+              <ValueCard
                 icon="favorite"
                 title="Compassion"
                 description="Care that understands. We prioritize your comfort and peace of mind above all else."
                 iconBg="primary-container/10"
               />
-              <ValueCard 
+              <ValueCard
                 icon="lightbulb"
                 title="Innovation"
                 description="Constantly evolving with the latest digital dentistry tools and methodologies."
                 iconBg="tertiary-fixed"
               />
-              <ValueCard 
+              <ValueCard
                 icon="gavel"
                 title="Integrity"
                 description="Transparent communication and honest treatment plans you can trust implicitly."
@@ -209,8 +210,8 @@ export default function AboutPage() {
             </div>
             <div className="flex-1 relative">
               <div className="w-full aspect-square relative rounded-full overflow-hidden border-16 border-surface-container p-2 bg-surface-container">
-                <img 
-                  className="w-full h-full object-cover rounded-full" 
+                <img
+                  className="w-full h-full object-cover rounded-full"
                   src={getImageSrc('tech', techImage)}
                   onError={() => handleImageError('tech')}
                   alt="Advanced dental technology"
@@ -236,21 +237,21 @@ export default function AboutPage() {
               </button>
             </div>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8">
-              <TeamMemberCard 
+              <TeamMemberCard
                 name="Dr. Julian Vance"
                 role="Chief Medical Officer"
                 description="Specializing in Full Mouth Reconstructive Surgery and Advanced Implantology."
                 image={getImageSrc('team1', teamImage1)}
                 alt="Dr. Julian Vance - Chief Medical Officer"
               />
-              <TeamMemberCard 
+              <TeamMemberCard
                 name="Dr. Sarah Sterling"
                 role="Lead Aesthetic Dentist"
                 description="Expert in Aesthetic Veneers, Smile Design, and Digital Orthodontics."
                 image={getImageSrc('team2', teamImage2)}
                 alt="Dr. Sarah Sterling - Lead Aesthetic Dentist"
               />
-              <TeamMemberCard 
+              <TeamMemberCard
                 name="Dr. Michael Chen"
                 role="Specialist Surgeon"
                 description="Focused on Laser Dentistry and Minimally Invasive Surgical Techniques."
@@ -266,6 +267,6 @@ export default function AboutPage() {
       </main>
 
       <Footer />
-    </div>
+    </PageTransition>
   );
 }

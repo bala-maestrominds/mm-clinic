@@ -10,6 +10,7 @@ const serviceSchema = new mongoose.Schema(
     imageUrl: { type: String, default: '' },
     priceFrom: { type: Number, min: 0, default: null },
     durationMinutes: { type: Number, required: true, min: 5 },
+    isActive: { type: Boolean, default: true },
   },
   { timestamps: true }
 );

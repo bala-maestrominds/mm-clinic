@@ -33,8 +33,8 @@ const initialForm = {
   consultationFee: "",
   bio: "",
   workingDays: [],
-  selectedServices: [], 
-  languages: "English", 
+  selectedServices: [],
+  languages: "English",
   startTime: "09:00",
   endTime: "17:00",
   slotDurationMinutes: "30",
@@ -43,32 +43,32 @@ const initialForm = {
 export default function AddDentistPage() {
   const navigate = useNavigate();
   const [form, setForm] = useState(initialForm);
-  const [availableServices, setAvailableServices] = useState([]); 
+  const [availableServices, setAvailableServices] = useState([]);
   const [photoFile, setPhotoFile] = useState(null);
   const [photoPreview, setPhotoPreview] = useState(null);
   const [errors, setErrors] = useState({});
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [submitStatus, setSubmitStatus] = useState(null); 
+  const [submitStatus, setSubmitStatus] = useState(null);
 
   // Fetch real services from the backend on component mount
   useEffect(() => {
-  const fetchServices = async () => {
-    try {
-      const res = await fetch(`${API_BASE_URL}/api/services`);
-      if (res.ok) {
-        const jsonResponse = await res.json();
-        if (jsonResponse && Array.isArray(jsonResponse.data)) {
-          setAvailableServices(jsonResponse.data);
-        } else {
-          console.error("Unexpected response structure:", jsonResponse);
+    const fetchServices = async () => {
+      try {
+        const res = await fetch(`${API_BASE_URL}/api/services`);
+        if (res.ok) {
+          const jsonResponse = await res.json();
+          if (jsonResponse && Array.isArray(jsonResponse.data)) {
+            setAvailableServices(jsonResponse.data);
+          } else {
+            console.error("Unexpected response structure:", jsonResponse);
+          }
         }
+      } catch (err) {
+        console.error("Failed to load services from DB:", err);
       }
-    } catch (err) {
-      console.error("Failed to load services from DB:", err);
-    }
-  };
-  fetchServices();
-}, []);
+    };
+    fetchServices();
+  }, []);
 
   const updateField = (field, value) => {
     setForm((prev) => ({ ...prev, [field]: value }));
@@ -156,16 +156,16 @@ export default function AddDentistPage() {
       payload.append("email", form.email);
       payload.append("phone", form.phone);
       payload.append("experience", `${form.experienceYears} Years Experience`);
-      payload.append("price", form.consultationFee); 
+      payload.append("price", form.consultationFee);
       payload.append("bio", form.bio);
       payload.append("education", form.education || "DDS, Dental Medical Board Certification");
       payload.append("slotDurationMinutes", form.slotDurationMinutes);
-      payload.append("rating", "5.0"); 
+      payload.append("rating", "5.0");
       payload.append("reviews", "0");
 
       if (photoFile) payload.append("photo", photoFile);
       form.selectedServices.forEach((serviceId) => {
-        payload.append("services[]", serviceId); 
+        payload.append("services[]", serviceId);
       });
 
       languagesArray.forEach((lang) => {
@@ -466,7 +466,7 @@ export default function AddDentistPage() {
             <button
               type="submit"
               disabled={isSubmitting}
-              className="flex-1 flex items-center justify-center gap-xs px-lg py-3 rounded-xl bg-primary text-on-primary font-bold shadow-sm hover:opacity-90 active:scale-95 transition-all disabled:opacity-60"
+              className="flex-1 flex items-center justify-center gap-xs px-lg py-3 rounded-xl bg-primary text-white font-bold shadow-sm hover:opacity-90 active:scale-95 transition-all disabled:opacity-60"
             >
               {isSubmitting ? (
                 <>
@@ -502,7 +502,7 @@ export default function AddDentistPage() {
                   {form.fullName || "Dentist Name"}
                 </h3>
                 <p className="text-on-surface-variant text-body-sm font-semibold">{form.specialization}</p>
-                
+
                 {form.consultationFee && (
                   <p className="text-primary font-bold text-sm">${form.consultationFee} / Consultation</p>
                 )}

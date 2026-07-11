@@ -124,7 +124,7 @@ export default function CheckInPage() {
           <button
             type="submit"
             disabled={loading}
-            className="px-6 py-3 rounded-xl bg-primary text-on-primary font-bold shadow-sm hover:opacity-90 active:scale-95 transition-all disabled:opacity-60"
+            className="px-6 py-3 rounded-xl bg-primary text-white font-bold shadow-sm hover:opacity-90 active:scale-95 transition-all disabled:opacity-60"
           >
             {loading ? "Verifying…" : "Verify"}
           </button>
@@ -179,7 +179,7 @@ export default function CheckInPage() {
                 type="button"
                 onClick={handleCheckIn}
                 disabled={checkingIn}
-                className="px-6 py-3 rounded-xl bg-primary text-on-primary font-bold shadow-sm hover:opacity-90 active:scale-95 transition-all disabled:opacity-60"
+                className="px-6 py-3 rounded-xl bg-primary text-white font-bold shadow-sm hover:opacity-90 active:scale-95 transition-all disabled:opacity-60"
               >
                 {checkingIn ? "Checking in…" : "Check In Patient"}
               </button>

@@ -49,3 +49,62 @@
     "opsz" 24;
   vertical-align: middle;
 }
+
+/* ---------------------------------------------------------------------- */
+/* Shared micro-animations                                                */
+/* Small, reusable keyframes used across admin + public pages to give the */
+/* UI a bit of life (fade/rise-in on mount, gentle float, shimmer, etc).  */
+/* Kept CSS-only (no extra JS deps) so they stay cheap and GPU-friendly.  */
+/* ---------------------------------------------------------------------- */
+
+@keyframes fade-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes rise-in {
+  from { opacity: 0; transform: translateY(14px) scale(0.98); }
+  to { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+@keyframes float-soft {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-6px); }
+}
+
+@keyframes shimmer {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+
+.animate-fade-in {
+  animation: fade-in 0.35s ease-out both;
+}
+
+.animate-rise-in {
+  animation: rise-in 0.45s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+.animate-float-soft {
+  animation: float-soft 4s ease-in-out infinite;
+}
+
+.shimmer-bg {
+  background: linear-gradient(
+    90deg,
+    var(--color-surface-container-high) 25%,
+    var(--color-surface-container-low) 37%,
+    var(--color-surface-container-high) 63%
+  );
+  background-size: 400% 100%;
+  animation: shimmer 1.6s ease-in-out infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-fade-in,
+  .animate-rise-in,
+  .animate-float-soft,
+  .shimmer-bg {
+    animation: none !important;
+  }
+}

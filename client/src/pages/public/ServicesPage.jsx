@@ -11,13 +11,13 @@ import {
 
 // Images
 const images = {
-  cleaning: "https://lh3.googleusercontent.com/aida-public/AB6AXuCR6ScyjJ26p4ZTiNccQzQveC4DEVy5oZIDq3XpDtPM8w2T2qR52DSF7h8XY299SGZOFofPawWSBTB0MGWWvpGh_zzF-HvyYdEN8bVaHmY0DHXkVHOGcnQ1ahuxFc60riaritnu0lkTunya5l9kksEJZaix23MJTK5q2XO9v2gSORuN8F2kWQCQVYkY08YtcflLhbF9mKc5Ez_huAWvx9GMjhpD0lHEvS7eDIbhmoMRO70qhqkc9C0e",
-  rootCanal: "https://lh3.googleusercontent.com/aida-public/AB6AXuBx57cZR1HS_5x2bxh0Pjr_gAw41EHUmZjYImMYJvsVRvkC49jzCqhbllODnPbZmLhrrv68RgtlAhqC0TfZZQBAaTL2RJu8seeDAvlFHePiAOhalMrU05uIq3m2bivIJMz95_oBJjYw5Ezs1ZukF-o7ft5yrj2OQzb6GzWq-4_poY4sfnQ-WQ8XBbi7QMLzb09xkdG-Mr9VfpYVAqFUZSIBx2-JrhW8AXeMqqzYSvR4lTiyqJ0tZPPc",
-  exam: "https://images.unsplash.com/photo-1629909613654-28e377c37b09?auto=format&fit=crop&q=80&w=800",
+  cleaning: "https://static.wixstatic.com/media/9a1060_c43adc1c5146496fa6a0ef01fa8ea31a~mv2.jpg/v1/fill/w_2500,h_1875,al_c/9a1060_c43adc1c5146496fa6a0ef01fa8ea31a~mv2.jpg",
+  rootCanal: "https://tse3.mm.bing.net/th/id/OIP.7F-ILk3WjCKXZnoOGmTnvQHaE7?r=0&rs=1&pid=ImgDetMain&o=7&rm=3",
+  exam: "https://images.squarespace-cdn.com/content/v1/5d41bc8e7e87f900017bbb3d/1565367144976-02VOCDND0CH34D5NX5T6/Comprehensive+Exam.jpg",
   emergency: "https://images.unsplash.com/photo-1588776814546-1ffcf47267a5?auto=format&fit=crop&q=80&w=800",
-  whitening: "https://lh3.googleusercontent.com/aida-public/AB6AXuB7g5eHPtx_Do26_JZeREKY_DalmP5GjzrFZfGCf-JkPXP06cArVclQP1LePLMEw9Dr06O5JnonRQ3SQit_a3zWsx6VmkIhWKMkfcoigj-YSYbIhWHW8r0GLfknm9xqpwLfis0Wsn-umOGXq8dz-xhEqk3lcrydjC5gBMDgs7fdjHNjc3rWbUGd6sb9GgK-ED-_cUsCIWr7iTtLCLU-740YqXD9dzUw6q1Q_Cqm3tnuMF0uucJhIdnp",
-  invisalign: "https://lh3.googleusercontent.com/aida-public/AB6AXuCCxpZoPLftTgC7KqyCBMrBaSCWtZKf0wIdLDfDv_DECg3gr3wPHEsUTLdjwxMyS2LyJG5F4wAebyr3F6dtFOLd5C7tcwCDXDOafCW2dN9cZdgwcbkMRmXbIjztsCW05geMXB7JRnkcwmB4xpcncxWYG2yinChqb5y1ITr63fkdkBnqhEehaxmvNC0vp0yuZszxASw0R8leGO14dHX1zK1EBrQDs89Vp7rp9Cyo1Jb-jtu74-D3MnDH",
-  whiteningInOffice: "https://images.unsplash.com/photo-1606811841689-23dfddce3e95?auto=format&fit=crop&q=80&w=800",
+  whitening: "https://www.fashionabc.org/wp-content/uploads/2025/04/Professional-Teeth-Whitening-Before-And-After-Expectations.jpg",
+  invisalign: "https://uploads-ssl.webflow.com/61e7a911958c1d7dfe2a57d8/63774122ddc4bf0af2aad078_Invisalign%20Trays.jpg",
+  whiteningInOffice: "https://tse3.mm.bing.net/th/id/OIP.eFUhiQMnAPLekpEIvjvnPgHaE7?r=0&rs=1&pid=ImgDetMain&o=7&rm=3",
   veneers: "https://images.unsplash.com/photo-1593022356769-11f762e25ed9?auto=format&fit=crop&q=80&w=800",
   implants: "https://lh3.googleusercontent.com/aida-public/AB6AXuAhSB0s0crGI96-nwKFPcruCA8hUtHrS5PWyBi7useN_AkXQ7r523-h0E-hwSeBMotr6VNxtyW6vKJqOE_QPYFfK2oHIJg6Yjz-Dh3nxvJO6P4ic3GpgiH4cTpfUdDcGJBd7fqD_tHLNbCZEYBWhwPyjoPv6GkuFce42ceee9dnnnnNAafFDrVQGIpn-0tjhjDQSlWCkXnqSfAXVpiWqTqBtaONm-WOfpUKSrm4L2mYDTLxDcgTnH2M",
   dentures: "https://lh3.googleusercontent.com/aida-public/AB6AXuB7C3_wdW4f9LmXbEwqiSgMvndR2PEFPACBoj9VVOTvnKjsj2LLtvElXm6_hiHjrcawA6g6j21M8R4HgFseNnoyqDm1caWSWfg9B1JaeczJHv4Y22g_ish9LWdFq9oYmOcV8f9-EBVH4FYujOtsqzKEUAQav_nA3Cr0j6udblYd5nxoXJs2ePPrrrBEVj9H1lwOCl2_cz5z26pAxa81xLPkfoDtqSAvMm44fMN8niP4LPkDd7dkeJJu"
