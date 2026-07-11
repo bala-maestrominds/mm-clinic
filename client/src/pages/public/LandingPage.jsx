@@ -17,9 +17,9 @@ const heroImage = "https://lh3.googleusercontent.com/aida-public/AB6AXuBAjguS2Ik
 const clinicImage1 = "https://images.unsplash.com/photo-1606811841689-23dfddce3e95?auto=format&fit=crop&q=80&w=800";
 const clinicImage2 = "https://lh3.googleusercontent.com/aida-public/AB6AXuBAjguS2Ikga6m4mMkiO6CaDaQK7EdW05Dj2uKAwgoBg3S9vsul7w00WJz999ROrFwkJ05PxY_alDfnQxUY55yMfz8pTX4VasNQFw_va5NAIwKPY6qjCLL5R__wJRFUzRhk9KRIjvNAkyauRIXkJH83UnIQBtfHAiWp8DlbpmfkYBFXldMHMYaJmg8Xnv506j0zZvEod69kxRhZmFTrbzoVvxUxm6GP519yJwxL1VHELZo-oG0xojjB";
 const clinicImage3 = "https://lh3.googleusercontent.com/aida-public/AB6AXuAEvp3vn5WDgUqo2U-CdZrzdSFWGH8uaHzi8jKcwKVJO02QDzA6Iod2lU3yNdqEa-UQEz3Ihd_qQRWDX4t0Ohcpjh-q-0_KskA11vLoV094VYAEPl-JfEE7tS6rE3TKKW6t_ZLAqwweQUyU01oqxVMegKxkU8dLByqR28sWrchLEb07W4hnwxeq2Ih7JytMtSzeteRqVR0kwYk-3AGBKoN6NSHlWCwlGMsV1-cLVdqqIzWoSEsFuuBF";
-const serviceImage1 = "https://lh3.googleusercontent.com/aida-public/AB6AXuBecSqOpwO_O3q9BQ2whBDAEM_zYF42WXBfcT4udar0X8fJKxruLhJlqs3e95_Ehtt1bJFqQzqzWDBXpvQ3G6mJO-KbcHoFuRbyx4WGOswof91sGqBwhE0MPURL19q8R85PDgT9O655EhDsoNnSLN6DzDQbkczSTJuisLCJ9pCGUKmvbdyb5iP4lZVm_3pIRhgFj9bIJbI8pzg2eG3zZUHXOKO-Gq07Zb8KmvSqI3zJU_0XGpN3qcvc";
-const serviceImage2 = "https://lh3.googleusercontent.com/aida-public/AB6AXuC-4TKT-yUlSomBP4PpcWEysf3CtFxwQja5GaO3FqzVUKX8IFP9gfzbS418hNbi7Cs2PFf_4qFrmU7lf3g1dUr1auc_-CZciBaDZlbXl0QA42ijFYXTJ2yb6yy4bladDmWW4BSwPjKT_PjTuauEEPOcU69whXw3NdQ7jWguBQ2J1ZHAhV1ut8rUIBKTOOV5j1GjVMe3_5lWTi-Rw7XKOC_e3VPTywwQESw8YuR9yNonxVZ44TOLnVMF";
-const serviceImage3 = "https://lh3.googleusercontent.com/aida-public/AB6AXuABl0WCysz8QOfcXgIBA3PXSxsNyAQ6PH1ywdpDF_FlRUGqrbVfeeUGdjIzmR6IBQZkaeWxvXmto1tytoNV3WgQdV4B32tYpNLfJXtwQq7klsduPZg_SdzrLoskRiDQj7euDETcU_n7Q-1WIrBBKfwifyTumkTFkRiTFssL5ohBgzqO6zm7XcNdJHdtvaGmAr4XphH8xLyl3KAi-KgTnGMdoPO8MUIW_XMjPcrwNrKj5XalYCehm2k7";
+const serviceImage1 = "https://img.freepik.com/premium-vector/cleaning-tooth-with-toothbrush-toothpaste-dental-health-flat-graphic-design-element_133260-4489.jpg?w=2000";
+const serviceImage2 = "https://redwoodnapaweb.blob.core.windows.net/media/uploads/Dental_Implant_Process_0eb076af4e.webp";
+const serviceImage3 = "https://static.vecteezy.com/system/resources/thumbnails/020/091/555/small_2x/orthodontist-installs-dental-braces-for-straightening-tiny-dentist-doctor-research-x-ray-picture-of-tooth-dentistry-braces-installation-teeth-alignment-prosthetics-orthodontic-treatment-vector.jpg";
 const testimonialImage1 = "https://lh3.googleusercontent.com/aida-public/AB6AXuCgDLzxckMx-iPpUEhETYJeQCAB98IRxkaCyushIqljd8Tz3oayFupNLxZKMz-fB0EoV4xio-sH-yKvjVVXRcDqAzZxO61ET5q2ysoV_xW0xtMVuwMxseMwE5Hn1PFrTj26ZmmuazJkQvE6QjzfDWvtQdnAZBOAZErZnWDCmN7Az5hbC7rrOQ4AMMoOaSDtgMyvcgQx1T9ILBsW4uesCEQ8xra25E2dtuBk_DSrJ2Y5sWfoKMRCmT6C";
 const testimonialImage2 = "https://lh3.googleusercontent.com/aida-public/AB6AXuCLwdtNo0olVky5fQpEsFjn0-BZ4yodhyPvTAtH0ElA4sjXDMSGMoaUZ4lcliFE1LPEjdBstNlZ3LpVKhQZhASFt5gLymev-dRDyFde8XFStBPRnRDShtGVp_OrbsI1ulGXvIgLPGstYkzSDe9-V4V9fjS2FvnzZ4XLJzFXknaO8YG_jyVeCjgIQFFcmv6wvKLBiOGpLz-h-R3ocq6ZnEy1EaP63RsfRH2yPo1O0nhjZJNRJZNE6lyA";
 
@@ -259,7 +259,7 @@ export default function LandingPage() {
               <Reveal delay={100}>
                 <ServiceCard 
                   title="Dental Implants"
-                  description="Permanent solution for missing teeth using biocompatible titanium and natural-looking crowns."
+                  description="Permanent solution for missing teeth using biocompatible titanium and natural-looking."
                   image={serviceImage2}
                   icon="clinical_notes"
                 />

@@ -108,9 +108,7 @@ export const NavBar = () => {
 
         {/* Action Buttons & Mobile Toggle */}
         <div className="flex items-center gap-2 sm:gap-4">
-          <button className="hidden lg:block px-5 py-2.5 text-sm font-semibold text-primary border border-primary/20 rounded-lg hover:bg-primary/5 transition-all active:scale-95">
-            Patient Login
-          </button>
+          
           
           <Link
             to="/book"
@@ -150,9 +148,6 @@ export const NavBar = () => {
           
           {/* Mobile-only CTA action items */}
           <div className="pt-4 border-t border-outline-variant/30 flex flex-col gap-3">
-            <button className="w-full py-3 text-sm font-semibold text-primary border border-primary/20 rounded-lg hover:bg-primary/5 transition-all">
-              Patient Login
-            </button>
             <Link
               to="/book"
               onClick={closeMenu}

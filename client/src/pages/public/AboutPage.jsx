@@ -21,12 +21,12 @@ const FALLBACK_IMAGES = {
 };
 
 // Original images
-const heroImage = "https://lh3.googleusercontent.com/aida/AP1WRLtZe2s0pyx_LJYzOQxTf66EHKOfvmMa7dkstdBziv4KGvE9a9PdjfgcO1u7zmA3665FDlUdxj8KxJxU8D1ruk6_ElFK8Hmwn4XIHpeY9Kjt0S0PJLPJKA1LT-2inNfC2ygo6oImRC31T5R6vm4JHXCMVTpqfbWDhpGEU3oEN-6UUtNp-xtuNdgeA7PXNRMvGkV8GQbD68vXNg5AYfeT_mY9rGE9AZiLBtpmhc4BY2k226JVFrUb7jH0qPM";
-const storyImage = "https://lh3.googleusercontent.com/aida-public/AB6AXuCpMecPSEpkYR1y9NQhxpkYd2R1skTcdhTNkC2pgE46YZKOgL5N754R8-j8ooPIkeC8QpTh6UklAuMaxQ5BaNljeakn7JBMeYAjIEbeSnK3MKETxfJUIqVaNJhe3SlpcNsw978vaMXdWudKt_iAwznLyaZ0AhM8U3462sdx5047N9S5n399MR2RZW-I1W9V987EXXDAqLme-pcrhSFJKdle80OkzUOj5XwN6Lv7vjLbS0iYfUZTHsbQ";
-const techImage = "https://lh3.googleusercontent.com/aida-public/AB6AXuC1uTp5nXuOS3ByR4RXHMDd2lHnQOh_YAzQsqVvnl9-zb34Z9ZOQP_7PsrRdB38qG4DDheVBCXRpKeUKjj1DBdaB1-UlQUrIFJvzvXBT576mWIzaWr3ackxHpaKAPOTZocO4-gSq2_UQthdu7EW9jl_VHjpNN8e5RHtWOR2o4RZa_swLVDA6wYulsgPuQ_lz1GoWUlnUEhKhjGSdDm8PRVkRFE3PGAL8_3CYG1kX7d5HRnn5XsePF8P";
-const teamImage1 = "https://lh3.googleusercontent.com/aida-public/AB6AXuDSVFLtTQFYG82O71YupVukFC5wt5v9saZiReN7Il8tO7P7taqg__9gBElsks9o5d1AZFgbXE42oXv4ti2r-YgEIEr1jeyMv4rQqGQsQwOvqeicFAYM2EN1VnRo3uGKI9zp8bfNuvLT-vAs-fr7pYIEl7bnXC5J_XXhJ4L7gC5b6JleRe4FL5kkW77PgCLgYIJYGfn1W68Q_C1_H2KvPjCfvFf8bpKNlo8C-G91yMaxOEhVbzsBGr7n";
+const heroImage = "https://static.vecteezy.com/system/resources/thumbnails/036/595/008/small_2x/ai-generated-dental-clinic-advertisment-background-with-copy-space-free-photo.jpg";
+const storyImage = "https://img.freepik.com/premium-photo/two-dentist-doctors-are-standing-dental-office-looking-tablet-medicine-dentistry-closeup-portrait_613652-1360.jpg?w=2000";
+const techImage = "https://png.pngtree.com/png-clipart/20250101/original/pngtree-dentist-doctor-cartoon-illustration-png-image_18490263.png";
+const teamImage1 = "https://img.freepik.com/premium-photo/portrait-happy-male-dentist_1204722-49.jpg";
 const teamImage2 = "https://lh3.googleusercontent.com/aida-public/AB6AXuAVqN6rafuy-1psKjTG9L42HqBXsTt8C2f4FuyhXqkK7tIZg07ev72vtgAekmuWowUeNxkjIvJl5eQ6iX9WBz9GINFaE9kIT3hOzYr4VRzdviQEp7_5SVPsmJuqJVJxdV5v5HMHoEqXq_9hizChVGSZkb-wtf0bKF0_62V32ZOeW9b-c4X36G6Hmkw5pedxyZ0JxzrCrul-mOTIZykORIeSp1rGFcCjkzoXCO5oMJCe659YkK2OasO3";
-const teamImage3 = "https://lh3.googleusercontent.com/aida-public/AB6AXuDFexumFSx9FR7g4ZeDL-K9j4wmb3pryeAKDPlY16FT0_VCU3ey4qKpVatALbYR13lLes40O24FL4kO3JJ1EltHcOGzsWkuoBWHN2UIWD1Zb2tNRku9_zTugvoRVZ8D2gZJUWcs58s-A-3bD6gFdNIJyK3DIowu1Zfo-PBMJZGqUrK8k3S4Blhhw4eDp-Pej1GWSaMd_GgW38CtumneDW-8A7-w_Zn6HjJ0HbvAoD9B6BURuJSMsHz0";
+const teamImage3 = "https://img.freepik.com/premium-photo/male-portrait-smiling-dentist-doctor-background-dental-office_168171-2267.jpg";
 
 export default function AboutPage() {
   const [imageErrors, setImageErrors] = useState({});
@@ -84,7 +84,7 @@ export default function AboutPage() {
           </div>
           <div className="relative z-10 px-6 lg:px-10 max-w-7xl mx-auto w-full">
             <div className="max-w-2xl">
-              <span className="inline-block px-4 py-2 bg-primary-container text-white-container rounded-full text-xs font-semibold uppercase tracking-wider mb-4">
+              <span className="inline-block px-4 py-2 bg-primary-container text-white rounded-full text-xs font-semibold uppercase tracking-wider mb-4">
                 Setting the Standard
               </span>
               <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-primary leading-tight mb-6">

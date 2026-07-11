@@ -82,6 +82,28 @@ export default function BookingPage() {
     [doctors, selectedDoctorId]
   );
 
+  // Only show doctors who actually offer the selected service. Doctors store
+  // their offered services as an array of Service ObjectIds (or populated
+  // objects), so normalize before comparing.
+  const availableDoctors = useMemo(() => {
+    if (!selectedServiceId) return doctors;
+    return doctors.filter((d) =>
+      (d.services || []).some((s) => (typeof s === "string" ? s : s?._id) === selectedServiceId)
+    );
+  }, [doctors, selectedServiceId]);
+
+  // When the chosen service changes, drop any doctor selection that no
+  // longer applies (and its dependent date/time selections).
+  const handleSelectService = (serviceId) => {
+    setSelectedServiceId(serviceId);
+    setSelectedDoctorId((prevDoctorId) => {
+      const stillValid = doctors
+        .find((d) => d._id === prevDoctorId)
+        ?.services?.some((s) => (typeof s === "string" ? s : s?._id) === serviceId);
+      return stillValid ? prevDoctorId : "";
+    });
+  };
+
   // Load services + doctors once.
   useEffect(() => {
     let cancelled = false;
@@ -276,9 +298,10 @@ export default function BookingPage() {
               <ScheduleStep
                 loadingOptions={loadingOptions}
                 services={services}
-                doctors={doctors}
+                doctors={availableDoctors}
+                totalDoctorsCount={doctors.length}
                 selectedServiceId={selectedServiceId}
-                setSelectedServiceId={setSelectedServiceId}
+                setSelectedServiceId={handleSelectService}
                 selectedDoctorId={selectedDoctorId}
                 setSelectedDoctorId={setSelectedDoctorId}
                 date={date}
@@ -332,6 +355,7 @@ function ScheduleStep({
   loadingOptions,
   services,
   doctors,
+  totalDoctorsCount,
   selectedServiceId,
   setSelectedServiceId,
   selectedDoctorId,
@@ -348,8 +372,8 @@ function ScheduleStep({
 }) {
   return (
     <section className="p-6 md:p-8 flex flex-col gap-6 flex-1">
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-        {/* LEFT: Service -> Date -> Available Slots */}
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-start">
+        {/* LEFT: Service selection only */}
         <div className="flex flex-col gap-4">
           <label className="text-lg font-semibold text-on-surface">Select Service</label>
           {loadingOptions ? (
@@ -375,8 +399,8 @@ function ScheduleStep({
                     >
                       {SERVICE_ICONS[svc.category] || "medical_services"}
                     </span>
-                    <span className={`text-sm text-on-surface ${active ? "font-bold" : ""}`}>{svc.name}</span>
-                    <span className="text-xs text-on-surface-variant">
+                    <span className={`text-sm text-on-surface line-clamp-2 ${active ? "font-bold" : ""}`}>{svc.name}</span>
+                    <span className="text-xs text-on-surface-variant truncate">
                       {svc.priceFrom ? `$${svc.priceFrom} • ` : ""}
                       {svc.durationMinutes} min
                     </span>
@@ -385,6 +409,65 @@ function ScheduleStep({
               })}
               {services.length === 0 && (
                 <p className="col-span-2 text-sm text-on-surface-variant">No services available yet.</p>
+              )}
+            </div>
+          )}
+        </div>
+
+        {/* RIGHT: Doctors, then Date + Slots below them */}
+        <div className="flex flex-col gap-4">
+          <label className="text-lg font-semibold text-on-surface">Choose Specialist</label>
+          {!selectedServiceId ? (
+            <p className="text-sm text-on-surface-variant">Select a service first to see specialists who offer it.</p>
+          ) : (
+            <div className="flex flex-col gap-2 max-h-[360px] overflow-y-auto pr-1">
+              {doctors.map((doc) => {
+                const active = doc._id === selectedDoctorId;
+                return (
+                  <div
+                    key={doc._id}
+                    onClick={() => setSelectedDoctorId(doc._id)}
+                    className={`flex items-center gap-4 p-3 rounded-xl border cursor-pointer transition-all ${
+                      active ? "border-primary/10 bg-white" : "border-transparent bg-surface-container-low hover:border-primary/20"
+                    }`}
+                  >
+                    <div className="w-12 h-12 rounded-full overflow-hidden bg-surface-container shrink-0">
+                      {doc.photoUrl ? (
+                        <img
+                          className="w-full h-full object-cover"
+                          src={doc.photoUrl.startsWith("http") ? doc.photoUrl : `${API_BASE_URL}${doc.photoUrl}`}
+                          alt={doc.name}
+                          loading="lazy"
+                          decoding="async"
+                        />
+                      ) : (
+                        <div className="w-full h-full flex items-center justify-center text-primary font-bold">
+                          {doc.name?.[0] || "D"}
+                        </div>
+                      )}
+                    </div>
+                    <div className="min-w-0">
+                      <div className="text-sm font-semibold truncate">{doc.name}</div>
+                      <div className="text-xs text-on-surface-variant truncate">
+                        {doc.specialty} {doc.experienceYears ? `• ${doc.experienceYears}yr Exp` : ""}
+                      </div>
+                    </div>
+                    <span
+                      className={`material-symbols-outlined ml-auto shrink-0 ${active ? "text-primary" : "text-outline-variant"}`}
+                      style={active ? { fontVariationSettings: "'FILL' 1" } : undefined}
+                    >
+                      {active ? "check_circle" : "circle"}
+                    </span>
+                  </div>
+                );
+              })}
+              {!loadingOptions && doctors.length === 0 && totalDoctorsCount > 0 && (
+                <p className="text-sm text-on-surface-variant">
+                  No specialists currently offer this service. Please choose a different service.
+                </p>
+              )}
+              {!loadingOptions && totalDoctorsCount === 0 && (
+                <p className="text-sm text-on-surface-variant">No specialists available yet.</p>
               )}
             </div>
           )}
@@ -431,54 +514,6 @@ function ScheduleStep({
               )}
             </div>
           )}
-        </div>
-
-        {/* RIGHT: Doctors */}
-        <div className="flex flex-col gap-4">
-          <label className="text-lg font-semibold text-on-surface">Choose Specialist</label>
-          <div className="flex flex-col gap-2">
-            {doctors.map((doc) => {
-              const active = doc._id === selectedDoctorId;
-              return (
-                <div
-                  key={doc._id}
-                  onClick={() => setSelectedDoctorId(doc._id)}
-                  className={`flex items-center gap-4 p-3 rounded-xl border cursor-pointer transition-all ${
-                    active ? "border-primary/10 bg-white" : "border-transparent bg-surface-container-low hover:border-primary/20"
-                  }`}
-                >
-                  <div className="w-12 h-12 rounded-full overflow-hidden bg-surface-container shrink-0">
-                    {doc.photoUrl ? (
-                      <img
-                        className="w-full h-full object-cover"
-                        src={doc.photoUrl.startsWith("http") ? doc.photoUrl : `${API_BASE_URL}${doc.photoUrl}`}
-                        alt={doc.name}
-                      />
-                    ) : (
-                      <div className="w-full h-full flex items-center justify-center text-primary font-bold">
-                        {doc.name?.[0] || "D"}
-                      </div>
-                    )}
-                  </div>
-                  <div>
-                    <div className="text-sm font-semibold">{doc.name}</div>
-                    <div className="text-xs text-on-surface-variant">
-                      {doc.specialty} {doc.experienceYears ? `• ${doc.experienceYears}yr Exp` : ""}
-                    </div>
-                  </div>
-                  <span
-                    className={`material-symbols-outlined ml-auto ${active ? "text-primary" : "text-outline-variant"}`}
-                    style={active ? { fontVariationSettings: "'FILL' 1" } : undefined}
-                  >
-                    {active ? "check_circle" : "circle"}
-                  </span>
-                </div>
-              );
-            })}
-            {!loadingOptions && doctors.length === 0 && (
-              <p className="text-sm text-on-surface-variant">No specialists available yet.</p>
-            )}
-          </div>
         </div>
       </div>
 
