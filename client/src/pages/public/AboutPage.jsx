@@ -1,13 +1,14 @@
 // src/pages/public/AboutPage.jsx
 import React, { useEffect, useState } from 'react';
-import { 
-  NavBar, 
-  Footer, 
+import {
+  NavBar,
+  Footer,
   CTASection,
   ValueCard,
   TeamMemberCard,
   Icon
 } from '../../components/SharedComponents';
+import { PageTransition } from '../../components/Motion';
 
 // Fallback images
 const FALLBACK_IMAGES = {
@@ -66,16 +67,16 @@ export default function AboutPage() {
   }, []);
 
   return (
-    <div className="bg-background text-on-surface font-body-md antialiased overflow-x-hidden">
+    <PageTransition className="bg-background text-on-surface font-body-md antialiased overflow-x-hidden">
       <NavBar />
 
       <main className="pt-20">
         {/* Hero Section */}
         <section className="relative h-[80vh] flex items-center overflow-hidden">
           <div className="absolute inset-0 z-0">
-            <img 
-              alt="PureDent Premium Clinic Interior" 
-              className="w-full h-full object-cover" 
+            <img
+              alt="PureDent Premium Clinic Interior"
+              className="w-full h-full object-cover"
               src={getImageSrc('hero', heroImage)}
               onError={() => handleImageError('hero')}
             />
@@ -83,7 +84,7 @@ export default function AboutPage() {
           </div>
           <div className="relative z-10 px-6 lg:px-10 max-w-7xl mx-auto w-full">
             <div className="max-w-2xl">
-              <span className="inline-block px-4 py-2 bg-primary-container text-on-primary-container rounded-full text-xs font-semibold uppercase tracking-wider mb-4">
+              <span className="inline-block px-4 py-2 bg-primary-container text-white-container rounded-full text-xs font-semibold uppercase tracking-wider mb-4">
                 Setting the Standard
               </span>
               <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-primary leading-tight mb-6">
@@ -107,7 +108,7 @@ export default function AboutPage() {
           <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
             <div className="order-2 md:order-1">
               <div className="relative rounded-2xl overflow-hidden shadow-xl aspect-4/3">
-                <div 
+                <div
                   className="w-full h-full bg-cover bg-center"
                   style={{ backgroundImage: `url(${getImageSrc('story', storyImage)})` }}
                   onError={() => handleImageError('story')}
@@ -150,25 +151,25 @@ export default function AboutPage() {
               </p>
             </div>
             <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
-              <ValueCard 
+              <ValueCard
                 icon="verified"
                 title="Excellence"
                 description="We strive for perfection in every procedure, utilizing the highest medical standards."
                 iconBg="secondary-container"
               />
-              <ValueCard 
+              <ValueCard
                 icon="favorite"
                 title="Compassion"
                 description="Care that understands. We prioritize your comfort and peace of mind above all else."
                 iconBg="primary-container/10"
               />
-              <ValueCard 
+              <ValueCard
                 icon="lightbulb"
                 title="Innovation"
                 description="Constantly evolving with the latest digital dentistry tools and methodologies."
                 iconBg="tertiary-fixed"
               />
-              <ValueCard 
+              <ValueCard
                 icon="gavel"
                 title="Integrity"
                 description="Transparent communication and honest treatment plans you can trust implicitly."
@@ -209,8 +210,8 @@ export default function AboutPage() {
             </div>
             <div className="flex-1 relative">
               <div className="w-full aspect-square relative rounded-full overflow-hidden border-16 border-surface-container p-2 bg-surface-container">
-                <img 
-                  className="w-full h-full object-cover rounded-full" 
+                <img
+                  className="w-full h-full object-cover rounded-full"
                   src={getImageSrc('tech', techImage)}
                   onError={() => handleImageError('tech')}
                   alt="Advanced dental technology"
@@ -236,21 +237,21 @@ export default function AboutPage() {
               </button>
             </div>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8">
-              <TeamMemberCard 
+              <TeamMemberCard
                 name="Dr. Julian Vance"
                 role="Chief Medical Officer"
                 description="Specializing in Full Mouth Reconstructive Surgery and Advanced Implantology."
                 image={getImageSrc('team1', teamImage1)}
                 alt="Dr. Julian Vance - Chief Medical Officer"
               />
-              <TeamMemberCard 
+              <TeamMemberCard
                 name="Dr. Sarah Sterling"
                 role="Lead Aesthetic Dentist"
                 description="Expert in Aesthetic Veneers, Smile Design, and Digital Orthodontics."
                 image={getImageSrc('team2', teamImage2)}
                 alt="Dr. Sarah Sterling - Lead Aesthetic Dentist"
               />
-              <TeamMemberCard 
+              <TeamMemberCard
                 name="Dr. Michael Chen"
                 role="Specialist Surgeon"
                 description="Focused on Laser Dentistry and Minimally Invasive Surgical Techniques."
@@ -266,6 +267,6 @@ export default function AboutPage() {
       </main>
 
       <Footer />
-    </div>
+    </PageTransition>
   );
 }

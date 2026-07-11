@@ -30,7 +30,7 @@ export default function TreatmentsPage() {
       headerActions={
         <button
           onClick={() => setShowModal(true)}
-          className="flex items-center gap-1 px-6 py-3 rounded-xl bg-primary text-on-primary font-bold shadow-sm hover:opacity-90 active:scale-95 transition-all"
+          className="flex items-center gap-1 px-6 py-3 rounded-xl bg-primary text-white font-bold shadow-sm hover:opacity-90 active:scale-95 transition-all"
         >
           <span className="material-symbols-outlined text-[20px]">add</span>
           Add Treatment
@@ -44,7 +44,7 @@ export default function TreatmentsPage() {
             onClick={() => setCategory(c)}
             className={
               category === c
-                ? "px-4 py-2 rounded-full bg-primary text-on-primary text-xs font-bold transition-all"
+                ? "px-4 py-2 rounded-full bg-primary text-white text-xs font-bold transition-all"
                 : "px-4 py-2 rounded-full bg-surface-container-low text-on-surface-variant text-xs font-bold hover:bg-surface-container-high transition-all"
             }
           >
@@ -57,7 +57,7 @@ export default function TreatmentsPage() {
         {filtered.map((t) => (
           <div key={t.name} className="glass-card rounded-3xl p-6 hover:shadow-xl transition-all group">
             <div className="flex justify-between items-start mb-4">
-              <div className="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center text-primary group-hover:bg-primary group-hover:text-on-primary transition-colors">
+              <div className="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center text-primary group-hover:bg-primary group-hover:text-white transition-colors">
                 <span className="material-symbols-outlined">{t.icon}</span>
               </div>
               <span className="px-3 py-1 rounded-full bg-surface-container-low text-[11px] font-bold text-on-surface-variant">
@@ -115,7 +115,7 @@ function AddTreatmentModal({ onClose }) {
           <button onClick={onClose} className="flex-1 py-2.5 rounded-xl border border-outline-variant text-on-surface-variant font-bold text-sm">
             Cancel
           </button>
-          <button onClick={onClose} className="flex-1 py-2.5 rounded-xl bg-primary text-on-primary font-bold text-sm">
+          <button onClick={onClose} className="flex-1 py-2.5 rounded-xl bg-primary text-white font-bold text-sm">
             Save
           </button>
         </div>

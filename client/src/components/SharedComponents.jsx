@@ -1,33 +1,33 @@
 // src/components/SharedComponents.jsx
-import React, { useState, useEffect, useRef } from 'react';
+import { useState, useEffect, useRef, useCallback, memo } from 'react';
 import { Link, NavLink } from 'react-router-dom';
 
 // ============================================
 // 1. ICON COMPONENT
 // ============================================
-export const Icon = ({ name, className = '', fill = false }) => (
+export const Icon = memo(({ name, className = '', fill = false }) => (
   <span 
     className={`material-symbols-outlined ${className}`}
     style={{ fontVariationSettings: `'FILL' ${fill ? 1 : 0}, 'wght' 400, 'GRAD' 0, 'opsz' 24` }}
   >
     {name}
   </span>
-);
+));
 
 // ============================================
 // 2. GLASS CARD COMPONENTS
 // ============================================
-export const GlassCard = ({ children, className = '' }) => (
+export const GlassCard = memo(({ children, className = '' }) => (
   <div className={`bg-white/70 backdrop-blur-md border border-primary/5 rounded-lg shadow-[0px_10px_30px_rgba(15,118,110,0.1)] ${className}`}>
     {children}
   </div>
-);
+));
 
-export const GlassCardLight = ({ children, className = '' }) => (
+export const GlassCardLight = memo(({ children, className = '' }) => (
   <div className={`bg-white/80 backdrop-blur-2xl border border-primary/5 shadow-[0px_10px_30px_rgba(15,118,110,0.04)] rounded-2xl ${className}`}>
     {children}
   </div>
-);
+));
 
 // ============================================
 // 3. UNIFIED NAVIGATION BAR
@@ -37,12 +37,21 @@ export const NavBar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const mobileMenuRef = useRef(null);
 
-  // Monitor scroll height to change background styling
+  // Monitor scroll height to change background styling.
+  // Throttled with requestAnimationFrame so we update state at most once
+  // per frame instead of on every single scroll event (big perf win on
+  // trackpads/momentum scrolling which can fire dozens of events/frame).
   useEffect(() => {
+    let ticking = false;
     const handleScroll = () => {
-      setScrolled(window.scrollY > 20);
+      if (ticking) return;
+      ticking = true;
+      requestAnimationFrame(() => {
+        setScrolled(window.scrollY > 20);
+        ticking = false;
+      });
     };
-    window.addEventListener("scroll", handleScroll);
+    window.addEventListener("scroll", handleScroll, { passive: true });
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
@@ -59,13 +68,18 @@ export const NavBar = () => {
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, [isOpen]);
 
-  // Unified link class function supporting desktop and mobile states
-  const navLinkClass = ({ isActive }) =>
+  const closeMenu = useCallback(() => setIsOpen(false), []);
+  const toggleMenu = useCallback(() => setIsOpen((prev) => !prev), []);
+
+  // Unified link class function supporting desktop and mobile states.
+  // Wrapped in useCallback so NavLink doesn't get a brand-new className
+  // function identity on every render.
+  const navLinkClass = useCallback(({ isActive }) =>
     `text-base md:text-sm lg:text-base font-medium transition-colors duration-200 block py-3 md:py-0 ${
       isActive
         ? "text-primary border-l-4 border-primary pl-3 md:border-l-0 md:border-b-2 md:pl-0 md:pb-1"
         : "text-on-surface-variant hover:text-primary pl-3 md:pl-0"
-    }`;
+    }`, []);
 
   return (
     <header
@@ -76,9 +90,9 @@ export const NavBar = () => {
       <nav className="flex justify-between items-center px-4 sm:px-6 lg:px-10 py-4 max-w-7xl mx-auto">
         
         {/* Brand Logo */}
-        <Link to="/" className="flex items-center gap-2 z-50" onClick={() => setIsOpen(false)}>
+        <Link to="/" className="flex items-center gap-2 z-50" onClick={closeMenu}>
           <Icon name="dentistry" className="text-primary text-3xl" />
-          <span className="text-lg md:text-xl font-bold text-primary dark:text-inverse-primary">
+          <span className="text-lg md:text-xl font-bold text-primary">
             PureDent Clinic
           </span>
         </Link>
@@ -100,7 +114,7 @@ export const NavBar = () => {
           
           <Link
             to="/book"
-            onClick={() => setIsOpen(false)}
+            onClick={closeMenu}
             className="hidden sm:inline-block md:inline-block lg:inline-block px-5 py-2.5 bg-primary text-white text-sm font-semibold rounded-lg shadow-md hover:bg-primary-container transition-all active:scale-95"
           >
             Book Appointment
@@ -109,7 +123,7 @@ export const NavBar = () => {
           {/* Mobile Menu Toggle Button */}
           <button
             type="button"
-            onClick={() => setIsOpen(!isOpen)}
+            onClick={toggleMenu}
             className="p-2 md:hidden text-on-surface-variant hover:text-primary transition-colors focus:outline-none"
             aria-label="Toggle navigation menu"
           >
@@ -128,11 +142,11 @@ export const NavBar = () => {
         }`}
       >
         <div className="px-6 py-4 space-y-1 flex flex-col">
-          <NavLink to="/" className={navLinkClass} end onClick={() => setIsOpen(false)}>Home</NavLink>
-          <NavLink to="/about" className={navLinkClass} onClick={() => setIsOpen(false)}>About</NavLink>
-          <NavLink to="/services" className={navLinkClass} onClick={() => setIsOpen(false)}>Services</NavLink>
-          <NavLink to="/doctors" className={navLinkClass} onClick={() => setIsOpen(false)}>Doctors</NavLink>
-          <NavLink to="/contact" className={navLinkClass} onClick={() => setIsOpen(false)}>Contact</NavLink>
+          <NavLink to="/" className={navLinkClass} end onClick={closeMenu}>Home</NavLink>
+          <NavLink to="/about" className={navLinkClass} onClick={closeMenu}>About</NavLink>
+          <NavLink to="/services" className={navLinkClass} onClick={closeMenu}>Services</NavLink>
+          <NavLink to="/doctors" className={navLinkClass} onClick={closeMenu}>Doctors</NavLink>
+          <NavLink to="/contact" className={navLinkClass} onClick={closeMenu}>Contact</NavLink>
           
           {/* Mobile-only CTA action items */}
           <div className="pt-4 border-t border-outline-variant/30 flex flex-col gap-3">
@@ -141,7 +155,7 @@ export const NavBar = () => {
             </button>
             <Link
               to="/book"
-              onClick={() => setIsOpen(false)}
+              onClick={closeMenu}
               className="w-full text-center py-3 bg-primary text-white text-sm font-semibold rounded-lg shadow-md hover:opacity-90 transition-all"
             >
               Book Appointment
@@ -156,7 +170,7 @@ export const NavBar = () => {
 // ============================================
 // 4. STAT COUNTER
 // ============================================
-export const StatCounter = ({ target, label, suffix = '' }) => {
+export const StatCounter = memo(function StatCounter({ target, label, suffix = '' }) {
   const [count, setCount] = useState(0);
   const elementRef = useRef(null);
   const animated = useRef(false);
@@ -217,12 +231,12 @@ export const StatCounter = ({ target, label, suffix = '' }) => {
       </p>
     </div>
   );
-};
+});
 
 // ============================================
 // 5. FEATURE CARD
 // ============================================
-export const FeatureCard = ({ icon, title, description }) => (
+export const FeatureCard = memo(({ icon, title, description }) => (
   <div className="p-6 rounded-lg bg-white/70 backdrop-blur-md border border-primary/5 hover:bg-white hover:shadow-xl transition-all group">
     <div className="w-14 h-14 md:w-16 md:h-16 bg-surface-container flex items-center justify-center rounded-xl mb-4 md:mb-6 group-hover:bg-primary/10 transition-colors">
       <Icon name={icon} className="text-primary text-3xl md:text-4xl" />
@@ -230,12 +244,12 @@ export const FeatureCard = ({ icon, title, description }) => (
     <h4 className="text-lg md:text-xl font-bold text-primary mb-2 md:mb-4">{title}</h4>
     <p className="text-sm md:text-base text-on-surface-variant leading-relaxed">{description}</p>
   </div>
-);
+));
 
 // ============================================
 // 6. SERVICE CARD (Home page)
 // ============================================
-export const ServiceCard = ({ title, description, image, icon }) => {
+export const ServiceCard = memo(function ServiceCard({ title, description, image, icon }) {
   const [imgError, setImgError] = useState(false);
 
   return (
@@ -269,12 +283,12 @@ export const ServiceCard = ({ title, description, image, icon }) => {
       </div>
     </div>
   );
-};
+});
 
 // ============================================
 // 7. TESTIMONIAL CARD
 // ============================================
-export const TestimonialCard = ({ quote, name, role, image, initials }) => (
+export const TestimonialCard = memo(({ quote, name, role, image, initials }) => (
   <div className="p-6 md:p-8 rounded-lg bg-white/70 backdrop-blur-md border border-primary/10 flex flex-col h-full hover:shadow-lg transition-shadow">
     <div className="flex gap-1 mb-4 md:mb-6 text-secondary">
       <Icon name="star" className="text-sm" fill />
@@ -302,12 +316,12 @@ export const TestimonialCard = ({ quote, name, role, image, initials }) => (
       </div>
     </div>
   </div>
-);
+));
 
 // ============================================
 // 8. SERVICE CARD WITH PRICE (Services page)
 // ============================================
-export const ServiceCardWithPrice = ({ 
+export const ServiceCardWithPrice = memo(function ServiceCardWithPrice({
   id,
   title, 
   description, 
@@ -317,7 +331,7 @@ export const ServiceCardWithPrice = ({
   duration, 
   badge, 
   badgeColor = 'primary' 
-}) => {
+}) {
   const [imgError, setImgError] = useState(false);
 
   const badgeColors = {
@@ -377,12 +391,12 @@ export const ServiceCardWithPrice = ({
       </div>
     </Link>
   );
-};
+});
 
 // ============================================
 // 9. CATEGORY TABS
 // ============================================
-export const CategoryTabs = ({ categories, activeCategory, onCategoryChange }) => {
+export const CategoryTabs = memo(function CategoryTabs({ categories, activeCategory, onCategoryChange }) {
   return (
     <div className="flex justify-center mb-8">
       <div className="inline-flex p-1 bg-surface-container-low rounded-full border border-outline-variant">
@@ -402,12 +416,12 @@ export const CategoryTabs = ({ categories, activeCategory, onCategoryChange }) =
       </div>
     </div>
   );
-};
+});
 
 // ============================================
 // 10. VALUE CARD
 // ============================================
-export const ValueCard = ({ icon, title, description, iconBg = 'secondary-container' }) => {
+export const ValueCard = memo(function ValueCard({ icon, title, description, iconBg = 'secondary-container' }) {
   const bgColors = {
     'secondary-container': 'bg-secondary-container text-on-secondary-container',
     'primary-container/10': 'bg-primary-container/10 text-primary',
@@ -424,12 +438,12 @@ export const ValueCard = ({ icon, title, description, iconBg = 'secondary-contai
       <p className="text-sm text-on-surface-variant">{description}</p>
     </div>
   );
-};
+});
 
 // ============================================
 // 11. TEAM MEMBER CARD
 // ============================================
-export const TeamMemberCard = ({ name, role, description, image, alt }) => {
+export const TeamMemberCard = memo(function TeamMemberCard({ name, role, description, image, alt }) {
   const [isHovered, setIsHovered] = useState(false);
   const [imgError, setImgError] = useState(false);
 
@@ -465,7 +479,7 @@ export const TeamMemberCard = ({ name, role, description, image, alt }) => {
       <p className="text-xs font-semibold text-on-surface-variant uppercase tracking-wider">{role}</p>
     </div>
   );
-};
+});
 
 // ============================================
 // 12. CTA SECTION
@@ -522,18 +536,18 @@ export const CTASection = ({ variant = 'primary' }) => {
 // ============================================
 // 13. UNIFIED FOOTER
 // ============================================
-export const Footer = () => (
+export const Footer = memo(function Footer() {
+  return (
   <footer className="bg-surface-container-highest border-t border-surface-variant w-full">
-    {/* FIXED: Changed to grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 to distribute columns beautifully across the screen */}
-    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-8 lg:gap-6 px-6 lg:px-10 py-10 md:py-12 max-w-7xl mx-auto">
-      
-      {/* Brand Box - FIXED: Added lg:col-span-2 and max-w-sm so the paragraph has plenty of room to breathe instead of breaking per word */}
-      <div className="space-y-4 sm:col-span-2 lg:col-span">
+    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-10 sm:gap-8 lg:gap-6 px-6 lg:px-10 py-10 md:py-12 max-w-7xl mx-auto text-center sm:text-left">
+
+      {/* Brand Box */}
+      <div className="space-y-4 sm:col-span-2 lg:col-span-2 flex flex-col items-center sm:items-start">
         <Link to="/" className="flex items-center gap-2 text-lg font-bold text-primary">
           <Icon name="dentistry" className="text-primary text-2xl" />
           PureDent Clinic
         </Link>
-        <p className="text-s text-on-surface-variant leading-relaxed">
+        <p className="text-sm leading-relaxed">
           Leading the way in dental excellence. We provide comprehensive dental care for patients of all ages in a modern, caring environment.
         </p>
       </div>
@@ -575,11 +589,11 @@ export const Footer = () => (
     </div>
 
     {/* Lower Copyright & Social Bar */}
-    <div className="max-w-7xl mx-auto px-6 lg:px-10 py-6 border-t border-surface-variant/30 flex flex-col-reverse md:flex-row justify-between items-center gap-4 text-center md:text-left">
+    <div className="max-w-7xl mx-auto px-6 lg:px-10 py-6 border-t border-surface-variant/30 flex flex-col-reverse sm:flex-row justify-between items-center gap-4 text-center sm:text-left">
       <p className="text-xs sm:text-sm text-on-surface-variant">
         © 2026 PureDent Dental Clinic. All rights reserved.
       </p>
-      
+
       <div className="flex gap-6 items-center">
         <a className="text-on-surface-variant hover:text-primary transition-colors p-1" aria-label="Website" href="#">
           <Icon name="public" className="text-xl" />
@@ -590,4 +604,5 @@ export const Footer = () => (
       </div>
     </div>
   </footer>
-);
+  );
+});

@@ -5,9 +5,9 @@ import {
   Footer, 
   CTASection,
   ServiceCardWithPrice,
-  CategoryTabs,
-  Icon
+  CategoryTabs
 } from '../../components/SharedComponents';
+import { Reveal, PageTransition } from '../../components/Motion';
 
 // Images
 const images = {
@@ -198,7 +198,7 @@ export default function ServicesPage() {
   };
 
   return (
-    <div className="bg-background text-on-surface font-body-md antialiased overflow-x-hidden">
+    <PageTransition className="bg-background text-on-surface font-body-md antialiased overflow-x-hidden">
       <NavBar />
 
       <main>
@@ -226,10 +226,10 @@ export default function ServicesPage() {
           />
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {getServices().map((service) => (
-              <div key={service.id} className="service-card">
+            {getServices().map((service, index) => (
+              <Reveal key={service.id} as="div" delay={Math.min(index, 8) * 60} className="service-card">
                 <ServiceCardWithPrice {...service} />
-              </div>
+              </Reveal>
             ))}
           </div>
         </div>
@@ -239,6 +239,6 @@ export default function ServicesPage() {
       </main>
 
       <Footer />
-    </div>
+    </PageTransition>
   );
 }

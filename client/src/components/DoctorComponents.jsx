@@ -1,9 +1,9 @@
 // src/components/DoctorComponents.jsx
-import React, { useState } from 'react';
+import { memo, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Icon } from './SharedComponents';
 
-export const DoctorCard = ({ doctor }) => {
+export const DoctorCard = memo(function DoctorCard({ doctor }) {
   const [imgError, setImgError] = useState(false);
   // console.log(doctor._id)
   return (
@@ -62,16 +62,16 @@ export const DoctorCard = ({ doctor }) => {
       </div>
     </div>
   );
-};
+});
 
-export const DoctorFilterBar = ({ 
+export const DoctorFilterBar = memo(function DoctorFilterBar({ 
   specializations, 
   selectedSpecialization, 
   onSpecializationChange,
   searchTerm,
   onSearchChange,
   totalCount 
-}) => {
+}) {
   return (
     <div className="glass-card p-4 rounded-xl flex flex-wrap items-center gap-4 border border-primary/10">
       <div className="flex items-center gap-2 pr-4 border-r border-outline-variant/30">
@@ -104,4 +104,4 @@ export const DoctorFilterBar = ({
       </div>
     </div>
   );
-};
+});

@@ -49,3 +49,60 @@
     "opsz" 24;
   vertical-align: middle;
 }
+
+/* ============================================
+   Global smooth scrolling + motion utilities
+   ============================================ */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Page-level fade/slide-in used by the PageTransition wrapper */
+@keyframes page-enter {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.page-transition {
+  animation: page-enter 0.35s ease-out both;
+}
+
+/* Scroll-reveal utility used by the <Reveal> component */
+@keyframes reveal-up {
+  from {
+    opacity: 0;
+    transform: translateY(24px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.reveal {
+  opacity: 0;
+}
+
+.reveal.reveal-visible {
+  animation: reveal-up 0.6s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+/* Respect users who prefer less motion */
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  .page-transition,
+  .reveal.reveal-visible {
+    animation: none !important;
+  }
+  .reveal {
+    opacity: 1;
+  }
+}

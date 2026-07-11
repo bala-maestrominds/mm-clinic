@@ -44,7 +44,7 @@ export default function AdminLoginPage() {
       {/* Explicitly fixed width structure avoiding core configuration conflicts */}
       <div className="relative z-10 w-full max-w-[440px]">
         <div className="text-center mb-8">
-          <div className="inline-flex items-center justify-center w-14 h-14 rounded-2xl bg-primary text-on-primary shadow-[0px_8px_20px_rgba(15,118,110,0.25)] mb-4">
+          <div className="inline-flex items-center justify-center w-14 h-14 rounded-2xl bg-primary text-white shadow-[0px_8px_20px_rgba(15,118,110,0.25)] mb-4">
             <span className="material-symbols-outlined text-[28px]">medical_services</span>
           </div>
           <h1 className="text-3xl font-bold text-primary tracking-tight">PureDent Admin</h1>
@@ -113,7 +113,7 @@ export default function AdminLoginPage() {
             <button
               type="submit"
               disabled={isSubmitting}
-              className="w-full py-3 rounded-xl bg-primary text-on-primary font-bold shadow-sm hover:opacity-90 active:scale-[0.98] transition-all disabled:opacity-60 disabled:active:scale-100 flex items-center justify-center gap-2 cursor-pointer"
+              className="w-full py-3 rounded-xl bg-primary text-white font-bold shadow-sm hover:opacity-90 active:scale-[0.98] transition-all disabled:opacity-60 disabled:active:scale-100 flex items-center justify-center gap-2 cursor-pointer"
             >
               {isSubmitting ? (
                 <>

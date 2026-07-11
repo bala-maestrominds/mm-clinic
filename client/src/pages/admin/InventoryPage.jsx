@@ -37,7 +37,7 @@ export default function InventoryPage() {
       title="Inventory"
       subtitle="Monitor clinic supplies and restock before you run out."
       headerActions={
-        <button className="flex items-center gap-1 px-6 py-3 rounded-xl bg-primary text-on-primary font-bold shadow-sm hover:opacity-90 active:scale-95 transition-all">
+        <button className="flex items-center gap-1 px-6 py-3 rounded-xl bg-primary text-white font-bold shadow-sm hover:opacity-90 active:scale-95 transition-all">
           <span className="material-symbols-outlined text-[20px]">add</span>
           Add Item
         </button>
@@ -100,7 +100,7 @@ export default function InventoryPage() {
                       {low ? (
                         <button
                           onClick={() => restock(item.name)}
-                          className="px-4 py-2 rounded-xl bg-primary text-on-primary text-xs font-bold hover:opacity-90 transition-all"
+                          className="px-4 py-2 rounded-xl bg-primary text-white text-xs font-bold hover:opacity-90 transition-all"
                         >
                           Restock
                         </button>

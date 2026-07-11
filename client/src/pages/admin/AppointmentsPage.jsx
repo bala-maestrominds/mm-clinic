@@ -85,7 +85,7 @@ export default function AppointmentsPage() {
           href="/book"
           target="_blank"
           rel="noreferrer"
-          className="flex items-center gap-1 px-6 py-3 rounded-xl bg-primary text-on-primary font-bold shadow-sm hover:opacity-90 active:scale-95 transition-all"
+          className="flex items-center gap-1 px-6 py-3 rounded-xl bg-primary text-white font-bold shadow-sm hover:opacity-90 active:scale-95 transition-all"
         >
           <span className="material-symbols-outlined text-[20px]">add</span>
           New Appointment
@@ -111,7 +111,7 @@ export default function AppointmentsPage() {
               onClick={() => setStatusFilter(s)}
               className={
                 statusFilter === s
-                  ? "px-4 py-2 rounded-full bg-primary text-on-primary text-xs font-bold transition-all"
+                  ? "px-4 py-2 rounded-full bg-primary text-white text-xs font-bold transition-all"
                   : "px-4 py-2 rounded-full bg-surface-container-low text-on-surface-variant text-xs font-bold hover:bg-surface-container-high transition-all"
               }
             >

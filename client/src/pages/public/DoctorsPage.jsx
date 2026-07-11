@@ -1,11 +1,12 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useMemo, useCallback } from 'react';
 import { Link } from 'react-router-dom';
-import { 
-  NavBar, 
-  Footer, 
+import {
+  NavBar,
+  Footer,
   Icon
 } from '../../components/SharedComponents';
 import { DoctorCard, DoctorFilterBar } from '../../components/DoctorComponents';
+import { Reveal, PageTransition } from '../../components/Motion';
 import { fetchDoctors } from '../../api/doctorsApi';
 
 export default function DoctorsPage() {
@@ -17,7 +18,6 @@ export default function DoctorsPage() {
 
   useEffect(() => {
     let isMounted = true;
-    setLoading(true);
     fetchDoctors()
       .then((data) => {
         if (isMounted) setAllDoctors(data);
@@ -33,40 +33,45 @@ export default function DoctorsPage() {
     };
   }, []);
 
-  const specializations = [
-    'All Specializations',
-    ...new Set(allDoctors.map((doc) => doc.specialty)),
-  ];
+  // Derived data is recomputed only when its actual dependencies change,
+  // instead of on every render (e.g. typing in an unrelated field, or a
+  // parent re-render) which previously re-filtered/re-deduped on each render.
+  const specializations = useMemo(
+    () => ['All Specializations', ...new Set(allDoctors.map((doc) => doc.specialty))],
+    [allDoctors]
+  );
 
-  const filteredDoctors = allDoctors.filter((doc) => {
-    const matchesSpecialization =
-      selectedSpecialization === 'All Specializations' ||
-      doc.specialty === selectedSpecialization;
-
+  const filteredDoctors = useMemo(() => {
     const term = searchTerm.toLowerCase();
-    const matchesSearch =
-      !term ||
-      doc.name.toLowerCase().includes(term) ||
-      doc.specialty.toLowerCase().includes(term);
+    return allDoctors.filter((doc) => {
+      const matchesSpecialization =
+        selectedSpecialization === 'All Specializations' ||
+        doc.specialty === selectedSpecialization;
 
-    return matchesSpecialization && matchesSearch;
-  });
+      const matchesSearch =
+        !term ||
+        doc.name.toLowerCase().includes(term) ||
+        doc.specialty.toLowerCase().includes(term);
 
-  const handleSpecializationChange = (spec) => {
+      return matchesSpecialization && matchesSearch;
+    });
+  }, [allDoctors, selectedSpecialization, searchTerm]);
+
+  const handleSpecializationChange = useCallback((spec) => {
     setSelectedSpecialization(spec);
-  };
+  }, []);
 
-  const handleSearchChange = (term) => {
+  const handleSearchChange = useCallback((term) => {
     setSearchTerm(term);
-  };
+  }, []);
 
-  const clearFilters = () => {
+  const clearFilters = useCallback(() => {
     setSelectedSpecialization('All Specializations');
     setSearchTerm('');
-  };
+  }, []);
 
   return (
-    <div className="bg-background text-on-surface font-body-md antialiased overflow-x-hidden">
+    <PageTransition className="bg-background text-on-surface font-body-md antialiased overflow-x-hidden">
       <NavBar />
 
       <main className="pt-24 pb-16">
@@ -88,9 +93,9 @@ export default function DoctorsPage() {
             <div className="relative">
               <div className="absolute -top-10 -right-10 w-64 h-64 bg-primary-container/5 rounded-full blur-3xl"></div>
               <div className="glass-card rounded-card overflow-hidden shadow-2xl relative">
-                <img 
-                  className="w-full h-[300px] object-cover" 
-                  alt="PureDent Dental Team" 
+                <img
+                  className="w-full h-[300px] object-cover"
+                  alt="PureDent Dental Team"
                   src="https://lh3.googleusercontent.com/aida-public/AB6AXuAEvp3vn5WDgUqo2U-CdZrzdSFWGH8uaHzi8jKcwKVJO02QDzA6Iod2lU3yNdqEa-UQEz3Ihd_qQRWDX4t0Ohcpjh-q-0_KskA11vLoV094VYAEPl-JfEE7tS6rE3TKKW6t_ZLAqwweQUyU01oqxVMegKxkU8dLByqR28sWrchLEb07W4hnwxeq2Ih7JytMtSzeteRqVR0kwYk-3AGBKoN6NSHlWCwlGMsV1-cLVdqqIzWoSEsFuuBF"
                 />
               </div>
@@ -101,7 +106,7 @@ export default function DoctorsPage() {
         {/* Filter Bar */}
         <section className="px-6 lg:px-10 mb-8 sticky top-20 z-40">
           <div className="max-w-7xl mx-auto">
-            <DoctorFilterBar 
+            <DoctorFilterBar
               specializations={specializations}
               selectedSpecialization={selectedSpecialization}
               onSpecializationChange={handleSpecializationChange}
@@ -129,7 +134,7 @@ export default function DoctorsPage() {
               <Icon name="search" className="text-6xl text-primary/30 mb-4" />
               <h3 className="text-2xl font-bold text-primary mb-2">No Doctors Found</h3>
               <p className="text-on-surface-variant">Try adjusting your filters or search term</p>
-              <button 
+              <button
                 onClick={clearFilters}
                 className="mt-4 px-6 py-3 bg-primary text-white rounded-xl font-semibold hover:bg-primary/90 transition-all"
               >
@@ -138,8 +143,10 @@ export default function DoctorsPage() {
             </div>
           ) : (
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-              {filteredDoctors.map((doctor) => (
-                <DoctorCard key={doctor._id} doctor={doctor} />
+              {filteredDoctors.map((doctor, index) => (
+                <Reveal key={doctor._id} delay={Math.min(index, 8) * 60}>
+                  <DoctorCard doctor={doctor} />
+                </Reveal>
               ))}
             </div>
           )}
@@ -147,17 +154,17 @@ export default function DoctorsPage() {
 
         {/* CTA Section */}
         <section className="mt-12 px-6 lg:px-10 max-w-7xl mx-auto">
-          <div className="glass-card bg-primary-container p-8 lg:p-12 rounded-card flex flex-col md:flex-row items-center justify-between gap-6 text-on-primary-container overflow-hidden relative">
+          <div className="glass-card bg-primary-container p-8 lg:p-12 rounded-card flex flex-col md:flex-row items-center justify-between gap-6 text-white-container overflow-hidden relative">
             <div className="absolute -bottom-10 -right-10 w-96 h-96 bg-secondary-container/10 rounded-full blur-3xl"></div>
             <div className="space-y-4 relative z-10">
               <h2 className="text-2xl md:text-3xl font-bold">Can't find the right specialist?</h2>
-              <p className="text-base text-on-primary-container/80">Talk to our care coordinators for a personalized recommendation based on your unique dental needs.</p>
+              <p className="text-base text-white-container/80">Talk to our care coordinators for a personalized recommendation based on your unique dental needs.</p>
             </div>
             <div className="flex flex-wrap gap-4 relative z-10">
               <Link to="/contact" className="bg-surface-container-lowest text-primary px-6 py-3 rounded-full text-xs font-semibold hover:shadow-lg transition-all">
                 Chat Now
               </Link>
-              <Link to="/contact" className="border border-on-primary-container/30 text-on-primary-container px-6 py-3 rounded-full text-xs font-semibold hover:bg-white/10 transition-all">
+              <Link to="/contact" className="border border-on-primary-container/30 text-white-container px-6 py-3 rounded-full text-xs font-semibold hover:bg-white/10 transition-all">
                 Call +1-800-PURE-DENT
               </Link>
             </div>
@@ -166,6 +173,6 @@ export default function DoctorsPage() {
       </main>
 
       <Footer />
-    </div>
+    </PageTransition>
   );
 }

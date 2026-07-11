@@ -136,14 +136,12 @@ export default function SettingsPage() {
                 <button
                   type="button"
                   onClick={() => toggleNotification(n.key)}
-                  className={`w-11 h-6 rounded-full transition-colors relative shrink-0 ${
-                    notifications[n.key] ? "bg-primary" : "bg-surface-container-high"
-                  }`}
+                  className={`w-11 h-6 rounded-full transition-colors relative shrink-0 ${notifications[n.key] ? "bg-primary" : "bg-surface-container-high"
+                    }`}
                 >
                   <span
-                    className={`absolute top-0.5 w-5 h-5 rounded-full bg-white shadow transition-transform ${
-                      notifications[n.key] ? "translate-x-5" : "translate-x-0.5"
-                    }`}
+                    className={`absolute top-0.5 w-5 h-5 rounded-full bg-white shadow transition-transform ${notifications[n.key] ? "translate-x-5" : "translate-x-0.5"
+                      }`}
                   />
                 </button>
               </label>
@@ -154,7 +152,7 @@ export default function SettingsPage() {
         <div className="flex items-center gap-4">
           <button
             type="submit"
-            className="px-8 py-3 rounded-xl bg-primary text-on-primary font-bold shadow-sm hover:opacity-90 active:scale-95 transition-all"
+            className="px-8 py-3 rounded-xl bg-primary text-white font-bold shadow-sm hover:opacity-90 active:scale-95 transition-all"
           >
             Save Changes
           </button>

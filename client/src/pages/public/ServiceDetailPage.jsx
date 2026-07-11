@@ -1,11 +1,9 @@
 // src/pages/public/ServiceDetailPage.jsx
-import React, { useEffect } from 'react';
+import { useEffect } from 'react';
 import { useParams, Navigate } from 'react-router-dom';
 import { 
   NavBar, 
-  Footer, 
-  Icon,
-  GlassCard
+  Footer
 } from '../../components/SharedComponents';
 import {
   ServiceDetailHero,
@@ -15,6 +13,7 @@ import {
   RelatedServices,
   ServiceCTASection
 } from '../../components/ServiceDetailComponents';
+import { Reveal, PageTransition } from '../../components/Motion';
 import { getServiceById, getRelatedServices } from '../../data/servicesData';
 
 export default function ServiceDetailPage() {
@@ -33,7 +32,7 @@ export default function ServiceDetailPage() {
   }
 
   return (
-    <div className="bg-background text-on-surface font-body-md antialiased overflow-x-hidden">
+    <PageTransition className="bg-background text-on-surface font-body-md antialiased overflow-x-hidden">
       <NavBar />
 
       <main>
@@ -42,22 +41,30 @@ export default function ServiceDetailPage() {
 
         {/* Benefits Section */}
         {service.benefits && service.benefits.length > 0 && (
-          <ServiceBenefits benefits={service.benefits} />
+          <Reveal>
+            <ServiceBenefits benefits={service.benefits} />
+          </Reveal>
         )}
 
         {/* Procedure Section */}
         {service.procedure && service.procedure.length > 0 && (
-          <ServiceProcedure procedure={service.procedure} />
+          <Reveal>
+            <ServiceProcedure procedure={service.procedure} />
+          </Reveal>
         )}
 
         {/* FAQs Section */}
         {service.faqs && service.faqs.length > 0 && (
-          <ServiceFAQs faqs={service.faqs} />
+          <Reveal>
+            <ServiceFAQs faqs={service.faqs} />
+          </Reveal>
         )}
 
         {/* Related Services */}
         {relatedServices.length > 0 && (
-          <RelatedServices services={relatedServices} />
+          <Reveal>
+            <RelatedServices services={relatedServices} />
+          </Reveal>
         )}
 
         {/* CTA Section */}
@@ -65,6 +72,6 @@ export default function ServiceDetailPage() {
       </main>
 
       <Footer />
-    </div>
+    </PageTransition>
   );
 }

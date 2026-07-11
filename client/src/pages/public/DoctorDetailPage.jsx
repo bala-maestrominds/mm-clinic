@@ -6,6 +6,7 @@ import {
   CTASection,
   Icon
 } from '../../components/SharedComponents';
+import { PageTransition } from '../../components/Motion';
 import { fetchDoctorById } from '../../api/doctorsApi';
 
 export default function DoctorDetailPage() {
@@ -57,7 +58,7 @@ export default function DoctorDetailPage() {
   }
 
   return (
-    <div className="bg-background text-on-surface font-body-md antialiased overflow-x-hidden">
+    <PageTransition className="bg-background text-on-surface font-body-md antialiased overflow-x-hidden">
       <NavBar />
 
       <main className="pt-24 pb-16">
@@ -95,7 +96,7 @@ export default function DoctorDetailPage() {
                 {doctor.bio}
               </p>
               <div className="flex flex-wrap gap-4 pt-2">
-                <Link to="/appointment" className="px-8 py-4 bg-primary text-white rounded-xl font-bold hover:bg-primary/90 transition-all shadow-lg shadow-primary/20 active:scale-95">
+                <Link to="/book" className="px-8 py-4 bg-primary text-white rounded-xl font-bold hover:bg-primary/90 transition-all shadow-lg shadow-primary/20 active:scale-95">
                   Book Appointment
                 </Link>
                 <Link to="/doctors" className="px-8 py-4 border border-primary/20 text-primary rounded-xl font-bold hover:bg-primary/5 transition-all active:scale-95">
@@ -202,6 +203,6 @@ export default function DoctorDetailPage() {
       </main>
 
       <Footer />
-    </div>
+    </PageTransition>
   );
 }

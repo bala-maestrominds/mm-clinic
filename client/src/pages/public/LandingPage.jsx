@@ -1,5 +1,4 @@
 // src/pages/public/LandingPage.jsx
-import React from 'react';
 import { Link } from 'react-router-dom';
 import { 
   NavBar, 
@@ -11,6 +10,7 @@ import {
   Footer,
   Icon
 } from '../../components/SharedComponents';
+import { Reveal, PageTransition } from '../../components/Motion';
 
 // Images
 const heroImage = "https://lh3.googleusercontent.com/aida-public/AB6AXuBAjguS2Ikga6m4mMkiO6CaDaQK7EdW05Dj2uKAwgoBg3S9vsul7w00WJz999ROrFwkJ05PxY_alDfnQxUY55yMfz8pTX4VasNQFw_va5NAIwKPY6qjCLL5R__wJRFUzRhk9KRIjvNAkyauRIXkJH83UnIQBtfHAiWp8DlbpmfkYBFXldMHMYaJmg8Xnv506j0zZvEod69kxRhZmFTrbzoVvxUxm6GP519yJwxL1VHELZo-oG0xojjB";
@@ -25,7 +25,7 @@ const testimonialImage2 = "https://lh3.googleusercontent.com/aida-public/AB6AXuC
 
 export default function LandingPage() {
   return (
-    <div className="bg-mesh text-on-surface font-body-md antialiased overflow-x-hidden">
+    <PageTransition className="bg-mesh text-on-surface font-body-md antialiased overflow-x-hidden">
       <NavBar />
 
       <main className="pt-24">
@@ -165,21 +165,27 @@ export default function LandingPage() {
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
-              <FeatureCard 
-                icon="medical_information"
-                title="Experienced Dentists"
-                description="Our team consists of board-certified specialists with decades of combined experience in complex dental procedures."
-              />
-              <FeatureCard 
-                icon="biotech"
-                title="Modern Equipment"
-                description="We utilize digital X-rays, 3D imaging, and laser dentistry to provide precise diagnosis and minimally invasive treatments."
-              />
-              <FeatureCard 
-                icon="payments"
-                title="Affordable Pricing"
-                description="Premium care shouldn't be out of reach. We offer competitive pricing and flexible interest-free payment plans."
-              />
+              <Reveal delay={0}>
+                <FeatureCard 
+                  icon="medical_information"
+                  title="Experienced Dentists"
+                  description="Our team consists of board-certified specialists with decades of combined experience in complex dental procedures."
+                />
+              </Reveal>
+              <Reveal delay={100}>
+                <FeatureCard 
+                  icon="biotech"
+                  title="Modern Equipment"
+                  description="We utilize digital X-rays, 3D imaging, and laser dentistry to provide precise diagnosis and minimally invasive treatments."
+                />
+              </Reveal>
+              <Reveal delay={200}>
+                <FeatureCard 
+                  icon="payments"
+                  title="Affordable Pricing"
+                  description="Premium care shouldn't be out of reach. We offer competitive pricing and flexible interest-free payment plans."
+                />
+              </Reveal>
             </div>
           </div>
         </section>
@@ -242,24 +248,30 @@ export default function LandingPage() {
               </Link>
             </div>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-              <ServiceCard 
-                title="Teeth Cleaning"
-                description="Professional scaling and polishing to maintain oral hygiene and prevent gum diseases."
-                image={serviceImage1}
-                icon="dentistry"
-              />
-              <ServiceCard 
-                title="Dental Implants"
-                description="Permanent solution for missing teeth using biocompatible titanium and natural-looking crowns."
-                image={serviceImage2}
-                icon="clinical_notes"
-              />
-              <ServiceCard 
-                title="Orthodontics"
-                description="Advanced braces and clear aligners (Invisalign) to correct bite issues and straighten your smile."
-                image={serviceImage3}
-                icon="health_and_safety"
-              />
+              <Reveal delay={0}>
+                <ServiceCard 
+                  title="Teeth Cleaning"
+                  description="Professional scaling and polishing to maintain oral hygiene and prevent gum diseases."
+                  image={serviceImage1}
+                  icon="dentistry"
+                />
+              </Reveal>
+              <Reveal delay={100}>
+                <ServiceCard 
+                  title="Dental Implants"
+                  description="Permanent solution for missing teeth using biocompatible titanium and natural-looking crowns."
+                  image={serviceImage2}
+                  icon="clinical_notes"
+                />
+              </Reveal>
+              <Reveal delay={200}>
+                <ServiceCard 
+                  title="Orthodontics"
+                  description="Advanced braces and clear aligners (Invisalign) to correct bite issues and straighten your smile."
+                  image={serviceImage3}
+                  icon="health_and_safety"
+                />
+              </Reveal>
             </div>
           </div>
         </section>
@@ -272,24 +284,30 @@ export default function LandingPage() {
               <p className="text-body-md text-on-surface-variant max-w-2xl mx-auto px-4">Hear from our patients about their journey to a healthier, brighter smile at PureDent.</p>
             </div>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8">
-              <TestimonialCard 
-                quote="PureDent transformed my smile and my confidence. The process was seamless and painless."
-                name="Sarah J."
-                role="Patient"
-                image={testimonialImage1}
-              />
-              <TestimonialCard 
-                quote="The most professional dental experience I've ever had. The technology they use is truly next-level."
-                name="Michael R."
-                role="Patient"
-                image={testimonialImage2}
-              />
-              <TestimonialCard 
-                quote="Friendly staff and a beautiful clinic. I actually look forward to my dental visits now!"
-                name="Elena K."
-                role="Patient"
-                initials="EK"
-              />
+              <Reveal delay={0}>
+                <TestimonialCard 
+                  quote="PureDent transformed my smile and my confidence. The process was seamless and painless."
+                  name="Sarah J."
+                  role="Patient"
+                  image={testimonialImage1}
+                />
+              </Reveal>
+              <Reveal delay={100}>
+                <TestimonialCard 
+                  quote="The most professional dental experience I've ever had. The technology they use is truly next-level."
+                  name="Michael R."
+                  role="Patient"
+                  image={testimonialImage2}
+                />
+              </Reveal>
+              <Reveal delay={200}>
+                <TestimonialCard 
+                  quote="Friendly staff and a beautiful clinic. I actually look forward to my dental visits now!"
+                  name="Elena K."
+                  role="Patient"
+                  initials="EK"
+                />
+              </Reveal>
             </div>
           </div>
         </section>
@@ -299,6 +317,6 @@ export default function LandingPage() {
       </main>
 
       <Footer />
-    </div>
+    </PageTransition>
   );
 }
