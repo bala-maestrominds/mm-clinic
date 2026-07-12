@@ -1,4 +1,3 @@
-// src/pages/public/LandingPage.jsx
 import { Link } from 'react-router-dom';
 import { 
   NavBar, 

@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { NavBar } from "../../components/SharedComponents";
+import { Footer, NavBar } from "../../components/SharedComponents";
 
 const SERVICES = [
   "General Dentistry",
@@ -247,7 +247,7 @@ export default function ContactPage() {
                       </div>
                       <div>
                         <p className="text-xs font-semibold text-slate-500 uppercase tracking-wider">Phone Support</p>
-                        <p className="text-base font-bold text-slate-900 mt-0.5">+1 (555) 234-9000</p>
+                        <p className="text-base font-bold text-slate-900 mt-0.5">+91 9876543210</p>
                         <p className="text-xs text-slate-400 mt-0.5">Mon-Fri, 8am-6pm</p>
                       </div>
                     </div>
@@ -332,47 +332,8 @@ export default function ContactPage() {
       </main>
 
       {/* Footer */}
-      <footer className="w-full bg-white border-t border-slate-200 mt-12">
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-8 px-6 py-12 max-w-7xl mx-auto">
-          <div className="flex flex-col gap-3">
-            <div className="text-xl font-black text-slate-900 tracking-tight">PureDent</div>
-            <p className="text-xs text-slate-500 leading-relaxed">
-              Advancing oral healthcare through technology, empathy, and clinical precision.
-            </p>
-          </div>
-          <div className="flex flex-col gap-3">
-            <h4 className="text-xs font-bold text-slate-400 uppercase tracking-wider">Quick Links</h4>
-            <ul className="flex flex-col gap-2 text-xs">
-              <li><a className="text-slate-600 hover:text-teal-600 transition-colors" href="#">About PureDent</a></li>
-              <li><a className="text-slate-600 hover:text-teal-600 transition-colors" href="#">Our Specialists</a></li>
-              <li><a className="text-slate-600 hover:text-teal-600 transition-colors" href="#">Technology</a></li>
-              <li><a className="text-slate-600 hover:text-teal-600 transition-colors" href="#">Treatments</a></li>
-            </ul>
-          </div>
-          <div className="flex flex-col gap-3">
-            <h4 className="text-xs font-bold text-slate-400 uppercase tracking-wider">Support</h4>
-            <ul className="flex flex-col gap-2 text-xs">
-              <li><a className="text-slate-600 hover:text-teal-600 transition-colors" href="#">Patient Portal</a></li>
-              <li><a className="text-slate-600 hover:text-teal-600 transition-colors" href="#">Terms of Service</a></li>
-              <li><a className="text-slate-600 hover:text-teal-600 transition-colors" href="#">Privacy Policy</a></li>
-              <li><a className="text-slate-600 hover:text-teal-600 transition-colors" href="#">FAQs</a></li>
-            </ul>
-          </div>
-          <div className="flex flex-col gap-4">
-            <h4 className="text-xs font-bold text-slate-400 uppercase tracking-wider">Follow Us</h4>
-            <div className="flex gap-3">
-              <a className="w-9 h-9 rounded-full bg-slate-50 border border-slate-200 flex items-center justify-center hover:bg-teal-50 hover:text-teal-600 text-slate-600 transition-colors" href="#">
-                <span className="material-symbols-outlined text-sm">share</span>
-              </a>
-              <a className="w-9 h-9 rounded-full bg-slate-50 border border-slate-200 flex items-center justify-center hover:bg-teal-50 hover:text-teal-600 text-slate-600 transition-colors" href="#">
-                <span className="material-symbols-outlined text-sm">groups</span>
-              </a>
-            </div>
-            <p className="text-xs text-slate-400 mt-2">© 2024 PureDent Dental Clinic. All rights reserved.</p>
-          </div>
-        </div>
-      </footer>
+      <Footer />
     </div>
-    </div>
+  </div>
   );
 }

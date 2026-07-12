@@ -91,10 +91,6 @@ export default function AdminDashboardPage() {
     };
   }, []);
 
-  // All derived numbers below are computed straight from the fetched
-  // appointments/doctors, so the dashboard reflects real backend state
-  // instead of hardcoded numbers. Recomputed only when the source data
-  // actually changes.
   const stats = useMemo(() => {
     const today = new Date();
     const todayKey = toDateKey(today);

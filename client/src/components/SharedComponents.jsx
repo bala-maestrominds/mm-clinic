@@ -37,10 +37,6 @@ export const NavBar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const mobileMenuRef = useRef(null);
 
-  // Monitor scroll height to change background styling.
-  // Throttled with requestAnimationFrame so we update state at most once
-  // per frame instead of on every single scroll event (big perf win on
-  // trackpads/momentum scrolling which can fire dozens of events/frame).
   useEffect(() => {
     let ticking = false;
     const handleScroll = () => {
