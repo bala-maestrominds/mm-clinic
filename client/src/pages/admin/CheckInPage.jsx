@@ -138,10 +138,6 @@ export default function CheckInPage() {
             </button>
           )}
         </form>
-        <p className="text-xs text-on-surface-variant">
-          Tip: a USB/Bluetooth barcode-style QR scanner types the QR contents into the field above and presses Enter
-          automatically — this box works with those out of the box.
-        </p>
         {error && <p className="text-sm text-error font-medium">{error}</p>}
       </section>
 

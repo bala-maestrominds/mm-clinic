@@ -48,7 +48,7 @@ function App() {
           <Route path="/book" element={<BookingPage />} />
 
           {/* Admin Routes */}
-          <Route path="/admin/login" element={<AdminLoginPage />} />
+          <Route path="/admin" element={<AdminLoginPage />} />
 
           <Route
             path="/admin/dashboard"

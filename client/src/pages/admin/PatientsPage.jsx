@@ -19,7 +19,6 @@ function formatTimeLabel(time) {
 export default function PatientsPage() {
   const [search, setSearch] = useState("");
   const [selected, setSelected] = useState(null);
-
   const [appointments, setAppointments] = useState([]);
   const [loading, setLoading] = useState(true);
   const [loadError, setLoadError] = useState("");

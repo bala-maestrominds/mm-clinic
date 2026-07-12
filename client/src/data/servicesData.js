@@ -1,355 +1,447 @@
 // src/data/servicesData.js
+
 export const servicesData = {
-  // General Dentistry Services
-  'teeth-cleaning': {
-    id: 'teeth-cleaning',
-    title: 'Teeth Cleaning',
-    category: 'General Dentistry',
+  // --- General Services ---
+  'routine-cleaning': {
+    id: 'routine-cleaning',
+    title: 'Routine Cleaning',
+    category: 'General',
     icon: 'cleaning_services',
-    price: '$85',
-    duration: '45 mins',
+    price: '$80',
+    duration: '30 mins',
     badge: 'Best Seller',
-    image: 'https://lh3.googleusercontent.com/aida-public/AB6AXuCR6ScyjJ26p4ZTiNccQzQveC4DEVy5oZIDq3XpDtPM8w2T2qR52DSF7h8XY299SGZOFofPawWSBTB0MGWWvpGh_zzF-HvyYdEN8bVaHmY0DHXkVHOGcnQ1ahuxFc60riaritnu0lkTunya5l9kksEJZaix23MJTK5q2XO9v2gSORuN8F2kWQCQVYkY08YtcflLhbF9mKc5Ez_huAWvx9GMjhpD0lHEvS7eDIbhmoMRO70qhqkc9C0e',
-    description: 'Comprehensive scaling and polishing to maintain optimal oral hygiene and prevent gum disease.',
-    longDescription: 'Our professional teeth cleaning service removes plaque, tartar, and stains that regular brushing can\'t reach. Using advanced ultrasonic scalers and hand instruments, we ensure a thorough clean while checking for any signs of decay or gum disease. Regular cleanings are essential for maintaining healthy teeth and gums.',
+    image: "https://static.wixstatic.com/media/9a1060_c43adc1c5146496fa6a0ef01fa8ea31a~mv2.jpg/v1/fill/w_2500,h_1875,al_c/9a1060_c43adc1c5146496fa6a0ef01fa8ea31a~mv2.jpg",
+    description: 'Standard cleaning and dental examination.',
+    longDescription: 'Routine cleaning removes plaque, tartar, and helps prevent gum disease. Our professional teeth cleaning service removes plaque and stains that regular brushing can\'t reach, ensuring a thorough clean while maintaining optimal oral hygiene.',
     benefits: [
       'Removes plaque and tartar buildup',
       'Prevents gum disease and cavities',
       'Brightens your smile by removing surface stains',
-      'Early detection of dental issues',
+      'Early detection of potential dental issues',
       'Freshens breath'
     ],
     procedure: [
-      'Oral examination and X-rays if needed',
-      'Removal of plaque and tartar using ultrasonic scaler',
-      'Professional polishing with special paste',
-      'Flossing and final rinse',
-      'Fluoride treatment (optional)'
+      'Oral examination and physical checkup',
+      'Removal of plaque and tartar using scaled instruments',
+      'Professional polishing with specialized toothpaste',
+      'Expert flossing and rinsing'
     ],
     faqs: [
       {
-        question: 'How often should I get my teeth cleaned?',
-        answer: 'Most patients should have their teeth professionally cleaned every 6 months. However, your dentist may recommend more frequent visits if you have gum disease or other risk factors.'
+        question: 'How often should I get a routine cleaning?',
+        answer: 'Most patients should have their teeth professionally cleaned every 6 months to maintain optimal oral health.'
       },
       {
-        question: 'Does teeth cleaning hurt?',
-        answer: 'Teeth cleaning is generally painless. Some patients may experience mild sensitivity, especially if there is significant tartar buildup. We use local anesthesia if needed for patient comfort.'
+        question: 'Does routine cleaning hurt?',
+        answer: 'It is generally painless. You might feel a mild scraping sensation, which is completely normal.'
       }
     ],
-    relatedServices: ['root-canal', 'comprehensive-exam']
+    relatedServices: ['dental-filling', 'deep-teeth-cleaning']
   },
-  'root-canal': {
-    id: 'root-canal',
-    title: 'Root Canal',
-    category: 'General Dentistry',
-    icon: 'healing',
-    price: '$450',
-    duration: '90 mins',
-    image: 'https://lh3.googleusercontent.com/aida-public/AB6AXuBx57cZR1HS_5x2bxh0Pjr_gAw41EHUmZjYImMYJvsVRvkC49jzCqhbllODnPbZmLhrrv68RgtlAhqC0TfZZQBAaTL2RJu8seeDAvlFHePiAOhalMrU05uIq3m2bivIJMz95_oBJjYw5Ezs1ZukF-o7ft5yrj2OQzb6GzWq-4_poY4sfnQ-WQ8XBbi7QMLzb09xkdG-Mr9VfpYVAqFUZSIBx2-JrhW8AXeMqqzYSvR4lTiyqJ0tZPPc',
-    description: 'Pain-free therapy to save infected teeth and restore their functional structure with precision.',
-    longDescription: 'Root canal treatment is a safe and effective procedure that saves infected or damaged teeth. We remove the infected pulp, clean and disinfect the root canal system, and seal it to prevent further infection. With modern techniques and anesthesia, the procedure is comfortable and pain-free.',
+  'dental-crown': {
+    id: 'dental-crown',
+    title: 'Dental Crown',
+    category: 'General',
+    icon: 'shield',
+    price: '$650',
+    duration: '75 mins',
+    image: "https://images.squarespace-cdn.com/content/v1/5d41bc8e7e87f900017bbb3d/1565367144976-02VOCDND0CH34D5NX5T6/Comprehensive+Exam.jpg",
+    description: 'Restore damaged teeth with durable crowns.',
+    longDescription: 'Custom ceramic crowns restore strength, function, and appearance. They cap a damaged or decayed tooth to safeguard its structural integrity long-term.',
     benefits: [
-      'Saves your natural tooth',
-      'Relieves tooth pain and infection',
-      'Prevents spread of infection to other teeth',
-      'Restores normal chewing function',
-      'Preserves your natural smile'
+      'Restores broken or severely decayed teeth',
+      'Matches your natural teeth color seamlessly',
+      'Provides exceptional durability and chewing strength',
+      'Protects structural vulnerabilities after root canals'
     ],
     procedure: [
-      'Local anesthesia for comfort',
-      'Removal of infected pulp tissue',
-      'Cleaning and shaping of root canals',
-      'Filling with biocompatible material',
-      'Crown placement for protection'
+      'Tooth reshaping and preparation',
+      'Digital scanning or physical impressions',
+      'Temporary crown placement',
+      'Final placement and permanent bonding of the custom crown'
     ],
     faqs: [
       {
-        question: 'Is root canal treatment painful?',
-        answer: 'With modern anesthesia and techniques, root canal treatment is no more painful than getting a filling. The procedure actually relieves pain caused by infection.'
-      },
-      {
-        question: 'How long does a root canal last?',
-        answer: 'With proper care, a root canal can last a lifetime. Regular checkups and good oral hygiene are essential for long-term success.'
+        question: 'How long do dental crowns last?',
+        answer: 'Typically between 10 to 15 years, depending on your oral hygiene habits and structural wear.'
       }
     ],
-    relatedServices: ['teeth-cleaning', 'comprehensive-exam']
+    relatedServices: ['root-canal-treatment', 'dental-filling']
   },
-  'comprehensive-exam': {
-    id: 'comprehensive-exam',
-    title: 'Comprehensive Exam',
-    category: 'General Dentistry',
-    icon: 'clinical_notes',
-    price: '$95',
+  'braces-consultation': {
+    id: 'braces-consultation',
+    title: 'Braces Consultation',
+    category: 'General',
+    icon: 'analytics',
+    price: '$100',
+    duration: '40 mins',
+    image: "https://uploads-ssl.webflow.com/61e7a911958c1d7dfe2a57d8/63774122ddc4bf0af2aad078_Invisalign%20Trays.jpg",
+    description: 'Comprehensive orthodontic assessment.',
+    longDescription: 'Consultation to evaluate bite alignment and recommend treatment options. Includes diagnostic imaging to structure an efficient, customized alignment framework.',
+    benefits: [
+      'Comprehensive spatial evaluation of alignment layout',
+      'Tailored tracking layout blueprint options',
+      'Clear baseline pricing and timeline breakdowns'
+    ],
+    procedure: [
+      'Visual examination of jaw alignment',
+      'Orthodontic structural X-rays',
+      'Customized alignment plan overview mapping timeline adjustments'
+    ],
+    faqs: [
+      {
+        question: 'Am I too old for traditional braces?',
+        answer: 'Not at all! Orthodontic treatments are highly effective for patients of all ages, including adults.'
+      }
+    ],
+    relatedServices: ['invisalign', 'routine-cleaning']
+  },
+  'pediatric-dental-checkup': {
+    id: 'pediatric-dental-checkup',
+    title: 'Pediatric Dental Checkup',
+    category: 'General',
+    icon: 'child_care',
+    price: '$90',
     duration: '30 mins',
-    image: 'https://images.unsplash.com/photo-1629909613654-28e377c37b09?auto=format&fit=crop&q=80&w=800',
-    description: 'Routine checkups, digital X-rays, and oral cancer screening for complete oral health monitoring.',
-    longDescription: 'Our comprehensive dental examination goes beyond just checking for cavities. We perform a complete oral health assessment including digital X-rays, oral cancer screening, gum health evaluation, and bite analysis. This thorough approach helps detect issues early when they\'re most treatable.',
+    image: "https://static.wixstatic.com/media/9a1060_c43adc1c5146496fa6a0ef01fa8ea31a~mv2.jpg/v1/fill/w_2500,h_1875,al_c/9a1060_c43adc1c5146496fa6a0ef01fa8ea31a~mv2.jpg",
+    description: 'Comprehensive dental care for children.',
+    longDescription: 'Routine dental examination, cleaning, and preventive treatments for children designed to foster highly comfortable early structural checkups.',
     benefits: [
-      'Early detection of dental problems',
-      'Prevention of serious conditions',
-      'Customized treatment planning',
-      'Oral cancer screening',
-      'Peace of mind about your oral health'
+      'Tracks development mapping of growing teeth structures',
+      'Gentle preventive care techniques minimizing future cavities',
+      'Fosters early healthy oral hygiene behavior habits'
     ],
     procedure: [
-      'Medical history review',
-      'Digital X-rays (if needed)',
-      'Visual examination of teeth and gums',
-      'Oral cancer screening',
-      'Bite and jaw assessment',
-      'Treatment recommendations'
+      'Tear-free behavioral pacing assessment',
+      'Gentle scaling and polishing treatment',
+      'Fluoride varnish treatment for enamel protection'
     ],
     faqs: [
       {
-        question: 'How often should I get a dental exam?',
-        answer: 'We recommend a comprehensive exam every 6-12 months, depending on your oral health needs and risk factors.'
-      },
-      {
-        question: 'Are digital X-rays safe?',
-        answer: 'Yes, digital X-rays use up to 90% less radiation than traditional film X-rays. We take necessary precautions to ensure your safety.'
+        question: 'When should a child have their first dental visit?',
+        answer: 'By their first birthday, or within 6 months after their first primary tooth cuts through the gums.'
       }
     ],
-    relatedServices: ['teeth-cleaning', 'emergency-visit']
+    relatedServices: ['routine-cleaning', 'dental-filling']
   },
-  'emergency-visit': {
-    id: 'emergency-visit',
-    title: 'Emergency Visit',
-    category: 'General Dentistry',
-    icon: 'emergency',
-    price: '$150',
-    duration: '45 mins',
-    image: 'https://images.unsplash.com/photo-1588776814546-1ffcf47267a5?auto=format&fit=crop&q=80&w=800',
-    description: 'Same-day relief for acute pain, broken teeth, or dental trauma when you need it most.',
-    longDescription: 'Dental emergencies can be stressful and painful. Our emergency dental service provides immediate care for acute pain, broken teeth, knocked-out teeth, or other dental trauma. We prioritize emergency patients and offer same-day appointments to get you the relief you need quickly.',
+  'deep-teeth-cleaning': {
+    id: 'deep-teeth-cleaning',
+    title: 'Deep Teeth Cleaning',
+    category: 'General',
+    icon: 'layers',
+    price: '$350',
+    duration: '60 mins',
+    image: "https://static.wixstatic.com/media/9a1060_c43adc1c5146496fa6a0ef01fa8ea31a~mv2.jpg/v1/fill/w_2500,h_1875,al_c/9a1060_c43adc1c5146496fa6a0ef01fa8ea31a~mv2.jpg",
+    description: 'Advanced cleaning for healthier gums.',
+    longDescription: 'Deep scaling and root planing to treat gum disease and maintain oral health. Targets complex calculus configurations hidden beneath the gum pockets.',
     benefits: [
-      'Immediate pain relief',
-      'Same-day appointments',
-      'Prevention of further damage',
-      'Expert emergency care',
-      'Peace of mind during emergencies'
+      'Arrests the progression of aggressive periodontal disease',
+      'Reduces heavy pocket depth levels around vulnerable roots',
+      'Eliminates persistent bad breath sources'
     ],
     procedure: [
-      'Immediate pain assessment',
-      'Diagnostic imaging if needed',
-      'Emergency treatment plan',
-      'Pain management',
-      'Follow-up care planning'
+      'Local numbing options applied for continuous comfort',
+      'Advanced root scaling to remove subgingival plaque',
+      'Root planing to smooth structural root surfaces'
     ],
     faqs: [
       {
-        question: 'What should I do if I knock out a tooth?',
-        answer: 'Keep the tooth moist (in milk or saline), avoid touching the root, and come to our clinic immediately. Time is critical for saving knocked-out teeth.'
-      },
-      {
-        question: 'Do you offer after-hours emergency care?',
-        answer: 'Yes, we offer emergency appointments during business hours and have an on-call service for after-hours emergencies.'
+        question: 'How does this differ from a regular routine cleaning?',
+        answer: 'Routine cleanings focus on surfaces above the gumline. Deep cleaning explicitly targets structures beneath the gumline to cure advancing infections.'
       }
     ],
-    relatedServices: ['comprehensive-exam', 'root-canal']
+    relatedServices: ['routine-cleaning', 'dental-filling']
   },
-  // Cosmetic Dentistry Services
+  'dental-filling': {
+    id: 'dental-filling',
+    title: 'Dental Filling',
+    category: 'General',
+    icon: 'texture',
+    price: '$120',
+    duration: '40 mins',
+    image: "https://images.squarespace-cdn.com/content/v1/5d41bc8e7e87f900017bbb3d/1565367144976-02VOCDND0CH34D5NX5T6/Comprehensive+Exam.jpg",
+    description: 'Repair cavities using tooth-colored fillings.',
+    longDescription: 'Composite fillings restore decayed teeth while maintaining a natural appearance, utilizing precise minimally invasive drill protocols.',
+    benefits: [
+      'Stops active decay configurations dead in their tracks',
+      'Composite materials blend seamlessly with your natural enamel',
+      'Preserves the maximum possible natural tooth framework'
+    ],
+    procedure: [
+      'Localized anesthesia protection',
+      'Targeted removal of structural decay properties',
+      'Layered filling application cured via specialized light integration'
+    ],
+    faqs: [
+      {
+        question: 'Can I eat immediately after a composite filling?',
+        answer: 'Yes! Since composite fillings are completely cured instantly using light technology, you can safely eat right after your appointment.'
+      }
+    ],
+    relatedServices: ['routine-cleaning', 'dental-crown']
+  },
+
+  // --- Cosmetic Services ---
   'teeth-whitening': {
     id: 'teeth-whitening',
     title: 'Teeth Whitening',
-    category: 'Cosmetic Dentistry',
+    category: 'Cosmetic',
     icon: 'auto_fix_high',
-    price: '$299',
-    duration: '60 mins',
+    price: '$250',
+    duration: '45 mins',
     badge: 'Popular',
-    image: 'https://lh3.googleusercontent.com/aida-public/AB6AXuB7g5eHPtx_Do26_JZeREKY_DalmP5GjzrFZfGCf-JkPXP06cArVclQP1LePLMEw9Dr06O5JnonRQ3SQit_a3zWsx6VmkIhWKMkfcoigj-YSYbIhWHW8r0GLfknm9xqpwLfis0Wsn-umOGXq8dz-xhEqk3lcrydjC5gBMDgs7fdjHNjc3rWbUGd6sb9GgK-ED-_cUsCIWr7iTtLCLU-740YqXD9dzUw6q1Q_Cqm3tnuMF0uucJhIdnp',
-    description: 'Advanced laser whitening technology that brightens your smile by several shades in just one visit.',
-    longDescription: 'Transform your smile with our professional teeth whitening treatment. Using advanced light-activated technology, we can brighten your teeth by several shades in a single 60-minute session. This safe and effective treatment is perfect for removing years of staining from coffee, tea, wine, and aging.',
+    image: "https://www.fashionabc.org/wp-content/uploads/2025/04/Professional-Teeth-Whitening-Before-And-After-Expectations.jpg",
+    description: 'Professional in-office whitening for a brighter smile.',
+    longDescription: 'Professional whitening treatment that removes stains and brightens teeth by several shades, combining medical-grade gels with state-of-the-art brightness upgrades.',
     benefits: [
-      'Noticeably whiter teeth in one visit',
-      'Safe and controlled professional treatment',
-      'Long-lasting results with proper care',
-      'Confidence-boosting smile transformation',
-      'Customized to your desired shade'
+      'Noticeably brighter shades achieved in under an hour',
+      'Safely monitored and controlled application barriers',
+      'Lifts heavy years of clinical staining configurations'
     ],
     procedure: [
-      'Initial shade assessment',
-      'Gum and lip protection',
-      'Application of whitening gel',
-      'Activation with special light',
-      'Multiple gel applications as needed',
-      'Final shade comparison'
+      'Enamel shade mapping comparison baseline',
+      'Protective lip and gum gel barrier layout',
+      'Whitening gel application activated by specialized light frequencies'
     ],
     faqs: [
       {
-        question: 'How long does teeth whitening last?',
-        answer: 'Results can last from 6 months to 2 years, depending on your diet and oral hygiene habits. Touch-up treatments can maintain results.'
-      },
-      {
-        question: 'Will whitening damage my teeth?',
-        answer: 'Professional whitening is safe when performed by a dental professional. We use products that are safe for tooth enamel and take precautions to protect your gums.'
+        question: 'Will this process make my teeth sensitive?',
+        answer: 'Minor temporary sensitivity can sometimes surface, fading entirely within 24 to 48 hours.'
       }
     ],
-    relatedServices: ['veneer-placement', 'invisalign']
+    relatedServices: ['dental-veneers', 'smile-makeover-consultation']
+  },
+  'dental-veneers': {
+    id: 'dental-veneers',
+    title: 'Dental Veneers',
+    category: 'Cosmetic',
+    icon: 'auto_fix_normal',
+    price: '$900',
+    duration: '120 mins',
+    image: "https://images.unsplash.com/photo-1593022356769-11f762e25ed9?auto=format&fit=crop&q=80&w=800",
+    description: 'Transform your smile with porcelain veneers.',
+    longDescription: 'Thin porcelain shells placed over teeth for a beautiful smile makeover. Perfect for correcting heavy discoloration, gaps, alignment flaws, and chips.',
+    benefits: [
+      'Delivers custom, permanent smile transformations',
+      'Highly resistant to coffee, wine, and general food staining',
+      'Conceals deep spatial structural cosmetic blemishes'
+    ],
+    procedure: [
+      'Minimal-prep tooth enamel micro-shaping',
+      'High-resolution structural impressions captured',
+      'Custom placement and permanent bonding of durable porcelain shells'
+    ],
+    faqs: [
+      {
+        question: 'Are porcelain veneers permanent?',
+        answer: 'Yes, because a microscopic layer of enamel is prepared to guarantee a seamless flush fit, the treatment layout is permanent.'
+      }
+    ],
+    relatedServices: ['teeth-whitening', 'smile-makeover-consultation']
   },
   'invisalign': {
     id: 'invisalign',
     title: 'Invisalign',
-    category: 'Cosmetic Dentistry',
+    category: 'Cosmetic',
     icon: 'straighten',
-    price: '$2,500',
-    duration: 'Flex Plan',
-    image: 'https://lh3.googleusercontent.com/aida-public/AB6AXuCCxpZoPLftTgC7KqyCBMrBaSCWtZKf0wIdLDfDv_DECg3gr3wPHEsUTLdjwxMyS2LyJG5F4wAebyr3F6dtFOLd5C7tcwCDXDOafCW2dN9cZdgwcbkMRmXbIjztsCW05geMXB7JRnkcwmB4xpcncxWYG2yinChqb5y1ITr63fkdkBnqhEehaxmvNC0vp0yuZszxASw0R8leGO14dHX1zK1EBrQDs89Vp7rp9Cyo1Jb-jtu74-D3MnDH',
-    description: 'Straighten your teeth discreetly with custom-made clear aligners for a perfect smile.',
-    longDescription: 'Invisalign offers a modern, discreet alternative to traditional braces. Using a series of clear, custom-made aligners, we gradually straighten your teeth without the metal wires and brackets. The aligners are removable, comfortable, and virtually invisible, allowing you to achieve your perfect smile with minimal disruption to your lifestyle.',
+    price: '$2800',
+    duration: '60 mins',
+    image: "https://uploads-ssl.webflow.com/61e7a911958c1d7dfe2a57d8/63774122ddc4bf0af2aad078_Invisalign%20Trays.jpg",
+    description: 'Clear aligners for teeth straightening.',
+    longDescription: 'Custom clear aligners designed to gradually straighten teeth via progressive digital mapping pathways, preserving aesthetics without metal infrastructure constraints.',
     benefits: [
-      'Virtually invisible treatment',
-      'Removable for eating and brushing',
-      'Comfortable with no metal brackets',
-      'Predictable results with digital planning',
-      'Fewer dental visits than traditional braces'
+      'Completely clear, virtually unnoticeable aesthetic profile',
+      'Easily removable for stress-free eating and cleaning routines',
+      'Fewer emergency appointments compared to metal wires'
     ],
     procedure: [
-      'Digital scanning and 3D imaging',
-      'Custom treatment plan creation',
-      'Series of aligners produced',
-      'Regular checkups every 6-8 weeks',
-      'Final results after completing treatment'
+      '3D structural digital mapping scans captured',
+      'Personalized aligner sequence fabrication tracking',
+      'Delivery of initial custom alignment structural trays'
     ],
     faqs: [
       {
-        question: 'How long does Invisalign treatment take?',
-        answer: 'Treatment time varies from 6 to 18 months depending on the complexity of your case. Your dentist will provide a personalized timeline.'
-      },
-      {
-        question: 'Can I eat normally with Invisalign?',
-        answer: 'Yes, you can remove the aligners before eating, so there are no dietary restrictions. Just remember to brush before putting them back on.'
+        question: 'How long do I need to wear the trays daily?',
+        answer: 'For optimal transformation velocity, trays must remain in place for 20 to 22 hours each day.'
       }
     ],
-    relatedServices: ['veneer-placement', 'teeth-whitening']
+    relatedServices: ['braces-consultation', 'teeth-whitening']
   },
-  'veneer-placement': {
-    id: 'veneer-placement',
-    title: 'Porcelain Veneers',
-    category: 'Cosmetic Dentistry',
-    icon: 'auto_fix_high',
-    price: '$1,200',
-    duration: '120 mins',
-    image: 'https://images.unsplash.com/photo-1593022356769-11f762e25ed9?auto=format&fit=crop&q=80&w=800',
-    description: 'Custom-crafted shells for a perfect, natural-looking smile transformation and alignment.',
-    longDescription: 'Porcelain veneers are thin, custom-made shells that cover the front surface of your teeth to improve appearance. They can correct discoloration, chips, gaps, and misalignment while providing a natural-looking, durable smile transformation. Each veneer is crafted to match your natural teeth perfectly.',
+  'smile-makeover-consultation': {
+    id: 'smile-makeover-consultation',
+    title: 'Smile Makeover Consultation',
+    category: 'Cosmetic',
+    icon: 'face',
+    price: '$150',
+    duration: '45 mins',
+    image: "https://tse3.mm.bing.net/th/id/OIP.eFUhiQMnAPLekpEIvjvnPgHaE7?r=0&rs=1&pid=ImgDetMain&o=7&rm=3",
+    description: 'Personalized smile enhancement consultation.',
+    longDescription: 'Comprehensive consultation to create a customized cosmetic dentistry treatment plan matching composite upgrades, whitening, and veneers to structural facial frameworks.',
     benefits: [
-      'Natural-looking smile transformation',
-      'Stain-resistant porcelain material',
-      'Corrects multiple cosmetic issues',
-      'Durable and long-lasting',
-      'Minimal tooth preparation'
+      'Customized aesthetic layout visualization previews',
+      'Tailored tracking layout blueprint options',
+      'Coordinated multiphase cosmetic scheduling layouts'
     ],
     procedure: [
-      'Initial consultation and design',
-      'Tooth preparation and impressions',
-      'Custom veneer fabrication',
-      'Temporary veneers if needed',
-      'Final veneer placement',
-      'Adjustment and polishing'
+      'High-resolution cosmetic photography diagnostics',
+      'Facial profile matching analysis mapping structural layout options',
+      'Complete personalized financial roadmap proposal review'
     ],
     faqs: [
       {
-        question: 'How long do porcelain veneers last?',
-        answer: 'With proper care, porcelain veneers can last 10-15 years or more. Regular checkups and good oral hygiene are essential for longevity.'
-      },
-      {
-        question: 'Are veneers reversible?',
-        answer: 'Veneers typically require minimal enamel removal, making the procedure irreversible. Your dentist will discuss all options during consultation.'
+        question: 'Can I combine veneers with whitening?',
+        answer: 'Absolutely. We regularly whiten surrounding teeth first to perfectly match custom porcelain structures to your brightest smile configuration.'
       }
     ],
-    relatedServices: ['teeth-whitening', 'invisalign']
+    relatedServices: ['dental-veneers', 'teeth-whitening']
   },
-  // Restorative Dentistry Services
+
+  // --- Surgical Services ---
   'dental-implants': {
     id: 'dental-implants',
     title: 'Dental Implants',
-    category: 'Restorative Dentistry',
+    category: 'Surgical',
     icon: 'settings_backup_restore',
-    price: '$1,200',
-    duration: '2-3 Visits',
-    image: 'https://lh3.googleusercontent.com/aida-public/AB6AXuAhSB0s0crGI96-nwKFPcruCA8hUtHrS5PWyBi7useN_AkXQ7r523-h0E-hwSeBMotr6VNxtyW6vKJqOE_QPYFfK2oHIJg6Yjz-Dh3nxvJO6P4ic3GpgiH4cTpfUdDcGJBd7fqD_tHLNbCZEYBWhwPyjoPv6GkuFce42ceee9dnnnnNAafFDrVQGIpn-0tjhjDQSlWCkXnqSfAXVpiWqTqBtaONm-WOfpUKSrm4L2mYDTLxDcgTnH2M',
-    description: 'Permanent solution for missing teeth that feels and looks completely natural.',
-    longDescription: 'Dental implants are the gold standard for tooth replacement, providing a permanent, natural-looking solution for missing teeth. The implant consists of a titanium post that integrates with your jawbone, topped with a custom crown that matches your natural teeth. This solution restores full chewing function and prevents bone loss.',
+    price: '$1200',
+    duration: '90 mins',
+    image: "https://lh3.googleusercontent.com/aida-public/AB6AXuAhSB0s0crGI96-nwKFPcruCA8hUtHrS5PWyBi7useN_AkXQ7r523-h0E-hwSeBMotr6VNxtyW6vKJqOE_QPYFfK2oHIJg6Yjz-Dh3nxvJO6P4ic3GpgiH4cTpfUdDcGJBd7fqD_tHLNbCZEYBWhwPyjoPv6GkuFce42ceee9dnnnnNAafFDrVQGIpn-0tjhjDQSlWCkXnqSfAXVpiWqTqBtaONm-WOfpUKSrm4L2mYDTLxDcgTnH2M",
+    description: 'Permanent tooth replacement with a natural look and feel.',
+    longDescription: 'Titanium dental implants that replace missing teeth with a strong, natural-looking solution. Anchors durable titanium frameworks securely into the jaw structure to guard against bone degradation.',
     benefits: [
-      'Permanent tooth replacement',
-      'Preserves jawbone structure',
-      'Natural look and feel',
-      'Full chewing function restored',
-      'Prevents shifting of adjacent teeth'
+      'Establishes a lifetime permanent framework tooth replacement',
+      'Prevents structural jawbone bone loss configurations',
+      'Restores 100% full chewing performance capabilities'
     ],
     procedure: [
-      'Initial consultation and imaging',
-      'Surgical placement of implant post',
-      'Healing and integration period (3-6 months)',
-      'Custom crown fabrication',
-      'Crown placement and adjustment'
+      'Advanced bone density architectural imaging evaluation',
+      'Surgical precision anchoring of the titanium implant anchor',
+      'Abutment integration and custom ceramic crown restoration'
     ],
     faqs: [
       {
-        question: 'Is dental implant surgery painful?',
-        answer: 'The procedure is performed under local anesthesia and is generally comfortable. Most patients experience minimal discomfort during recovery.'
-      },
-      {
-        question: 'How successful are dental implants?',
-        answer: 'Dental implants have a success rate of over 95% when properly maintained. Regular checkups and good oral hygiene are key to long-term success.'
+        question: 'How long does the whole implant framework process take?',
+        answer: 'It normally spans 3 to 6 months to allow the titanium post to fully integrate with the bone structure before final crown placement.'
       }
     ],
-    relatedServices: ['full-dentures', 'root-canal']
+    relatedServices: ['dental-crown', 'tooth-extraction']
   },
-  'full-dentures': {
-    id: 'full-dentures',
-    title: 'Full Dentures',
-    category: 'Restorative Dentistry',
-    icon: 'diversity_1',
-    price: '$1,800',
-    duration: '4 Weeks',
-    image: 'https://lh3.googleusercontent.com/aida-public/AB6AXuB7C3_wdW4f9LmXbEwqiSgMvndR2PEFPACBoj9VVOTvnKjsj2LLtvElXm6_hiHjrcawA6g6j21M8R4HgFseNnoyqDm1caWSWfg9B1JaeczJHv4Y22g_ish9LWdFq9oYmOcV8f9-EBVH4FYujOtsqzKEUAQav_nA3Cr0j6udblYd5nxoXJs2ePPrrrBEVj9H1lwOCl2_cz5z26pAxa81xLPkfoDtqSAvMm44fMN8niP4LPkDd7dkeJJu',
-    description: 'Complete smile restoration with custom-fitted dentures for comfort and natural look.',
-    longDescription: 'Full dentures are a comprehensive solution for replacing all teeth in an arch. Our custom-fitted dentures are designed to provide optimal comfort, function, and aesthetics. Using advanced materials and precise fitting techniques, we create dentures that look natural and fit securely, restoring your smile and confidence.',
+  'root-canal-treatment': {
+    id: 'root-canal-treatment',
+    title: 'Root Canal Treatment',
+    category: 'Surgical',
+    icon: 'healing',
+    price: '$450',
+    duration: '90 mins',
+    image: "https://tse3.mm.bing.net/th/id/OIP.7F-ILk3WjCKXZnoOGmTnvQHaE7?r=0&rs=1&pid=ImgDetMain&o=7&rm=3",
+    description: 'Save infected teeth without extraction.',
+    longDescription: 'Removes infected pulp, disinfects canals, and restores the tooth utilizing precise micro-dentistry systems to intercept agonizing structural configurations.',
     benefits: [
-      'Full smile restoration',
-      'Custom-fitted for comfort',
-      'Natural appearance',
-      'Restored chewing ability',
-      'Improved speech and confidence'
+      'Safeguards your natural structural tooth framework',
+      'Instantly halts agonizing dental pain loops',
+      'Blocks deeper systemic infections from moving through jaw zones'
     ],
     procedure: [
-      'Initial consultation and measurements',
-      'Impressions and bite registration',
-      'Try-in appointment for fit and aesthetics',
-      'Final denture fabrication',
-      'Placement and adjustments'
+      'Targeted local numbing blocks deployed',
+      'Microscopic extraction of corrupted inner nerve networks',
+      'Biocompatible configuration sealing and preparation for structural crowning'
     ],
     faqs: [
       {
-        question: 'How long does it take to get used to dentures?',
-        answer: 'It typically takes 2-4 weeks to adjust to new dentures. During this time, you may experience minor speech and eating adjustments.'
-      },
-      {
-        question: 'Can I sleep with my dentures in?',
-        answer: 'It\'s recommended to remove your dentures at night to allow your gums to rest and maintain oral health.'
+        question: 'Will a root canal kill the tooth completely?',
+        answer: 'It removes the internal nerve supply so the tooth no longer feels hot/cold sensations, but the structural anchoring links to your jaw remain active and healthy.'
       }
     ],
-    relatedServices: ['dental-implants', 'root-canal']
+    relatedServices: ['dental-crown', 'routine-cleaning']
+  },
+  'tooth-extraction': {
+    id: 'tooth-extraction',
+    title: 'Tooth Extraction',
+    category: 'Surgical',
+    icon: 'remove_circle',
+    price: '$200',
+    duration: '45 mins',
+    image: "https://lh3.googleusercontent.com/aida-public/AB6AXuB7C3_wdW4f9LmXbEwqiSgMvndR2PEFPACBoj9VVOTvnKjsj2LLtvElXm6_hiHjrcawA6g6j21M8R4HgFseNnoyqDm1caWSWfg9B1JaeczJHv4Y22g_ish9LWdFq9oYmOcV8f9-EBVH4FYujOtsqzKEUAQav_nA3Cr0j6udblYd5nxoXJs2ePPrrrBEVj9H1lwOCl2_cz5z26pAxa81xLPkfoDtqSAvMm44fMN8niP4LPkDd7dkeJJu",
+    description: 'Safe removal of damaged or impacted teeth.',
+    longDescription: 'Simple and surgical tooth extraction procedures with local anesthesia to smoothly extract compromised structural elements while maintaining absolute comfort.',
+    benefits: [
+      'Instantly relieves pain radiating from non-restorable dental damage',
+      'Precludes advanced dangerous infections from mutating adjacent bone layouts',
+      'Creates space for necessary orthodontic structural alignment maps'
+    ],
+    procedure: [
+      'Comprehensive root x-ray spatial alignment review',
+      'Targeted local nerve desensitization blocking',
+      'Gentle luxation and clean structural removal of the tooth system'
+    ],
+    faqs: [
+      {
+        question: 'What is the standard structural recovery timeline?',
+        answer: 'Initial healing finishes within 7 to 10 days. We provide comprehensive post-care details to prevent dry-socket complications.'
+      }
+    ],
+    relatedServices: ['dental-implants', 'emergency-dental-care']
+  },
+  'emergency-dental-care': {
+    id: 'emergency-dental-care',
+    title: 'Emergency Dental Care',
+    category: 'Surgical',
+    icon: 'emergency',
+    price: '$180',
+    duration: '60 mins',
+    image: "https://images.unsplash.com/photo-1588776814546-1ffcf47267a5?auto=format&fit=crop&q=80&w=800",
+    description: 'Immediate treatment for dental emergencies.',
+    longDescription: 'Emergency care for severe tooth pain, broken teeth, infections, and trauma, supplying prompt stabilization and gentle immediate management choices.',
+    benefits: [
+      'Immediate access to pain suppression protocols',
+      'Fast action limits extensive structural jaw trajectory damage',
+      'Same-day priority allocation openings for crisis scenarios'
+    ],
+    procedure: [
+      'Instant clinical crisis diagnostic tracking scans',
+      'Immediate localized structural stabilization treatments',
+      'Post-crisis continuous healing structural strategy blueprints'
+    ],
+    faqs: [
+      {
+        question: 'What parameters constitute an explicit dental emergency?',
+        answer: 'Uncontrollable structural bleeding, agonizing sleep-disrupting nerve pain loops, or sudden facial swelling anomalies.'
+      }
+    ],
+    relatedServices: ['tooth-extraction', 'root-canal-treatment']
+  },
+  'wisdom-tooth-removal': {
+    id: 'wisdom-tooth-removal',
+    title: 'Wisdom Tooth Removal',
+    category: 'Surgical',
+    icon: 'delete_sweep',
+    price: '$500',
+    duration: '90 mins',
+    image: "https://lh3.googleusercontent.com/aida-public/AB6AXuB7C3_wdW4f9LmXbEwqiSgMvndR2PEFPACBoj9VVOTvnKjsj2LLtvElXm6_hiHjrcawA6g6j21M8R4HgFseNnoyqDm1caWSWfg9B1JaeczJHv4Y22g_ish9LWdFq9oYmOcV8f9-EBVH4FYujOtsqzKEUAQav_nA3Cr0j6udblYd5nxoXJs2ePPrrrBEVj9H1lwOCl2_cz5z26pAxa81xLPkfoDtqSAvMm44fMN8niP4LPkDd7dkeJJu",
+    description: 'Removal of impacted wisdom teeth.',
+    longDescription: 'Surgical extraction of wisdom teeth to prevent pain and future complications, safely resolving heavy spatial crowding conditions at the back of the jaw arches.',
+    benefits: [
+      'Resolves severe impaction pressure layouts against healthy molars',
+      'Precludes cysts and recurring posterior gum infection zones',
+      'Stops shifts that threaten orthodontic alignment layouts'
+    ],
+    procedure: [
+      'Advanced 3D panorama imaging alignment breakdown',
+      'Deep sedation management options for maximal relaxation comfort',
+      'Micro-incisional access and smooth structural third-molar extraction'
+    ],
+    faqs: [
+      {
+        question: 'Will I be asleep during wisdom teeth removal?',
+        answer: 'We provide various sedation levels, from light local freezing up to deep twilight sedation depending on the complexity of your extraction map.'
+      }
+    ],
+    relatedServices: ['tooth-extraction', 'emergency-dental-care']
   }
 };
 
-// Get all services as an array
-export const getAllServices = () => {
-  return Object.values(servicesData);
-};
-
-// Get services by category
-export const getServicesByCategory = (category) => {
-  return Object.values(servicesData).filter(service => service.category === category);
-};
-
-// Get service by ID
-export const getServiceById = (id) => {
-  return servicesData[id] || null;
-};
-
-// Get related services
+export const getAllServices = () => Object.values(servicesData);
+export const getServicesByCategory = (category) => Object.values(servicesData).filter(service => service.category.toLowerCase() === category.toLowerCase());
+export const getServiceById = (id) => servicesData[id] || null;
 export const getRelatedServices = (serviceId) => {
   const service = getServiceById(serviceId);
   if (!service || !service.relatedServices) return [];
