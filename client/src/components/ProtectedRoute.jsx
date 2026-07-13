@@ -15,7 +15,7 @@ import { isAdminAuthenticated } from "../utils/auth";
  */
 export default function ProtectedRoute({ children }) {
   if (!isAdminAuthenticated()) {
-    return <Navigate to="/admin/login" replace />;
+    return <Navigate to="/admin" replace />;
   }
   return children;
 }
