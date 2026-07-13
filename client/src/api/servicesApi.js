@@ -25,7 +25,6 @@ export async function fetchServiceById(id) {
   return handle(res);
 }
 
-// `payload` may include an `imageFile` (File object) alongside plain fields.
 function toFormData(payload) {
   const fd = new FormData();
   Object.entries(payload).forEach(([key, value]) => {

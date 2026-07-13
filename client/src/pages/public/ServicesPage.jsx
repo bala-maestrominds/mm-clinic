@@ -38,7 +38,7 @@ export default function ServicesPage() {
     <div className="bg-background text-on-surface font-body-md antialiased overflow-x-hidden min-h-screen flex flex-col justify-between selection:bg-primary/20">
       <NavBar />
 
-      <main className="flex-grow">
+      <main className="grow">
         {/* Hero Section */}
         <section className="relative pt-32 pb-12 md:pt-40 md:pb-20 px-6 lg:px-10 overflow-hidden">
           {/* Subtle Ambient Background Glows */}

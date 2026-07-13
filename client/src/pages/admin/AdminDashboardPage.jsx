@@ -24,7 +24,7 @@ function toDateKey(date) {
 }
 
 function formatCurrency(amount) {
-  return `$${Number(amount || 0).toLocaleString(undefined, { maximumFractionDigits: 0 })}`;
+  return `₹${Number(amount || 0).toLocaleString(undefined, { maximumFractionDigits: 0 })}`;
 }
 
 function formatTimeLabel(time) {
@@ -94,7 +94,7 @@ export default function AdminDashboardPage() {
   const stats = useMemo(() => {
     const today = new Date();
     const todayKey = toDateKey(today);
-    const monthKey = todayKey.slice(0, 7); // "YYYY-MM"
+    const monthKey = todayKey.slice(0, 7);
     const thirtyDaysAgo = new Date(today.getTime() - 30 * 24 * 60 * 60 * 1000);
 
     const todaysAppointments = appointments.filter((a) => a.date === todayKey);

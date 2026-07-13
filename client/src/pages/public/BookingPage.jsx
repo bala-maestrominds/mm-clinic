@@ -47,8 +47,6 @@ const initialPatient = {
 
 export default function BookingPage() {
   const [step, setStep] = useState(1);
-
-  // Step 1 data
   const [services, setServices] = useState([]);
   const [doctors, setDoctors] = useState([]);
   const [loadingOptions, setLoadingOptions] = useState(true);
@@ -60,18 +58,12 @@ export default function BookingPage() {
   const [loadingSlots, setLoadingSlots] = useState(false);
   const [selectedTime, setSelectedTime] = useState("");
   const [scheduleError, setScheduleError] = useState("");
-
-  // Step 2 data
   const [patient, setPatient] = useState(initialPatient);
   const [patientErrors, setPatientErrors] = useState({});
-
-  // Step 3 data
   const [paymentMethod, setPaymentMethod] = useState("Card");
-
-  // Submission / confirmation
   const [submitting, setSubmitting] = useState(false);
   const [submitError, setSubmitError] = useState("");
-  const [confirmation, setConfirmation] = useState(null); // { appointment, qrCodeDataUrl, emailSent }
+  const [confirmation, setConfirmation] = useState(null); 
 
   const selectedService = useMemo(
     () => services.find((s) => s._id === selectedServiceId),
@@ -82,9 +74,7 @@ export default function BookingPage() {
     [doctors, selectedDoctorId]
   );
 
-  // Only show doctors who actually offer the selected service. Doctors store
-  // their offered services as an array of Service ObjectIds (or populated
-  // objects), so normalize before comparing.
+
   const availableDoctors = useMemo(() => {
     if (!selectedServiceId) return doctors;
     return doctors.filter((d) =>
@@ -92,8 +82,7 @@ export default function BookingPage() {
     );
   }, [doctors, selectedServiceId]);
 
-  // When the chosen service changes, drop any doctor selection that no
-  // longer applies (and its dependent date/time selections).
+
   const handleSelectService = (serviceId) => {
     setSelectedServiceId(serviceId);
     setSelectedDoctorId((prevDoctorId) => {
@@ -401,7 +390,7 @@ function ScheduleStep({
                     </span>
                     <span className={`text-sm text-on-surface line-clamp-2 ${active ? "font-bold" : ""}`}>{svc.name}</span>
                     <span className="text-xs text-on-surface-variant truncate">
-                      {svc.priceFrom ? `$${svc.priceFrom} • ` : ""}
+                      {svc.priceFrom ? `₹${svc.priceFrom} • ` : ""}
                       {svc.durationMinutes} min
                     </span>
                   </button>
@@ -555,7 +544,7 @@ function PatientInfoStep({ patient, errors, updateField, onBack, onContinue }) {
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           {field("patientName", "Full Name", "text", "John Doe")}
           {field("patientEmail", "Email Address", "email", "john@example.com")}
-          {field("patientPhone", "Phone Number", "tel", "+1 (555) 000-0000")}
+          {field("patientPhone", "Phone Number", "tel", "+91 9876543210")}
           <div className="grid grid-cols-2 gap-4">
             {field("patientAge", "Age", "number", "28")}
             <div className="flex flex-col gap-1">
@@ -641,7 +630,7 @@ function PaymentStep({
             <div className="flex justify-between items-center text-lg">
               <span className="font-bold">Total Amount</span>
               <span className="font-bold text-primary">
-                ${Number(selectedService?.priceFrom || 0).toFixed(2)}
+                ₹{Number(selectedService?.priceFrom || 0).toFixed(2)}
               </span>
             </div>
           </div>

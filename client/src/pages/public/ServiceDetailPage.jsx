@@ -50,7 +50,7 @@ export default function ServiceDetailPage() {
         Fades the entire frame up slightly to hide rough layout shifts on mount.
       */}
       <main 
-        className="flex-grow transition-all duration-700 ease-out transform"
+        className="grow transition-all duration-700 ease-out transform"
         style={{
           opacity: ready ? 1 : 0,
           transform: ready ? 'translateY(0px)' : 'translateY(12px)'

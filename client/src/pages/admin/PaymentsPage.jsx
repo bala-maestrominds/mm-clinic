@@ -104,15 +104,15 @@ export default function PaymentsPage() {
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
         <div className="glass-card p-6 rounded-3xl">
           <p className="text-on-surface-variant text-xs font-semibold uppercase tracking-widest mb-2">Total Collected</p>
-          <h3 className="font-bold text-2xl text-primary">${totals.paid.toLocaleString()}</h3>
+          <h3 className="font-bold text-2xl text-primary">₹{totals.paid.toLocaleString()}</h3>
         </div>
         <div className="glass-card p-6 rounded-3xl">
           <p className="text-on-surface-variant text-xs font-semibold uppercase tracking-widest mb-2">Pending</p>
-          <h3 className="font-bold text-2xl text-on-surface">${totals.pending.toLocaleString()}</h3>
+          <h3 className="font-bold text-2xl text-on-surface">₹{totals.pending.toLocaleString()}</h3>
         </div>
         <div className="glass-card p-6 rounded-3xl">
           <p className="text-on-surface-variant text-xs font-semibold uppercase tracking-widest mb-2">Overdue</p>
-          <h3 className="font-bold text-2xl text-error">${totals.overdue.toLocaleString()}</h3>
+          <h3 className="font-bold text-2xl text-error">₹{totals.overdue.toLocaleString()}</h3>
         </div>
       </div>
 
@@ -162,7 +162,7 @@ export default function PaymentsPage() {
                   <td className="p-6 text-sm">{p.treatment}</td>
                   <td className="p-6 text-sm">{p.date}</td>
                   <td className="p-6 text-sm">{p.method}</td>
-                  <td className="p-6 text-sm text-right font-bold">${p.amount.toLocaleString()}</td>
+                  <td className="p-6 text-sm text-right font-bold">₹{p.amount.toLocaleString()}</td>
                   <td className="p-6">
                     <span className={`px-3 py-1 rounded-full text-[12px] font-bold ${STATUS_STYLES[p.status]}`}>
                       {p.status}

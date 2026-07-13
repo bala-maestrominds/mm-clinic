@@ -1,10 +1,3 @@
-// ---------------------------------------------------------------------------
-// Fixed admin credentials.
-// For a real production deployment, move these to environment variables
-// and verify them on a backend endpoint instead of in the client bundle.
-// Kept here as constants only because the brief asked for a "fixed
-// username and password" with no backend-auth requirement.
-// ---------------------------------------------------------------------------
 const ADMIN_USERNAME = "admin";
 const ADMIN_PASSWORD = "admin";
 

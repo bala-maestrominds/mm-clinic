@@ -194,7 +194,7 @@ function ServiceCard({ service, onEdit, onDelete, deleting, style }) {
       </p>
       <div className="flex items-center justify-between pt-4 border-t border-outline-variant/20">
         <span className="font-bold text-xl text-primary">
-          {service.priceFrom ? `$${service.priceFrom}` : "Contact us"}
+          {service.priceFrom ? `₹${service.priceFrom}` : "Contact us"}
         </span>
         <div className="flex items-center gap-3">
           <button
